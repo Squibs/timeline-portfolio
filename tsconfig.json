@@ -1,0 +1,3 @@
+{
+  "extends": "@squibs/ts-config/tsconfig.react.json"
+}
