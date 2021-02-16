@@ -1,7 +1,7 @@
 import React from 'react';
 
 const TimelinePage: React.FC = () => {
-  return <>TimeLine Page</>;
+  return <>TimelinePage</>;
 };
 
 export default TimelinePage;
