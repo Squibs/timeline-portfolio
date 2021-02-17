@@ -21,6 +21,13 @@ module.exports = {
         path: `${__dirname}/src/markdown-pages`,
       },
     },
-    'gatsby-transformer-remark',
+    'gatsby-transformer-remark', // markdown to html
+    {
+      resolve: 'gatsby-plugin-google-fonts',
+      options: {
+        fonts: ['Montserrat:700', 'Puritan:400', 'Bitter:400'],
+        display: 'swap',
+      },
+    },
   ],
 };
