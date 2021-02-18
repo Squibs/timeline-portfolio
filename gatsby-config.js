@@ -4,6 +4,14 @@ module.exports = {
   },
   plugins: [
     {
+      // used to point to where pages folder is for gatsby
+      resolve: 'gatsby-plugin-page-creator',
+      options: {
+        path: `${__dirname}/src/app/views/pages`,
+      },
+    },
+    {
+      // favicon and web app manifest (PWA)
       resolve: 'gatsby-plugin-manifest',
       options: {
         name: 'Zachary Holman - Timeline Portfolio',
@@ -11,23 +19,32 @@ module.exports = {
         start_url: '/',
         background_color: '#663399',
         theme_color: '#663399',
-        icon: 'src/images/favicon.svg', // This path is relative to the root of the site.
+        icon: 'src/app/images/favicon.svg', // relative to root of site (no `${__dirname}` needed)
       },
     },
     {
+      // puts markdown pages into gatsby data
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'markdown-pages',
-        path: `${__dirname}/src/markdown-pages`,
+        path: `${__dirname}/src/app/views/markdown-pages`,
       },
     },
-    'gatsby-transformer-remark', // markdown to html
     {
+      // used to help convert markdown to html
+      resolve: 'gatsby-transformer-remark',
+    },
+    {
+      // google fonts
       resolve: 'gatsby-plugin-google-fonts',
       options: {
         fonts: ['Montserrat:700', 'Puritan:400', 'Bitter:400'],
         display: 'swap',
       },
+    },
+    {
+      // styled-components
+      resolve: 'gatsby-plugin-styled-components',
     },
   ],
 };

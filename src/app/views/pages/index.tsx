@@ -1,9 +1,8 @@
 import React from 'react';
-import GlobalStyles from '../layouts/GlobalStyles';
 
 const IndexPage: React.FC = () => {
   return (
-    <GlobalStyles>
+    <>
       <h1>Bunch of Text</h1>
       <h2>Some more text as a sub-header</h2>
       <p>
@@ -16,7 +15,7 @@ const IndexPage: React.FC = () => {
         purus non, molestie nunc. Morbi condimentum, velit et accumsan suscipit, neque metus
         facilisis nunc, in vestibulum urna.
       </p>
-    </GlobalStyles>
+    </>
   );
 };
 
