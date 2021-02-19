@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 
-export interface ProjectTemplateProps {
+export interface ProjectPageTemplateProps {
   data: {
     markdownRemark: {
       html: string;
@@ -14,11 +14,11 @@ export interface ProjectTemplateProps {
   };
 }
 
-const ProjectTemplate: React.FC<ProjectTemplateProps> = ({
+const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
   data: {
     markdownRemark: { frontmatter, html },
   },
-}: ProjectTemplateProps) => {
+}: ProjectPageTemplateProps) => {
   return (
     <div>
       <h1>{frontmatter.title}</h1>
@@ -27,7 +27,7 @@ const ProjectTemplate: React.FC<ProjectTemplateProps> = ({
   );
 };
 
-export default ProjectTemplate;
+export default ProjectPageTemplate;
 
 export const pageQuery = graphql`
   query($slug: String!) {
