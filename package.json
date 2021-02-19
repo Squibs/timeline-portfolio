@@ -15,7 +15,7 @@
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "serve": "gatsby serve",
-    "start": "npm run develop",
+    "start": "npm run clean && npm run develop",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "prettier": "@squibs/prettier-config",
@@ -25,7 +25,8 @@
     },
     "extends": [
       "@squibs/eslint-config-typescript-react"
-    ]
+    ],
+    "ignorePatterns": ["gatsby-*.js"]
   },
   "dependencies": {
     "@types/styled-components": "^5.1.7",
