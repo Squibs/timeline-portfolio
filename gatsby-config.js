@@ -7,7 +7,7 @@ module.exports = {
       // used to point to where pages folder is for gatsby
       resolve: 'gatsby-plugin-page-creator',
       options: {
-        path: `${__dirname}/src/app/views/pages`,
+        path: `src/app/views/pages`,
       },
     },
     {
@@ -27,7 +27,7 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'markdown-pages',
-        path: `${__dirname}/src/app/views/markdown-pages`,
+        path: 'src/app/views/markdown-pages',
       },
     },
     {
