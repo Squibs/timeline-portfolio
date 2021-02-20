@@ -28,7 +28,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
         height={position === 0 || position === 2 ? svgShort : svgLong}
         xmlns="http://www.w3.org/2000/svg"
         style={{
-          position: 'fixed',
+          position: 'absolute',
           top: `${position !== 2 && svgShort}`.replace('false', ''),
           right: `${position === 1 && svgShort}`.replace('false', ''),
           bottom: `${position === 2 && svgShort}`.replace('false', ''),
