@@ -6,18 +6,25 @@ import { Normalize } from 'styled-normalize';
 // https://scottspence.com/2020/02/06/globally-style-gatsby-styled-components/
 
 const GlobalStyle = createGlobalStyle`
-  h1 {
-    font-family: 'Montserrat', sans-serif;
+  // 100% height
+  // https://github.com/gatsbyjs/gatsby/issues/7310#issuecomment-419977425
+  html, body, #___gatsby, #gatsby-focus-wrapper {
+    height: 100%;
   }
 
+  // set overflow auto for fist child of gatsby wrappers, otherwise gaps. Could be an issue.
+  body > div > div > div {
+    overflow: auto;
+  }
+
+  /* @@@@@@ FONTS @@@@@@ */
+
+  h1 { font-family: 'Montserrat', sans-serif; }
   h2 {
     font-family: 'Puritan', sans-serif;
     font-weight: normal;
   }
-
-  p {
-    font-family: 'Bitter', sans-serif;
-  }
+  p { font-family: 'Bitter', sans-serif; }
 `;
 
 const GlobalStyles: React.FC = () => {

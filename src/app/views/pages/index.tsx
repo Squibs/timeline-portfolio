@@ -1,8 +1,15 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const Background = styled.div`
+  height: 100%;
+  background-color: ${(props) => props.theme.colors.primaryDark};
+  color: ${(props) => props.theme.colors.whiteTint};
+`;
 
 const IndexPage: React.FC = () => {
   return (
-    <>
+    <Background>
       <h1>Bunch of Text</h1>
       <h2>Some more text as a sub-header</h2>
       <p>
@@ -15,7 +22,7 @@ const IndexPage: React.FC = () => {
         purus non, molestie nunc. Morbi condimentum, velit et accumsan suscipit, neque metus
         facilisis nunc, in vestibulum urna.
       </p>
-    </>
+    </Background>
   );
 };
 
