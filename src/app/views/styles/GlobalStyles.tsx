@@ -17,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
     overflow: auto;
   }
 
-  /* @@@@@@ FONTS @@@@@@ */
+  /* @@@@@@@@@@@ FONTS @@@@@@@@@@@ */
 
   h1 { font-family: 'Montserrat', sans-serif; }
   h2 {

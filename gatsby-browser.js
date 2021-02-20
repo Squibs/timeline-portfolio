@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { GlobalLayout } from './src/app/views/layouts';
-import { GlobalStyles } from './src/app/views/themes';
+import { GlobalStyles } from './src/app/views/styles';
 
 export const wrapRootElement = ({ element }) => {
   return (
