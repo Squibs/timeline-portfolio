@@ -14,8 +14,14 @@ const PageContainer = styled.div`
 `;
 
 const ContentContainer = styled.div`
-  padding: 40px;
+  padding: 0 40px;
   text-align: center;
+  height: 93%;
+  overflow: hidden;
+
+  @media (min-width: 1200px) {
+    max-width: 50%;
+  }
 `;
 
 /* -------------------------------- component ------------------------------- */
