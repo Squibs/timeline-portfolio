@@ -1,5 +1,30 @@
 import React from 'react';
-import { ThemeProvider, DefaultTheme } from 'styled-components';
+import styled, { ThemeProvider, DefaultTheme } from 'styled-components';
+
+enum Size {
+  for0SmallPhonesOnly = '350px',
+  for1PhoneOnly = '599px',
+  for2SlightlyBiggerPhoneUp = '600px',
+  for3TabletPortraitUp = '768px',
+  for4TabletLandscapeUp = '900px',
+  for5DesktopUp = '1200px',
+  for6BigDesktopUp = '1800px',
+}
+
+const mediaQuery = (size: keyof typeof Size) => {
+  if (size === 'for0SmallPhonesOnly') {
+    return (cssStyles: TemplateStringsArray) =>
+      `@media screen and (max-width: ${Size[size]}) { ${cssStyles} }`;
+  }
+
+  if (size === 'for1PhoneOnly') {
+    return (cssStyles: TemplateStringsArray) =>
+      `@media screen and (max-width: ${Size[size]}) { ${cssStyles} }`;
+  }
+
+  return (cssStyles: TemplateStringsArray) =>
+    `@media screen and (min-width: ${Size[size]}) { ${cssStyles} }`;
+};
 
 const theme: DefaultTheme = {
   colors: {
@@ -9,6 +34,15 @@ const theme: DefaultTheme = {
     accentOne: '#BDA453',
     accentTwo: '#B3192B',
     whiteTint: '#FAFAFA',
+  },
+  breakpoints: {
+    for0SmallPhonesOnly: () => mediaQuery('for0SmallPhonesOnly'),
+    for1PhoneOnly: () => mediaQuery('for1PhoneOnly'),
+    for2SlightlyBiggerPhoneUp: () => mediaQuery('for2SlightlyBiggerPhoneUp'),
+    for3TabletPortraitUp: () => mediaQuery('for3TabletPortraitUp'),
+    for4TabletLandscapeUp: () => mediaQuery('for4TabletLandscapeUp'),
+    for5DesktopUp: () => mediaQuery('for5DesktopUp'),
+    for6BigDesktopUp: () => mediaQuery('for6BigDesktopUp'),
   },
 };
 
@@ -39,8 +73,22 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
       </svg>
     );
 
+    const BorderContainer = styled.div`
+      // prevent top and bottom border svg from shrinking
+      & > svg:nth-child(2n - 1) {
+        min-width: 230px;
+      }
+
+      // prevent right border svg from moving to the right
+      @media screen and (max-width: 250px) {
+        & > svg:nth-child(2) {
+          left: 230px;
+        }
+      }
+    `;
+
     // eslint-disable-next-line prettier/prettier, react/jsx-one-expression-per-line
-    return <div>{svg(0)}{svg(1)}{svg(2)}{svg(3)}</div>; // prettier-ignore
+    return <BorderContainer>{svg(0)}{svg(1)}{svg(2)}{svg(3)}</BorderContainer>; // prettier-ignore
   };
 
   return (

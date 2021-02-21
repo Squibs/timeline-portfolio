@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { PortraitWithBackground } from '../components';
 
 /* --------------------------------- styles --------------------------------- */
 
@@ -18,10 +19,6 @@ const ContentContainer = styled.div`
   text-align: center;
   height: 93%;
   overflow: hidden;
-
-  @media (min-width: 1200px) {
-    max-width: 50%;
-  }
 `;
 
 /* -------------------------------- component ------------------------------- */
@@ -30,6 +27,7 @@ const IndexPage: React.FC = () => {
   return (
     <PageContainer>
       <ContentContainer>
+        <PortraitWithBackground />
         <h1>Bunch of Text</h1>
         <h2>Some more text as a sub-header</h2>
         <p>

@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
   // https://github.com/gatsbyjs/gatsby/issues/7310#issuecomment-419977425
   html, body, #___gatsby, #gatsby-focus-wrapper {
     height: 100%;
+    min-width: 250px;
   }
 
   // set overflow auto for fist child of gatsby wrappers, otherwise gaps. Could be an issue.
