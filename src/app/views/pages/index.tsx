@@ -14,10 +14,12 @@ const PageContainer = styled.div`
   background-color: ${(props) => props.theme.colors.primaryDark};
   color: ${(props) => props.theme.colors.whiteTint};
 
+  /* used to display scrollbar styles inside of content container */
   .on-scroll {
     scrollbar-width: thin;
     -ms-overflow-styled: none;
-    scrollbar-color: ${(props) => props.theme.colors.accentOne}95
+    // 90 is scrollbar opacity using hex code alpha
+    scrollbar-color: ${(props) => props.theme.colors.accentOne}90
       ${(props) => props.theme.colors.primaryDark};
     &::-webkit-scrollbar {
       width: 11px !important;
@@ -29,7 +31,9 @@ const PageContainer = styled.div`
       background: ${(props) => props.theme.colors.primaryDark} !important;
     }
     &::-webkit-scrollbar-thumb {
-      background-color: ${(props) => props.theme.colors.accentOne}95;
+      background-color: ${(props) =>
+        // 90 is scrollbar opacity using hex code alpha
+        props.theme.colors.accentOne}90;
       border-radius: 6px;
       border: 3px solid ${(props) => props.theme.colors.primaryDark};
     }
@@ -42,7 +46,7 @@ const ContentContainer = styled.div`
   height: calc(100% - 40px);
   overflow-y: auto;
 
-  /* @@@@@@@@@@@@@ scrollbar @@@@@@@@@@@@@ */
+  /* hides default scrollbars */
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
   -ms-overflow-style: none;
@@ -75,22 +79,22 @@ const IndexPage: React.FC = () => {
     [],
   );
 
+  /** throttled scroll handling */
+  const handleScroll = throttle(
+    () => {
+      if (!scrollBarRef.current.classList.contains('on-scroll')) {
+        scrollBarRef.current.classList.add('on-scroll');
+      }
+
+      removeStylesMemo();
+    },
+    1000,
+    { trailing: false, leading: true },
+  );
+
   return (
     <PageContainer>
-      <ContentContainer
-        ref={scrollBarRef}
-        onScroll={throttle(
-          () => {
-            if (!scrollBarRef.current.classList.contains('on-scroll')) {
-              scrollBarRef.current.classList.add('on-scroll');
-            }
-
-            removeStylesMemo();
-          },
-          1000,
-          { trailing: false, leading: true },
-        )}
-      >
+      <ContentContainer ref={scrollBarRef} onScroll={handleScroll}>
         <PortraitWithBackground />
         <h1>Bunch of Text</h1>
         <h2>Some more text as a sub-header</h2>
