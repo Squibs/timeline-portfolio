@@ -5,11 +5,17 @@ declare module 'gatsby-plugin-transition-link/AniLink';
 declare module 'styled-components' {
   export interface DefaultTheme {
     colors: {
+      /** Light Gray */
       primaryLight: string;
+      /** Y In Mn Blue  */
       primaryNeutral: string;
+      /** Gunmetal */
       primaryDark: string;
+      /** Vegas Gold */
       accentOne: string;
+      /** Upsdell Red */
       accentTwo: string;
+      /** Cultured */
       whiteTint: string;
     };
 
