@@ -46,6 +46,18 @@ const ContentContainer = styled.div`
   height: calc(100% - 40px);
   overflow-y: auto;
 
+  // https://stackoverflow.com/questions/61979561/fading-scrollbar-when-not-scrolling
+  /* &:after {
+    content: '';
+    position: absolute;
+    background: red;
+    pointer-events: none;
+    height: calc(100% - 40px);
+    top: 20px;
+    right: 20px;
+    width: 9px;
+  } */
+
   /* hides default scrollbars */
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
@@ -67,13 +79,13 @@ const ContentContainer = styled.div`
 /* -------------------------------- component ------------------------------- */
 
 const IndexPage: React.FC = () => {
-  const scrollBarRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-  /** Used to remove/hide scrollbar styles after user is done scrolling */
+  const contentContainerRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  /** debounced function used to remove/hide scrollbar styles after user is done scrolling */
   const removeStylesMemo = useMemo(
     () =>
       debounce(() => {
-        if (scrollBarRef.current.classList.contains('on-scroll')) {
-          scrollBarRef.current.classList.remove('on-scroll');
+        if (contentContainerRef.current.classList.contains('on-scroll')) {
+          contentContainerRef.current.classList.remove('on-scroll');
         }
       }, 1000),
     [],
@@ -82,8 +94,8 @@ const IndexPage: React.FC = () => {
   /** throttled scroll handling */
   const handleScroll = throttle(
     () => {
-      if (!scrollBarRef.current.classList.contains('on-scroll')) {
-        scrollBarRef.current.classList.add('on-scroll');
+      if (!contentContainerRef.current.classList.contains('on-scroll')) {
+        contentContainerRef.current.classList.add('on-scroll');
       }
 
       removeStylesMemo();
@@ -94,7 +106,7 @@ const IndexPage: React.FC = () => {
 
   return (
     <PageContainer>
-      <ContentContainer ref={scrollBarRef} onScroll={handleScroll}>
+      <ContentContainer ref={contentContainerRef} onScroll={handleScroll}>
         <PortraitWithBackground />
         <h1>Bunch of Text</h1>
         <h2>Some more text as a sub-header</h2>
