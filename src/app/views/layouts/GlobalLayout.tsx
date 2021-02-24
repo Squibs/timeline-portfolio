@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { ThemeProvider, DefaultTheme } from 'styled-components';
+import { Breakpoints, Colors } from '../shared';
 
 const BorderContainer = styled.div`
   width: calc(100% - 40px);
@@ -16,39 +17,29 @@ const BorderContainer = styled.div`
   z-index: 5;
 `;
 
-enum Size {
-  for0SmallPhonesOnly = '350px',
-  for1PhoneOnly = '599px',
-  for2SlightlyBiggerPhoneUp = '600px',
-  for3TabletPortraitUp = '768px',
-  for4TabletLandscapeUp = '900px',
-  for5DesktopUp = '1200px',
-  for6BigDesktopUp = '1800px',
-}
-
-const mediaQuery = (size: keyof typeof Size) => {
+const mediaQuery = (size: keyof typeof Breakpoints) => {
   if (size === 'for0SmallPhonesOnly') {
     return (cssStyles: TemplateStringsArray) =>
-      `@media screen and (max-width: ${Size[size]}) { ${cssStyles} }`;
+      `@media screen and (max-width: ${Breakpoints[size]}) { ${cssStyles} }`;
   }
 
   if (size === 'for1PhoneOnly') {
     return (cssStyles: TemplateStringsArray) =>
-      `@media screen and (max-width: ${Size[size]}) { ${cssStyles} }`;
+      `@media screen and (max-width: ${Breakpoints[size]}) { ${cssStyles} }`;
   }
 
   return (cssStyles: TemplateStringsArray) =>
-    `@media screen and (min-width: ${Size[size]}) { ${cssStyles} }`;
+    `@media screen and (min-width: ${Breakpoints[size]}) { ${cssStyles} }`;
 };
 
 const theme: DefaultTheme = {
   colors: {
-    primaryLight: '#CDD7D9',
-    primaryNeutral: '#2B549C',
-    primaryDark: '#2F343C',
-    accentOne: '#BDA453',
-    accentTwo: '#B3192B',
-    whiteTint: '#FAFAFA',
+    primaryLight: Colors.primaryLight,
+    primaryNeutral: Colors.primaryNeutral,
+    primaryDark: Colors.primaryDark,
+    accentOne: Colors.accentOne,
+    accentTwo: Colors.accentTwo,
+    whiteTint: Colors.whiteTint,
   },
   breakpoints: {
     for0SmallPhonesOnly: () => mediaQuery('for0SmallPhonesOnly'),
