@@ -11,7 +11,11 @@ const BorderContainer = styled.div`
   transform: translate(-50%, -50%);
   border: 10px solid #bda453;
   border-radius: 5px;
-  filter: drop-shadow(0 4px 4px black);
+  /* causes lag/scrolling issues on some devices, while box-shadow does not
+     this could be something to keep in mind on further projects, so I'm leaving this note
+     here, that I will probably end up forgetting about. */
+  /* filter: drop-shadow(0 4px 4px black); */
+  box-shadow: inset 1px 2px 6px black, 0px 4px 6px black;
   pointer-events: none;
   min-width: 230px;
   z-index: 5;
