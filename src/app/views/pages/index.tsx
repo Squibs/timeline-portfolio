@@ -42,21 +42,10 @@ const PageContainer = styled.div`
 
 const ContentContainer = styled.div`
   text-align: center;
-  width: calc(100% - 44px);
+  width: calc(100% - 80px);
   height: calc(100% - 40px);
   overflow-y: auto;
-
-  // https://stackoverflow.com/questions/61979561/fading-scrollbar-when-not-scrolling
-  /* &:after {
-    content: '';
-    position: absolute;
-    background: red;
-    pointer-events: none;
-    height: calc(100% - 40px);
-    top: 20px;
-    right: 20px;
-    width: 9px;
-  } */
+  padding: 0 18px;
 
   /* hides default scrollbars */
   scrollbar-width: thin;
@@ -74,6 +63,18 @@ const ContentContainer = styled.div`
   &::-webkit-scrollbar-thumb {
     background-color: transparent;
   }
+
+  // https://stackoverflow.com/questions/61979561/fading-scrollbar-when-not-scrolling
+  /* &:after {
+    content: '';
+    position: absolute;
+    background: red;
+    pointer-events: none;
+    height: calc(100% - 40px);
+    top: 20px;
+    right: 20px;
+    width: 9px;
+  } */
 `;
 
 /* -------------------------------- component ------------------------------- */
@@ -100,7 +101,7 @@ const IndexPage: React.FC = () => {
 
       removeStylesMemo();
     },
-    500,
+    800,
     { trailing: false, leading: true },
   );
 
@@ -113,7 +114,7 @@ const IndexPage: React.FC = () => {
           fill="#2F343C"
           passedCSS={`
             position: absolute;
-            left: 10px;
+            left: 11px;
             top: 50%;
             transform: translateY(-50%) scale(1, 1);
             z-index: 6;
@@ -124,7 +125,7 @@ const IndexPage: React.FC = () => {
           minHeight="100px"
           passedCSS={`
             position: absolute;
-            left: 10px;
+            left: 11px;
             top: 50%;
             transform: translateY(-50%) scale(1, 1);
             filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.55));
@@ -137,7 +138,7 @@ const IndexPage: React.FC = () => {
           fill="#2F343C"
           passedCSS={`
             position: absolute;
-            right: 10px;
+            right: 11px;
             top: 50%;
             transform: translateY(-50%) scale(-1, 1);
             z-index: 6;
@@ -149,7 +150,7 @@ const IndexPage: React.FC = () => {
           minHeight="100px"
           passedCSS={`
             position: absolute;
-            right: 10px;
+            right: 11px;
             top: 50%;
             transform: translateY(-50%) scale(-1, 1);
             filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.55));
