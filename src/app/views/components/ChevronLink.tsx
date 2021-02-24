@@ -33,10 +33,10 @@ export const ChevronLink = ({
         <defs>
           <filter id="inner-shadow-filter-0" x="-500%" y="-500%" width="1000%" height="1000%">
             <feOffset dx="0" dy="0" />
-            <feGaussianBlur stdDeviation="10" />
+            <feGaussianBlur stdDeviation="5" />
             <feComposite operator="out" in="SourceGraphic" />
             <feComponentTransfer result="choke">
-              <feFuncA type="linear" slope="1" />
+              <feFuncA type="linear" slope="1.75" />
             </feComponentTransfer>
             <feFlood floodColor="rgba(0,0,0,0.7)" result="color" />
             <feComposite operator="in" in="color" in2="choke" result="shadow" />
