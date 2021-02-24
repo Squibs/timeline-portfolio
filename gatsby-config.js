@@ -38,7 +38,7 @@ module.exports = {
       // google fonts
       resolve: 'gatsby-plugin-google-fonts',
       options: {
-        fonts: ['Montserrat:700', 'Puritan:400', 'Bitter:400'],
+        fonts: ['Montserrat:700', 'Puritan:400', 'Bitter:200'],
         display: 'swap',
       },
     },
