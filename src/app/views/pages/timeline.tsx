@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ChevronLink, ChevronLinkHelper } from '../components';
+import { Colors } from '../shared';
 
 /* --------------------------------- styles --------------------------------- */
 
@@ -25,6 +27,30 @@ const TimelinePage: React.FC = () => {
   return (
     <PageContainer>
       <ContentContainer>
+        <ChevronLink
+          height="15%"
+          minHeight="100px"
+          fill={Colors.whiteTint}
+          passedCSS={`
+            position: absolute;
+            left: 11px;
+            top: 50%;
+            transform: translateY(-50%) scale(1, 1);
+            z-index: 6;
+          `}
+        />
+        <ChevronLinkHelper
+          height="15%"
+          minHeight="100px"
+          passedCSS={`
+            position: absolute;
+            left: 11px;
+            top: 50%;
+            transform: translateY(-50%) scale(1, 1);
+            filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.55));
+            z-index: 4;
+          `}
+        />
         <h1>My Timeline</h1>
       </ContentContainer>
     </PageContainer>

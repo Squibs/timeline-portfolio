@@ -27,6 +27,12 @@ const GlobalStyle = createGlobalStyle`
     font-weight: normal;
   }
   p { font-family: 'Bitter', sans-serif; }
+
+  // for tablet portrait and up
+  @media screen and (min-width: 768px) {
+    h1 { font-size: 72px; }
+    h2 { font-size: 48px; }
+  }
 `;
 
 const GlobalStyles: React.FC = () => {

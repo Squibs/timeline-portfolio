@@ -2,6 +2,7 @@ import React, { useMemo, useRef } from 'react';
 import { debounce, throttle } from 'lodash';
 import styled from 'styled-components';
 import { ChevronLink, ChevronLinkHelper, PortraitWithBackground } from '../components';
+import { Colors } from '../shared';
 
 /* --------------------------------- styles --------------------------------- */
 
@@ -46,6 +47,10 @@ const ContentContainer = styled.div`
   height: calc(100% - 40px);
   overflow-y: auto;
   padding: 0 18px;
+  max-width: 900px;
+
+  // scroll bar position for when at max-width (https://stackoverflow.com/a/33231234/15020999)
+  ${(props) => props.theme.breakpoints.for4TabletLandscapeUp()`padding: 0 calc(50% - 472px);`}
 
   /* hides default scrollbars */
   scrollbar-width: thin;
@@ -108,10 +113,10 @@ const IndexPage: React.FC = () => {
   return (
     <PageContainer>
       <ContentContainer ref={contentContainerRef} onScroll={handleScroll}>
-        <ChevronLink
+        {/* <ChevronLink
           height="15%"
           minHeight="100px"
-          fill="#2F343C"
+          fill={Colors.primaryDark}
           passedCSS={`
             position: absolute;
             left: 11px;
@@ -131,11 +136,11 @@ const IndexPage: React.FC = () => {
             filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.55));
             z-index: 4;
           `}
-        />
+        /> */}
         <ChevronLink
           height="15%"
           minHeight="100px"
-          fill="#2F343C"
+          fill={Colors.primaryDark}
           passedCSS={`
             position: absolute;
             right: 11px;
@@ -158,15 +163,95 @@ const IndexPage: React.FC = () => {
             -webkit-transform-origin: 50% 51%;
           `}
         />
-        <PortraitWithBackground
-          css={`
-            @media screen and (min-width: 768px) {
-              padding-top: 12vh;
-            }
-          `}
-        />
+        <PortraitWithBackground style={{ marginTop: '8vh' }} />
         <h1>Bunch of Text</h1>
-        <h2>Some more text as a sub-header</h2>
+        <h2
+          css={`
+            padding: 0 20px;
+          `}
+        >
+          Some more text as a sub-header
+        </h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
+          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
+          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
+          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
+          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
+          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
+          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
+          suscipit, neque metus facilisis nunc, in vestibulum urna.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
+          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
+          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
+          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
+          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
+          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
+          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
+          suscipit, neque metus facilisis nunc, in vestibulum urna.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
+          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
+          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
+          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
+          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
+          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
+          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
+          suscipit, neque metus facilisis nunc, in vestibulum urna.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
+          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
+          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
+          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
+          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
+          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
+          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
+          suscipit, neque metus facilisis nunc, in vestibulum urna.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
+          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
+          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
+          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
+          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
+          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
+          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
+          suscipit, neque metus facilisis nunc, in vestibulum urna.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
+          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
+          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
+          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
+          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
+          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
+          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
+          suscipit, neque metus facilisis nunc, in vestibulum urna.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
+          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
+          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
+          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
+          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
+          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
+          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
+          suscipit, neque metus facilisis nunc, in vestibulum urna.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
+          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
+          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
+          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
+          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
+          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
+          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
+          suscipit, neque metus facilisis nunc, in vestibulum urna.
+        </p>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
           fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
