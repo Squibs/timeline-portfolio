@@ -1,6 +1,20 @@
 import React from 'react';
 import styled, { ThemeProvider, DefaultTheme } from 'styled-components';
 
+const BorderContainer = styled.div`
+  // prevent top and bottom border svg from shrinking
+  & > svg:nth-child(2n - 1) {
+    min-width: 230px;
+  }
+
+  // prevent right border svg from moving to the right
+  @media screen and (max-width: 250px) {
+    & > svg:nth-child(2) {
+      left: 230px;
+    }
+  }
+`;
+
 enum Size {
   for0SmallPhonesOnly = '350px',
   for1PhoneOnly = '599px',
@@ -67,25 +81,12 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           right: `${position === 1 && svgShort}`.replace('false', ''),
           bottom: `${position === 2 && svgShort}`.replace('false', ''),
           left: `${position !== 1 && svgShort}`.replace('false', ''),
+          filter: 'drop-shadow(0 4px 4px black)',
         }}
       >
         <rect width="100%" height="100%" rx="5" fill="#BDA453" />
       </svg>
     );
-
-    const BorderContainer = styled.div`
-      // prevent top and bottom border svg from shrinking
-      & > svg:nth-child(2n - 1) {
-        min-width: 230px;
-      }
-
-      // prevent right border svg from moving to the right
-      @media screen and (max-width: 250px) {
-        & > svg:nth-child(2) {
-          left: 230px;
-        }
-      }
-    `;
 
     // eslint-disable-next-line prettier/prettier, react/jsx-one-expression-per-line
     return <BorderContainer>{svg(0)}{svg(1)}{svg(2)}{svg(3)}</BorderContainer>; // prettier-ignore
@@ -93,7 +94,25 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
 
   return (
     <>
-      {createSVGs()}
+      {/* {createSVGs()} */}
+
+      {/* move into already made border container styled-component if keeping; delete everything else */}
+      <div
+        css={`
+          width: calc(100% - 40px);
+          height: calc(100% - 40px);
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          border: 10px solid #bda453;
+          border-radius: 5px;
+          filter: drop-shadow(0 4px 4px black);
+          pointer-events: none;
+          min-width: 230px;
+        `}
+      />
+
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </>
   );

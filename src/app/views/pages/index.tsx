@@ -1,7 +1,7 @@
 import React, { useMemo, useRef } from 'react';
 import { debounce, throttle } from 'lodash';
 import styled from 'styled-components';
-import { PortraitWithBackground } from '../components';
+import { ChevronLink, ChevronLinkHelper, PortraitWithBackground } from '../components';
 
 /* --------------------------------- styles --------------------------------- */
 
@@ -42,7 +42,7 @@ const PageContainer = styled.div`
 
 const ContentContainer = styled.div`
   text-align: center;
-  width: calc(100% - 43px);
+  width: calc(100% - 44px);
   height: calc(100% - 40px);
   overflow-y: auto;
 
@@ -100,14 +100,53 @@ const IndexPage: React.FC = () => {
 
       removeStylesMemo();
     },
-    1000,
+    500,
     { trailing: false, leading: true },
   );
 
   return (
     <PageContainer>
       <ContentContainer ref={contentContainerRef} onScroll={handleScroll}>
-        <PortraitWithBackground />
+        {/* <ChevronLink
+          height="15%"
+          minHeight="100px"
+          fill="#2F343C"
+          passedCSS={`
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%) scale(1, 1);
+          `}
+        /> */}
+        <ChevronLinkHelper
+          height="15%"
+          minHeight="100px"
+          passedCSS={`
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%) scale(1, 1);
+            filter: drop-shadow(0 4px 4px red);
+          `}
+        />
+        <ChevronLink
+          height="15%"
+          minHeight="100px"
+          fill="#2F343C"
+          passedCSS={`
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%) scale(-1, 1);
+          `}
+        />
+        <PortraitWithBackground
+          css={`
+            @media screen and (min-width: 768px) {
+              padding-top: 12vh;
+            }
+          `}
+        />
         <h1>Bunch of Text</h1>
         <h2>Some more text as a sub-header</h2>
         <p>

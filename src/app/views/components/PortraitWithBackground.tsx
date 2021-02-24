@@ -55,13 +55,25 @@ const ImageCropper = styled.div`
   `}
 `;
 
-const portraitStyle = {};
+/* ---------------------------------- types --------------------------------- */
+
+type PortraitWithBackgroundProps = {
+  style?: React.CSSProperties;
+};
+
+type Props = PortraitWithBackgroundProps;
+
+/* ------------------------------ default props ----------------------------- */
+
+const defaultProps = {
+  style: {},
+};
 
 /* -------------------------------- component ------------------------------- */
 
 // argument against using React.FC
 // https://github.com/facebook/create-react-app/pull/8177
-const PortraitWithBackground = (): JSX.Element => {
+const PortraitWithBackground = ({ style }: Props): JSX.Element => {
   // working with gatsby images
   // https://www.youtube.com/watch?v=wTQtTjovDa0 - in-depth gatsby-image tutorial
   const data = useStaticQuery(graphql`
@@ -81,17 +93,18 @@ const PortraitWithBackground = (): JSX.Element => {
   `);
 
   return (
-    <PortraitContainer>
+    <PortraitContainer style={style}>
       <SVGImage src={data.images.nodes[0].publicURL} alt="" />
       <ImageCropper>
         <Img
           fluid={data.images.nodes[1].childImageSharp.fluid}
           alt="Self portrait of Zachary Holman"
-          style={portraitStyle}
         />
       </ImageCropper>
     </PortraitContainer>
   );
 };
+
+PortraitWithBackground.defaultProps = defaultProps;
 
 export default PortraitWithBackground;
