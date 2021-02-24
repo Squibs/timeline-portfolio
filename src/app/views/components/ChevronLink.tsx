@@ -1,6 +1,6 @@
 import React from 'react';
 
-/* ---------------------------------- types --------------------------------- */
+/* ---------------------------- ChevronLink types --------------------------- */
 
 type ChevronLinkProps = {
   fill: string;
@@ -9,7 +9,7 @@ type ChevronLinkProps = {
   minHeight: string;
 };
 
-/* -------------------------------- component ------------------------------- */
+/* -------------------------- ChevronLink component ------------------------- */
 
 export const ChevronLink = ({
   fill,
@@ -55,11 +55,19 @@ export const ChevronLink = ({
   );
 };
 
+/* -------------------------------------------------------------------------- */
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+/* -------------------------------------------------------------------------- */
+
+/* ------------------------- ChevronLinkHelper props ------------------------ */
+
 type ChevronLinkHelperProps = {
   height: string;
   passedCSS: string;
   minHeight: string;
 };
+
+/* ----------------------- ChevronLinkHelper component ---------------------- */
 
 export const ChevronLinkHelper = ({
   height,

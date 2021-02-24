@@ -107,7 +107,7 @@ const IndexPage: React.FC = () => {
   return (
     <PageContainer>
       <ContentContainer ref={contentContainerRef} onScroll={handleScroll}>
-        {/* <ChevronLink
+        <ChevronLink
           height="15%"
           minHeight="100px"
           fill="#2F343C"
@@ -116,8 +116,9 @@ const IndexPage: React.FC = () => {
             left: 10px;
             top: 50%;
             transform: translateY(-50%) scale(1, 1);
+            z-index: 6;
           `}
-        /> */}
+        />
         <ChevronLinkHelper
           height="15%"
           minHeight="100px"
@@ -126,7 +127,8 @@ const IndexPage: React.FC = () => {
             left: 10px;
             top: 50%;
             transform: translateY(-50%) scale(1, 1);
-            filter: drop-shadow(0 4px 4px red);
+            filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.55));
+            z-index: 4;
           `}
         />
         <ChevronLink
@@ -138,6 +140,21 @@ const IndexPage: React.FC = () => {
             right: 10px;
             top: 50%;
             transform: translateY(-50%) scale(-1, 1);
+            z-index: 6;
+            -webkit-transform-origin: 50% 51%;
+          `}
+        />
+        <ChevronLinkHelper
+          height="15%"
+          minHeight="100px"
+          passedCSS={`
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%) scale(-1, 1);
+            filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.55));
+            z-index: 4;
+            -webkit-transform-origin: 50% 51%;
           `}
         />
         <PortraitWithBackground
