@@ -1,4 +1,5 @@
 import React, { useMemo, useRef } from 'react';
+import { Link } from 'gatsby';
 import { debounce, throttle } from 'lodash';
 import styled from 'styled-components';
 import { ChevronLink, ChevronLinkHelper, PortraitWithBackground } from '../components';
@@ -113,43 +114,21 @@ const IndexPage: React.FC = () => {
   return (
     <PageContainer>
       <ContentContainer ref={contentContainerRef} onScroll={handleScroll}>
-        {/* <ChevronLink
-          height="15%"
-          minHeight="100px"
-          fill={Colors.primaryDark}
-          passedCSS={`
-            position: absolute;
-            left: 11px;
-            top: 50%;
-            transform: translateY(-50%) scale(1, 1);
-            z-index: 6;
-          `}
-        />
-        <ChevronLinkHelper
-          height="15%"
-          minHeight="100px"
-          passedCSS={`
-            position: absolute;
-            left: 11px;
-            top: 50%;
-            transform: translateY(-50%) scale(1, 1);
-            filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.55));
-            z-index: 4;
-          `}
-        /> */}
-        <ChevronLink
-          height="15%"
-          minHeight="100px"
-          fill={Colors.primaryDark}
-          passedCSS={`
-            position: absolute;
-            right: 11px;
-            top: 50%;
-            transform: translateY(-50%) scale(-1, 1);
-            z-index: 6;
-            -webkit-transform-origin: 50% 51%;
-          `}
-        />
+        <Link to="/timeline">
+          <ChevronLink
+            height="15%"
+            minHeight="100px"
+            fill={Colors.primaryDark}
+            passedCSS={`
+              position: absolute;
+              right: 11px;
+              top: 50%;
+              transform: translateY(-50%) scale(-1, 1);
+              z-index: 6;
+              -webkit-transform-origin: 50% 51%;
+            `}
+          />
+        </Link>
         <ChevronLinkHelper
           height="15%"
           minHeight="100px"

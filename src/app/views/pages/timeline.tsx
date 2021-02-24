@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'gatsby';
 import styled from 'styled-components';
 import { ChevronLink, ChevronLinkHelper } from '../components';
 import { Colors } from '../shared';
@@ -27,18 +28,20 @@ const TimelinePage: React.FC = () => {
   return (
     <PageContainer>
       <ContentContainer>
-        <ChevronLink
-          height="15%"
-          minHeight="100px"
-          fill={Colors.whiteTint}
-          passedCSS={`
-            position: absolute;
-            left: 11px;
-            top: 50%;
-            transform: translateY(-50%) scale(1, 1);
-            z-index: 6;
-          `}
-        />
+        <Link to="/">
+          <ChevronLink
+            height="15%"
+            minHeight="100px"
+            fill={Colors.whiteTint}
+            passedCSS={`
+              position: absolute;
+              left: 11px;
+              top: 50%;
+              transform: translateY(-50%) scale(1, 1);
+              z-index: 6;
+            `}
+          />
+        </Link>
         <ChevronLinkHelper
           height="15%"
           minHeight="100px"
