@@ -1,0 +1,2 @@
+- scrollbar fade-in fade-out
+- adjust margins media queries for content
