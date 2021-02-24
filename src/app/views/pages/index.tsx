@@ -142,7 +142,7 @@ const IndexPage: React.FC = () => {
             -webkit-transform-origin: 50% 51%;
           `}
         />
-        <PortraitWithBackground style={{ marginTop: '8vh' }} />
+        <PortraitWithBackground style={{ marginTop: 'max(calc(10% - 2vh), 0%)' }} />
         <h1>Bunch of Text</h1>
         <h2
           css={`
