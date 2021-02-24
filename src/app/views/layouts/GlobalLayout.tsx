@@ -19,6 +19,7 @@ const BorderContainer = styled.div`
   pointer-events: none;
   min-width: 230px;
   z-index: 5;
+  will-change: transform; // potential performance aid (https://medium.com/@kulor/one-small-css-hack-to-improve-scrolling-performance-c5238029e518)
 `;
 
 const mediaQuery = (size: keyof typeof Breakpoints) => {

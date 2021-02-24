@@ -49,6 +49,7 @@ const ContentContainer = styled.div`
   overflow-y: auto;
   padding: 0 18px;
   max-width: 900px;
+  will-change: transform; // potential performance aid (https://medium.com/@kulor/one-small-css-hack-to-improve-scrolling-performance-c5238029e518)
 
   // scroll bar position for when at max-width (https://stackoverflow.com/a/33231234/15020999)
   ${(props) => props.theme.breakpoints.for4TabletLandscapeUp()`padding: 0 calc(50% - 472px);`}
@@ -113,13 +114,12 @@ const IndexPage: React.FC = () => {
 
   return (
     <PageContainer>
-      <ContentContainer ref={contentContainerRef} onScroll={handleScroll}>
-        <Link to="/timeline">
-          <ChevronLink
-            height="15%"
-            minHeight="100px"
-            fill={Colors.primaryDark}
-            passedCSS={`
+      <Link to="/timeline">
+        <ChevronLink
+          height="15%"
+          minHeight="100px"
+          fill={Colors.primaryDark}
+          passedCSS={`
               position: absolute;
               right: 11px;
               top: 50%;
@@ -127,12 +127,12 @@ const IndexPage: React.FC = () => {
               z-index: 6;
               -webkit-transform-origin: 50% 51%;
             `}
-          />
-        </Link>
-        <ChevronLinkHelper
-          height="15%"
-          minHeight="100px"
-          passedCSS={`
+        />
+      </Link>
+      <ChevronLinkHelper
+        height="15%"
+        minHeight="100px"
+        passedCSS={`
             position: absolute;
             right: 11px;
             top: 50%;
@@ -141,7 +141,8 @@ const IndexPage: React.FC = () => {
             z-index: 4;
             -webkit-transform-origin: 50% 51%;
           `}
-        />
+      />
+      <ContentContainer ref={contentContainerRef} onScroll={handleScroll}>
         <PortraitWithBackground style={{ marginTop: 'max(calc(10% - 2vh), 0%)' }} />
         <h1>Bunch of Text</h1>
         <h2
