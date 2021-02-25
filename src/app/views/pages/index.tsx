@@ -20,8 +20,8 @@ const PageContainer = styled.div`
   .on-scroll {
     scrollbar-width: thin;
     -ms-overflow-styled: none;
-    // 90 is scrollbar opacity using hex code alpha
-    scrollbar-color: ${(props) => props.theme.colors.accentOne}90
+    // cc is scrollbar opacity using hex code alpha (00-ff)
+    scrollbar-color: ${(props) => props.theme.colors.accentOne}cc
       ${(props) => props.theme.colors.primaryDark};
     &::-webkit-scrollbar {
       width: 11px !important;
@@ -34,8 +34,8 @@ const PageContainer = styled.div`
     }
     &::-webkit-scrollbar-thumb {
       background-color: ${(props) =>
-        // 90 is scrollbar opacity using hex code alpha
-        props.theme.colors.accentOne}90;
+        // cc is scrollbar opacity using hex code alpha (00-ff)
+        props.theme.colors.accentOne}cc;
       border-radius: 6px;
       border: 3px solid ${(props) => props.theme.colors.primaryDark};
     }
