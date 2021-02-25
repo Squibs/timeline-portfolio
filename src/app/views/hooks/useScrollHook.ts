@@ -1,7 +1,9 @@
 import { debounce, throttle } from 'lodash';
 import { useMemo } from 'react';
 
-const useScrollHook = (passedContainerRef) => {
+const useScrollHook = (
+  passedContainerRef: React.MutableRefObject<HTMLInputElement>,
+): { handleScroll: typeof handleScroll } => {
   const removeStylesMemo = useMemo(
     () =>
       debounce(() => {
