@@ -7,8 +7,10 @@ const useScrollHook = (
   const removeStylesMemo = useMemo(
     () =>
       debounce(() => {
-        if (passedContainerRef.current.classList.contains('on-scroll')) {
-          passedContainerRef.current.classList.remove('on-scroll');
+        if (passedContainerRef.current) {
+          if (passedContainerRef.current.classList.contains('on-scroll')) {
+            passedContainerRef.current.classList.remove('on-scroll');
+          }
         }
       }, 1000),
     [passedContainerRef],
