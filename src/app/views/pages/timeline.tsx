@@ -25,8 +25,13 @@ const TimelinePage: React.FC = () => {
 
   return (
     <PageContainer className="page-container-styles">
-      <ChevronLink fill={Colors.whiteTint} position="left" link="/" />
-      <ChevronLink fill={Colors.whiteTint} position="right" link="/project/learning-to-necro" />
+      <ChevronLink fill={Colors.whiteTint} hover={Colors.primaryDark} position="left" link="/" />
+      <ChevronLink
+        fill={Colors.whiteTint}
+        hover={Colors.primaryNeutral}
+        position="right"
+        link="/project/learning-to-necro"
+      />
 
       <ContentContainer
         className="page-content-styles"

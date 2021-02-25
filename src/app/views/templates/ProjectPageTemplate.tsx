@@ -47,7 +47,12 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
 }: ProjectPageTemplateProps) => {
   return (
     <PageContainer className="page-container-styles">
-      <ChevronLink fill={Colors.primaryNeutral} position="left" link="/timeline" />
+      <ChevronLink
+        fill={Colors.primaryNeutral}
+        hover={Colors.whiteTint}
+        position="left"
+        link="/timeline"
+      />
 
       <ContentContainer className="page-content-styles">
         <ProjectInformationContainer>
