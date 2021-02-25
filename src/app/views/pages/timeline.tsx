@@ -27,25 +27,24 @@ const ContentContainer = styled.div`
 const TimelinePage: React.FC = () => {
   return (
     <PageContainer>
-      <ContentContainer>
-        <Link to="/">
-          <ChevronLink
-            height="15%"
-            minHeight="100px"
-            fill={Colors.whiteTint}
-            passedCSS={`
+      <Link to="/">
+        <ChevronLink
+          height="15%"
+          minHeight="100px"
+          fill={Colors.whiteTint}
+          passedCSS={`
               position: absolute;
               left: 11px;
               top: 50%;
               transform: translateY(-50%) scale(1, 1);
               z-index: 6;
             `}
-          />
-        </Link>
-        <ChevronLinkHelper
-          height="15%"
-          minHeight="100px"
-          passedCSS={`
+        />
+      </Link>
+      <ChevronLinkHelper
+        height="15%"
+        minHeight="100px"
+        passedCSS={`
             position: absolute;
             left: 11px;
             top: 50%;
@@ -53,7 +52,36 @@ const TimelinePage: React.FC = () => {
             filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.55));
             z-index: 4;
           `}
+      />
+      <Link to="/project/learning-to-necro">
+        <ChevronLink
+          height="15%"
+          minHeight="100px"
+          fill={Colors.whiteTint}
+          passedCSS={`
+              position: absolute;
+              right: 11px;
+              top: 50%;
+              transform: translateY(-50%) scale(-1, 1);
+              z-index: 6;
+              -webkit-transform-origin: 50% 51%;
+            `}
         />
+      </Link>
+      <ChevronLinkHelper
+        height="15%"
+        minHeight="100px"
+        passedCSS={`
+            position: absolute;
+            right: 11px;
+            top: 50%;
+            transform: translateY(-50%) scale(-1, 1);
+            filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.55));
+            z-index: 4;
+            -webkit-transform-origin: 50% 51%;
+          `}
+      />
+      <ContentContainer>
         <h1>My Timeline</h1>
       </ContentContainer>
     </PageContainer>

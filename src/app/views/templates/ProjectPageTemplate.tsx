@@ -1,6 +1,8 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
+import { ChevronLink, ChevronLinkHelper } from '../components';
+import { Colors } from '../shared';
 
 /* --------------------------------- styles --------------------------------- */
 
@@ -44,6 +46,32 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
 }: ProjectPageTemplateProps) => {
   return (
     <PageContainer>
+      <Link to="/timeline">
+        <ChevronLink
+          height="15%"
+          minHeight="100px"
+          fill={Colors.primaryNeutral}
+          passedCSS={`
+              position: absolute;
+              left: 11px;
+              top: 50%;
+              transform: translateY(-50%) scale(1, 1);
+              z-index: 6;
+            `}
+        />
+      </Link>
+      <ChevronLinkHelper
+        height="15%"
+        minHeight="100px"
+        passedCSS={`
+            position: absolute;
+            left: 11px;
+            top: 50%;
+            transform: translateY(-50%) scale(1, 1);
+            filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.55));
+            z-index: 4;
+          `}
+      />
       <ContentContainer>
         <h1>{frontmatter.title}</h1>
         <h2>{frontmatter.date}</h2>
