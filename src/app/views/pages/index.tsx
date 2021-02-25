@@ -21,6 +21,10 @@ const ContentContainer = styled.div`
     right: 20px;
     width: 9px;
   } */
+
+  p {
+    font-weight: 300;
+  }
 `;
 
 /* -------------------------------- component ------------------------------- */

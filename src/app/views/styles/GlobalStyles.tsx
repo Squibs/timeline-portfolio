@@ -27,7 +27,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Puritan', sans-serif;
     font-weight: normal;
   }
-  p { font-family: 'Bitter', sans-serif; }
+  p { font-family: 'Bitter', sans-serif;}
 
   // for tablet portrait and up
   @media screen and (min-width: 768px) {
@@ -56,7 +56,7 @@ const GlobalStyle = createGlobalStyle`
     will-change: transform; // potential performance aid (https://medium.com/@kulor/one-small-css-hack-to-improve-scrolling-performance-c5238029e518)
 
     // scroll bar position for when at max-width (https://stackoverflow.com/a/33231234/15020999)
-    @media screen and (min-width: ${Breakpoints.for4TabletLandscapeUp}) { padding: 0 calc(50% - 472px); }
+    @media screen and (min-width: ${Breakpoints.for4TabletLandscapeUp}) { padding: 0 calc(50% - 474px); }
 
     /* hides default scrollbars */
     scrollbar-width: thin;
