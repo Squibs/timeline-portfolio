@@ -1,3 +1,5 @@
 - scrollbar fade-in fade-out
 - adjust margins media queries for content
 - custom focus boundary for buttons (not sure if possible)
+- remove unnecessary gatsby plugins or other npm packages
+- favicon
