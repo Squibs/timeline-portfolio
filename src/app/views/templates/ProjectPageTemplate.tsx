@@ -7,20 +7,21 @@ import { Colors } from '../shared';
 /* --------------------------------- styles --------------------------------- */
 
 const PageContainer = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   background-color: ${(props) => props.theme.colors.primaryNeutral};
-  color: ${(props) => props.theme.colors.whiteTint};
 `;
 
 const ContentContainer = styled.div`
-  text-align: center;
-  width: calc(100% - 43px);
-  height: calc(100% - 40px);
+  color: ${(props) => props.theme.colors.whiteTint};
+  p {
+    font-weight: 300;
+  }
 `;
+
+const ProjectInformationContainer = styled.div``;
+
+const ProjectDescription = styled.div``;
+
+const ProjectDisplay = styled.div``;
 
 /* ---------------------------------- types --------------------------------- */
 
@@ -49,9 +50,12 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
       <ChevronLink fill={Colors.primaryNeutral} position="left" link="/timeline" />
 
       <ContentContainer className="page-content-styles">
-        <h1>{frontmatter.title}</h1>
-        <h2>{frontmatter.date}</h2>
-        <div dangerouslySetInnerHTML={{ __html: html }} />
+        <ProjectInformationContainer>
+          <h1>{frontmatter.title}</h1>
+          <h2>{frontmatter.date}</h2>
+          <ProjectDescription dangerouslySetInnerHTML={{ __html: html }} />
+        </ProjectInformationContainer>
+        <ProjectDisplay />
       </ContentContainer>
     </PageContainer>
   );

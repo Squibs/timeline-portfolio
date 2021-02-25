@@ -42,8 +42,6 @@ const GlobalStyle = createGlobalStyle`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: ${Colors.primaryDark};
-    color: ${Colors.whiteTint};
   }
 
   .page-content-styles {

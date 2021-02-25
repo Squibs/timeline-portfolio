@@ -6,9 +6,16 @@ import { useScrollHook } from '../hooks';
 
 /* --------------------------------- styles --------------------------------- */
 
-const PageContainer = styled.div``;
+const PageContainer = styled.div`
+  background-color: ${(props) => props.theme.colors.primaryDark};
+`;
 
 const ContentContainer = styled.div`
+  color: ${(props) => props.theme.colors.whiteTint};
+  p {
+    font-weight: 300;
+  }
+
   // https://stackoverflow.com/questions/61979561/fading-scrollbar-when-not-scrolling
   /* &:after {
     content: '';
@@ -20,10 +27,6 @@ const ContentContainer = styled.div`
     right: 20px;
     width: 9px;
   } */
-
-  p {
-    font-weight: 300;
-  }
 `;
 
 /* -------------------------------- component ------------------------------- */
