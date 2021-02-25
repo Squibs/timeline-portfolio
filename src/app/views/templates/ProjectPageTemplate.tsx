@@ -45,10 +45,10 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
   },
 }: ProjectPageTemplateProps) => {
   return (
-    <PageContainer>
+    <PageContainer className="page-container-styles">
       <ChevronLink fill={Colors.primaryNeutral} position="left" link="/timeline" />
 
-      <ContentContainer>
+      <ContentContainer className="page-content-styles">
         <h1>{frontmatter.title}</h1>
         <h2>{frontmatter.date}</h2>
         <div dangerouslySetInnerHTML={{ __html: html }} />
