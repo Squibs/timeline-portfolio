@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
-import { Link } from 'gatsby';
 import styled from 'styled-components';
-import { ChevronLink, ChevronLinkHelper, PortraitWithBackground } from '../components';
+import { ChevronLink, PortraitWithBackground } from '../components';
 import { Colors } from '../shared';
 import { useScrollHook } from '../hooks';
 
@@ -35,34 +34,8 @@ const IndexPage: React.FC = () => {
 
   return (
     <PageContainer className="page-container-styles">
-      <Link to="/timeline">
-        <ChevronLink
-          height="15%"
-          minHeight="100px"
-          fill={Colors.primaryDark}
-          passedCSS={`
-              position: absolute;
-              right: 11px;
-              top: 50%;
-              transform: translateY(-50%) scale(-1, 1);
-              z-index: 6;
-              -webkit-transform-origin: 50% 51%;
-            `}
-        />
-      </Link>
-      <ChevronLinkHelper
-        height="15%"
-        minHeight="100px"
-        passedCSS={`
-            position: absolute;
-            right: 11px;
-            top: 50%;
-            transform: translateY(-50%) scale(-1, 1);
-            filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.55));
-            z-index: 4;
-            -webkit-transform-origin: 50% 51%;
-          `}
-      />
+      <ChevronLink fill={Colors.primaryDark} position="right" link="/timeline" />
+
       <ContentContainer
         className="page-content-styles"
         ref={contentContainerRef}

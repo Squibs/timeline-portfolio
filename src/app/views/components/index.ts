@@ -1,2 +1,2 @@
 export { default as PortraitWithBackground } from './PortraitWithBackground';
-export { ChevronLink, ChevronLinkHelper } from './ChevronLink';
+export { default as ChevronLink } from './ChevronLink';
