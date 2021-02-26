@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { ChevronLink, PortraitWithBackground } from '../components';
 import { Colors } from '../shared';
@@ -10,7 +10,7 @@ const PageContainer = styled.div`
   background-color: ${(props) => props.theme.colors.primaryDark};
 `;
 
-const ContentContainer = styled.div`
+const ContentContainer = styled.main`
   color: ${(props) => props.theme.colors.whiteTint};
   p {
     font-weight: 300;

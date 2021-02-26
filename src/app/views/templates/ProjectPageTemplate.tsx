@@ -10,7 +10,7 @@ const PageContainer = styled.div`
   background-color: ${(props) => props.theme.colors.primaryNeutral};
 `;
 
-const ContentContainer = styled.div`
+const ContentContainer = styled.main`
   color: ${(props) => props.theme.colors.whiteTint};
   p {
     font-weight: 300;
