@@ -11,6 +11,7 @@ const PageContainer = styled.div`
 `;
 
 const ContentContainer = styled.main`
+  outline: none;
   color: ${(props) => props.theme.colors.whiteTint};
   p {
     font-weight: 300;
@@ -34,6 +35,13 @@ const ContentContainer = styled.main`
 const IndexPage: React.FC = () => {
   const contentContainerRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const { handleScroll } = useScrollHook(contentContainerRef);
+
+  // auto focus inner div so keyboard controls can be instantly used
+  useEffect(() => {
+    contentContainerRef.current.tabIndex = -1;
+    contentContainerRef.current.autofocus = true;
+    contentContainerRef.current.focus();
+  }, []);
 
   return (
     <PageContainer className="page-container-styles">

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import { ChevronLink } from '../components';
 import { Colors } from '../shared';
+import { useScrollHook } from '../hooks';
 
 /* --------------------------------- styles --------------------------------- */
 
@@ -11,6 +12,7 @@ const PageContainer = styled.div`
 `;
 
 const ContentContainer = styled.main`
+  outline: none;
   color: ${(props) => props.theme.colors.whiteTint};
   p {
     font-weight: 300;
@@ -45,6 +47,16 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
     markdownRemark: { frontmatter, html },
   },
 }: ProjectPageTemplateProps) => {
+  const contentContainerRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const { handleScroll } = useScrollHook(contentContainerRef);
+
+  // auto focus inner div so keyboard controls can be instantly used
+  useEffect(() => {
+    contentContainerRef.current.tabIndex = -1;
+    contentContainerRef.current.autofocus = true;
+    contentContainerRef.current.focus();
+  }, []);
+
   return (
     <PageContainer className="page-container-styles">
       <ChevronLink
@@ -54,7 +66,11 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
         link="/timeline"
       />
 
-      <ContentContainer className="page-content-styles">
+      <ContentContainer
+        className="page-content-styles"
+        ref={contentContainerRef}
+        onScroll={() => handleScroll()}
+      >
         <ProjectInformationContainer>
           <h1>{frontmatter.title}</h1>
           <h2>{frontmatter.date}</h2>

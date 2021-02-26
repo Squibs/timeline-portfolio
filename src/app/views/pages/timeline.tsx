@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { ChevronLink } from '../components';
 import { Colors } from '../shared';
@@ -11,6 +11,7 @@ const PageContainer = styled.div`
 `;
 
 const ContentContainer = styled.main`
+  outline: none;
   color: ${(props) => props.theme.colors.primaryDark};
   p {
     font-weight: 400;
@@ -22,6 +23,13 @@ const ContentContainer = styled.main`
 const TimelinePage: React.FC = () => {
   const contentContainerRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const { handleScroll } = useScrollHook(contentContainerRef);
+
+  // auto focus inner div so keyboard controls can be instantly used
+  useEffect(() => {
+    contentContainerRef.current.tabIndex = -1;
+    contentContainerRef.current.autofocus = true;
+    contentContainerRef.current.focus();
+  }, []);
 
   return (
     <PageContainer className="page-container-styles">
