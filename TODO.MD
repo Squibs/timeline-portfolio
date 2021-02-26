@@ -2,3 +2,5 @@
 - adjust margins media queries for content
 - remove unnecessary gatsby plugins or other npm packages
 - favicon
+- move page scrolling logic all to inner div somehow
+- accessibility elements/tags
