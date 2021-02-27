@@ -4,3 +4,4 @@
 - remove unnecessary gatsby plugins or other npm packages
 - favicon
 - accessibility elements/tags
+- contact me section / page
