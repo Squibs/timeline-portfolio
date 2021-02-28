@@ -47,7 +47,7 @@ const IndexPage: React.FC = () => {
     <PageContainer className="page-container-styles">
       <ChevronLink
         fill={Colors.primaryDark}
-        hover={Colors.primaryNeutral}
+        hover={Colors.primaryLight}
         position="right"
         link="/timeline"
       />
