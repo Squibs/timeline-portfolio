@@ -5,3 +5,4 @@
 - favicon
 - accessibility elements/tags
 - contact me section / page
+- timeline page initially no navigation on right, appears when you select something on the timeline
