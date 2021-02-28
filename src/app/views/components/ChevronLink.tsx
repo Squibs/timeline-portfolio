@@ -43,7 +43,6 @@ export const ChevronLink = ({ fill, position, link, hover }: ChevronLinkProps): 
 
             & + div {
               filter: drop-shadow(8px 0px 16px ${hover}) !important;
-              transition: all 0.25s;
             }
           }
         `}
@@ -100,7 +99,7 @@ export const ChevronLink = ({ fill, position, link, hover }: ChevronLinkProps): 
           filter: 'drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.55))',
           [position]: '11px',
           transform: `translateY(-50%) scale(${position === 'left' ? '1' : '-1'}, 1)`,
-          transition: 'all 0.25s',
+          transition: 'filter 0.5s',
           transformOrigin: '50% 51%',
         }}
       >
