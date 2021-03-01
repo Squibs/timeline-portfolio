@@ -12,15 +12,12 @@ const PageContainer = styled.div`
 `;
 
 const ContentContainer = styled.main`
-  outline: none;
-  color: ${(props) => props.theme.colors.whiteTint};
   p {
     font-weight: 300;
   }
 
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  outline: none;
+  color: ${(props) => props.theme.colors.whiteTint};
 
   // remove some default styles from .page-content-styles
   padding: 0;
@@ -28,7 +25,7 @@ const ContentContainer = styled.main`
   overflow: hidden;
   width: 100%;
   height: 100%;
-  /* width: calc(100% - 80px); */
+  width: calc(100% - 40px);
   height: calc(100% - 40px);
 `;
 
@@ -47,11 +44,9 @@ const ProjectInformation = styled.div`
     margin: 10px 0 10px 0;
   }
 
+  width: 100%;
   height: 100%;
-  margin: 0 auto;
-  padding: 0 10px; // moves scrollbar, does shrink overall width.
   position: relative;
-  width: calc(100% - 60px);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -63,8 +58,10 @@ const ProjectDescription = styled.div`
     margin-top: 0;
   }
 
+  outline: none;
   overflow-y: scroll;
-  width: calc(100% - 21px);
+  width: calc(100% - 15px);
+  padding: 0 5px;
 `;
 
 const BlobContainer = styled.div`
@@ -82,6 +79,7 @@ const BlobContainer = styled.div`
 /* PROJECT DISPLAY */
 const ProjectDisplayContainer = styled.div`
   height: 50%;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,8 +89,8 @@ const ProjectDisplay = styled.div`
   height: 100%;
   background-color: dodgerblue;
   border-radius: 15px;
-
-  width: calc(100% - 60px);
+  border: 3px solid ${(props) => props.theme.colors.accentOne};
+  width: calc(100% - 20px);
   height: calc(100% - 20px);
 `;
 
@@ -130,6 +128,13 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
 }: ProjectPageTemplateProps) => {
   const projectDescriptionRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const { handleScroll } = useScrollHook(projectDescriptionRef);
+
+  // auto focus inner div so keyboard controls can be instantly used
+  useEffect(() => {
+    projectDescriptionRef.current.tabIndex = -1;
+    projectDescriptionRef.current.autofocus = true;
+    projectDescriptionRef.current.focus();
+  }, []);
 
   return (
     <PageContainer className="page-container-styles">
