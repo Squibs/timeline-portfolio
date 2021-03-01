@@ -17,13 +17,84 @@ const ContentContainer = styled.main`
   p {
     font-weight: 300;
   }
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  // remove some default styles from .page-content-styles
+  padding: 0;
+  max-width: unset;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  /* width: calc(100% - 80px); */
+  height: calc(100% - 40px);
 `;
 
-const ProjectInformationContainer = styled.div``;
+/* PROJECT INFORMATION */
+const ProjectInformationContainer = styled.div`
+  height: 50%;
+  overflow: hidden;
+`;
 
-const ProjectDescription = styled.div``;
+const ProjectInformation = styled.div`
+  h1 {
+    margin: 10px 0 0 0;
+  }
 
-const ProjectDisplay = styled.div``;
+  h2 {
+    margin: 10px 0 10px 0;
+  }
+
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 10px; // moves scrollbar, does shrink overall width.
+  position: relative;
+  width: calc(100% - 60px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ProjectDescription = styled.div`
+  & > p:first-child {
+    margin-top: 0;
+  }
+
+  overflow-y: scroll;
+  width: calc(100% - 21px);
+`;
+
+const BlobContainer = styled.div`
+  width: 20vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  top: 5px;
+  z-index: -1;
+  transform: rotate(-60deg);
+`;
+
+/* PROJECT DISPLAY */
+const ProjectDisplayContainer = styled.div`
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ProjectDisplay = styled.div`
+  height: 100%;
+  background-color: dodgerblue;
+  border-radius: 15px;
+
+  width: calc(100% - 60px);
+  height: calc(100% - 20px);
+`;
 
 /* ---------------------------------- types --------------------------------- */
 
@@ -37,6 +108,15 @@ export interface ProjectPageTemplateProps {
         title: string;
       };
     };
+
+    images: {
+      nodes: [
+        {
+          id: string;
+          publicURL: string;
+        },
+      ];
+    };
   };
 }
 
@@ -45,17 +125,11 @@ export interface ProjectPageTemplateProps {
 const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
   data: {
     markdownRemark: { frontmatter, html },
+    images,
   },
 }: ProjectPageTemplateProps) => {
-  const contentContainerRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-  const { handleScroll } = useScrollHook(contentContainerRef);
-
-  // auto focus inner div so keyboard controls can be instantly used
-  useEffect(() => {
-    contentContainerRef.current.tabIndex = -1;
-    contentContainerRef.current.autofocus = true;
-    contentContainerRef.current.focus();
-  }, []);
+  const projectDescriptionRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const { handleScroll } = useScrollHook(projectDescriptionRef);
 
   return (
     <PageContainer className="page-container-styles">
@@ -66,17 +140,26 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
         link="/timeline"
       />
 
-      <ContentContainer
-        className="page-content-styles"
-        ref={contentContainerRef}
-        onScroll={() => handleScroll()}
-      >
+      <ContentContainer className="page-content-styles">
         <ProjectInformationContainer>
-          <h1>{frontmatter.title}</h1>
-          <h2>{frontmatter.date}</h2>
-          <ProjectDescription dangerouslySetInnerHTML={{ __html: html }} />
+          <ProjectInformation>
+            <BlobContainer>
+              <img src={images.nodes[0].publicURL} alt="" />
+            </BlobContainer>
+
+            <h1>{frontmatter.title}</h1>
+            <h2>{frontmatter.date}</h2>
+            <ProjectDescription
+              className="page-content-styles"
+              dangerouslySetInnerHTML={{ __html: html }}
+              ref={projectDescriptionRef}
+              onScroll={() => handleScroll()}
+            />
+          </ProjectInformation>
         </ProjectInformationContainer>
-        <ProjectDisplay />
+        <ProjectDisplayContainer>
+          <ProjectDisplay />
+        </ProjectDisplayContainer>
       </ContentContainer>
     </PageContainer>
   );
@@ -89,9 +172,16 @@ export const pageQuery = graphql`
     markdownRemark(frontmatter: { slug: { eq: $slug } }) {
       html
       frontmatter {
-        date(formatString: "MMM - YYYY")
+        date(formatString: "MMMM - YYYY")
         slug
         title
+      }
+    }
+
+    images: allFile(filter: { relativeDirectory: { eq: "projectPages" } }) {
+      nodes {
+        id
+        publicURL
       }
     }
   }
