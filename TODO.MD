@@ -7,3 +7,4 @@
 - contact me section / page
 - timeline page initially no navigation on right, appears when you select something on the timeline
 - page transitions (left/right swipe) & min length of 0.5s for navigation css transitions to show
+- style anchor links
