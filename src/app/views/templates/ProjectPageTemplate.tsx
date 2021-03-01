@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
+import IFrameResizer from 'iframe-resizer-react';
 import { ChevronLink } from '../components';
 import { Colors } from '../shared';
 import { useScrollHook } from '../hooks';
@@ -92,6 +93,10 @@ const ProjectDisplay = styled.div`
   border: 3px solid ${(props) => props.theme.colors.accentOne};
   width: calc(100% - 20px);
   height: calc(100% - 20px);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 /* ---------------------------------- types --------------------------------- */
@@ -163,7 +168,13 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
           </ProjectInformation>
         </ProjectInformationContainer>
         <ProjectDisplayContainer>
-          <ProjectDisplay />
+          <ProjectDisplay>
+            <IFrameResizer
+              src="https://squibs.github.io/quote-machine"
+              style={{ width: '1px', minWidth: '100%', height: '100%' }}
+              scrolling
+            />
+          </ProjectDisplay>
         </ProjectDisplayContainer>
       </ContentContainer>
     </PageContainer>
