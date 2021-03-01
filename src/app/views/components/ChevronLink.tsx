@@ -25,6 +25,9 @@ export const ChevronLink = ({ fill, position, link, hover }: ChevronLinkProps): 
       <Link
         to={link}
         css={`
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          -webkit-tap-highlight-color: transparent;
+
           & > svg > path:last-child {
             fill: ${fill};
             transition: all 0.5s;
