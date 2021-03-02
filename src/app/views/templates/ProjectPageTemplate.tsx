@@ -28,12 +28,18 @@ const ContentContainer = styled.main`
   height: 100%;
   width: calc(100% - 40px);
   height: calc(100% - 40px);
+
+  // for iframe grow animation/transition
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 `;
 
 /* PROJECT INFORMATION */
 const ProjectInformationContainer = styled.div`
   height: 50%;
   overflow: hidden;
+  transition: height 1s;
 `;
 
 const ProjectInformation = styled.div`
@@ -84,11 +90,12 @@ const ProjectDisplayContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: height 1s;
 `;
 
 const ProjectDisplay = styled.div`
   height: 100%;
-  background-color: dodgerblue;
+  background-color: ${(props) => props.theme.colors.primaryNeutral};
   border-radius: 15px;
   border: 3px solid ${(props) => props.theme.colors.accentOne};
   width: calc(100% - 20px);
@@ -97,6 +104,30 @@ const ProjectDisplay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  // fixes iOS safari overflowing with border radius and overflow: hidden;
+  // https://gist.github.com/ayamflow/b602ab436ac9f05660d9c15190f4fd7b#gistcomment-2911047
+  z-index: 1;
+`;
+
+const VisitSiteButton = styled.a`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 6;
+`;
+
+const Github = styled.a`
+  position: absolute;
+  bottom: 0;
+  z-index: 6;
+`;
+
+const FullScreenButton = styled.button`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 6;
 `;
 
 /* ---------------------------------- types --------------------------------- */
@@ -109,6 +140,8 @@ export interface ProjectPageTemplateProps {
         date: string;
         slug: string;
         title: string;
+        url: string;
+        github: string;
       };
     };
 
@@ -131,27 +164,36 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
     images,
   },
 }: ProjectPageTemplateProps) => {
-  const projectDescriptionRef = useRef() as React.MutableRefObject<HTMLDivElement>;
-  const { handleScroll } = useScrollHook(projectDescriptionRef);
+  const ProjectDescriptionRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const ContentContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const ProjectInformationContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const { handleScroll } = useScrollHook(ProjectDescriptionRef);
 
   // auto focus inner div so keyboard controls can be instantly used
   useEffect(() => {
-    projectDescriptionRef.current.tabIndex = -1;
-    projectDescriptionRef.current.autofocus = true;
-    projectDescriptionRef.current.focus();
+    ProjectDescriptionRef.current.tabIndex = -1;
+    ProjectDescriptionRef.current.autofocus = true;
+    ProjectDescriptionRef.current.focus();
   }, []);
+  const handleFullscreenButton = () => {
+    const ref = ContentContainerRef.current.classList;
+
+    if (ref.contains('full-page')) {
+      ref.remove('full-page');
+      ProjectInformationContainerRef.current.classList.remove('full-page-helper');
+    } else {
+      ref.add('full-page');
+      ProjectInformationContainerRef.current.classList.add('full-page-helper');
+    }
+  };
 
   return (
     <PageContainer className="page-container-styles">
-      <ChevronLink
-        fill={Colors.primaryNeutral}
-        hover={Colors.primaryLight}
-        position="left"
-        link="/timeline"
-      />
-
-      <ContentContainer className="page-content-styles">
-        <ProjectInformationContainer>
+      <ContentContainer className="page-content-styles" ref={ContentContainerRef}>
+        <ProjectInformationContainer
+          className="project-information-container"
+          ref={ProjectInformationContainerRef}
+        >
           <ProjectInformation>
             <BlobContainer>
               <img src={images.nodes[0].publicURL} alt="" />
@@ -162,21 +204,36 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
             <ProjectDescription
               className="page-content-styles"
               dangerouslySetInnerHTML={{ __html: html }}
-              ref={projectDescriptionRef}
+              ref={ProjectDescriptionRef}
               onScroll={() => handleScroll()}
             />
           </ProjectInformation>
         </ProjectInformationContainer>
-        <ProjectDisplayContainer>
+        <ProjectDisplayContainer className="project-display-container">
           <ProjectDisplay>
             <IFrameResizer
-              src="https://squibs.github.io/quote-machine"
-              style={{ width: '1px', minWidth: '100%', height: '100%' }}
+              src={frontmatter.url}
+              style={{ width: '1px', minWidth: '100%', height: '100%', zoom: '0.5' }}
               scrolling
             />
           </ProjectDisplay>
         </ProjectDisplayContainer>
       </ContentContainer>
+
+      <ChevronLink
+        fill={Colors.primaryNeutral}
+        hover={Colors.primaryLight}
+        position="left"
+        link="/timeline"
+      />
+
+      {frontmatter.url && <VisitSiteButton href={frontmatter.url}>Visit Site</VisitSiteButton>}
+
+      {frontmatter.github && <Github href={frontmatter.github}>Github</Github>}
+
+      <FullScreenButton type="button" onClick={handleFullscreenButton}>
+        Expand
+      </FullScreenButton>
     </PageContainer>
   );
 };
@@ -191,6 +248,8 @@ export const pageQuery = graphql`
         date(formatString: "MMMM - YYYY")
         slug
         title
+        url
+        github
       }
     }
 

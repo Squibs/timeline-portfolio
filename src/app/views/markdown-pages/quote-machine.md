@@ -2,6 +2,8 @@
 slug: '/project/quote-machine'
 date: '2021-02-08'
 title: 'Quote Machine'
+url: 'https://squibs.github.io/quote-machine/'
+github: 'https://github.com/Squibs/quote-machine'
 ---
 
 I have come back to this project more times than I thought I ever would. This is the fourth time I have come back to do this project. The first time, linked above ([before-react version](https://github.com/Squibs/quote-machine/tree/before-react)), was originally created as an _Intermediate Front End Development Project_ for freeCodeCamp. I later redid the project when I initially went through the _Front End Libraries Projects_ on the beta of freeCodeCamp ([old-react version](https://github.com/Squibs/quote-machine/tree/old-react)) as a project to learn React. I then came back, yet again, to re-create the project using React as well as Redux ([previous-react version](https://github.com/Squibs/quote-machine/tree/previous-react)).

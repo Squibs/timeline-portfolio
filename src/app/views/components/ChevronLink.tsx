@@ -23,8 +23,10 @@ export const ChevronLink = ({ fill, position, link, hover }: ChevronLinkProps): 
     <>
       {/* link/button for page navigation */}
       <Link
+        className="chevron-link"
         to={link}
         css={`
+          transition: height 1s, min-height 1s;
           -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
           -webkit-tap-highlight-color: transparent;
 
@@ -89,6 +91,7 @@ export const ChevronLink = ({ fill, position, link, hover }: ChevronLinkProps): 
 
       {/* used only for drop-shadow on link/button above. This needs to go a layer below the border, while the above needs to go a layer above or be on the same layer as the border */}
       <div
+        className="chevron-link"
         style={{
           minHeight: '100px',
           height: '15%',
@@ -101,7 +104,7 @@ export const ChevronLink = ({ fill, position, link, hover }: ChevronLinkProps): 
           filter: 'drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.55))',
           [position]: '11px',
           transform: `translateY(-50%) scale(${position === 'left' ? '1' : '-1'}, 1)`,
-          transition: 'filter 0.5s',
+          transition: 'filter 0.5s, height 1s, min-height 1s',
           transformOrigin: '50% 51%',
         }}
       >

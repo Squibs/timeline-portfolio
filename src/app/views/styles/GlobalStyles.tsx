@@ -94,6 +94,13 @@ const GlobalStyle = createGlobalStyle`
       border-radius: 6px;
     }
   }
+
+  // for iframe animation/transition
+  .full-page {
+    .project-display-container { height: 100%; }
+    & ~ .chevron-link { height: 0px !important; min-height: 0px !important; }
+  }
+  .full-page-helper { height: 0px !important; }
 `;
 
 const GlobalStyles: React.FC = () => {

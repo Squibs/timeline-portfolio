@@ -2,6 +2,7 @@
 slug: '/project/learning-to-necro'
 date: '2012-10-21'
 title: 'Learning to Necro'
+url: 'https://squibs.github.io/pomodoro-clock/'
 ---
 
 Notes about the project- Incididunt mollit ad nostrud est mollit enim sit pariatur. Enim officia ex laborum ad consectetur incididunt adipisicing commodo amet fugiat deserunt. Sunt enim minim Lorem velit sit voluptate non nisi dolor Lorem. Id in magna laboris dolore dolore ut officia occaecat proident non esse occaecat et. Eiusmod fugiat aliqua consectetur dolor laborum sint exercitation occaecat eiusmod. Eu incididunt esse sit ut velit consectetur fugiat enim.
