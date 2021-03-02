@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 
 const useScrollHook = (
   passedContainerRef: React.MutableRefObject<HTMLDivElement>,
-): { handleScroll: typeof handleScroll } => {
+): typeof handleScroll => {
   const removeStylesMemo = useMemo(
     () =>
       debounce(() => {
@@ -29,7 +29,7 @@ const useScrollHook = (
     { trailing: false, leading: true },
   );
 
-  return { handleScroll };
+  return handleScroll;
 };
 
 export default useScrollHook;

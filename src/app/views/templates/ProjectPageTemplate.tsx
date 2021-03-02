@@ -167,7 +167,7 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
   const ProjectDescriptionRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const ContentContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const ProjectInformationContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
-  const { handleScroll } = useScrollHook(ProjectDescriptionRef);
+  const handleInformationScroll = useScrollHook(ProjectDescriptionRef);
 
   // auto focus inner div so keyboard controls can be instantly used
   useEffect(() => {
@@ -208,7 +208,7 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
               className="page-content-styles"
               dangerouslySetInnerHTML={{ __html: html }}
               ref={ProjectDescriptionRef}
-              onScroll={() => handleScroll()}
+              onScroll={() => handleInformationScroll()}
             />
           </ProjectInformation>
         </ProjectInformationContainer>

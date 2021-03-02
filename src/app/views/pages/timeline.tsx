@@ -22,7 +22,7 @@ const ContentContainer = styled.main`
 
 const TimelinePage: React.FC = () => {
   const contentContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
-  const { handleScroll } = useScrollHook(contentContainerRef);
+  const handleScroll = useScrollHook(contentContainerRef);
 
   // auto focus inner div so keyboard controls can be instantly used
   useEffect(() => {
