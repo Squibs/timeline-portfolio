@@ -112,21 +112,21 @@ const ProjectDisplay = styled.div`
 
 const VisitSiteButton = styled.a`
   position: absolute;
-  bottom: 0;
-  left: 0;
+  bottom: 5px;
+  left: 5px;
   z-index: 6;
 `;
 
 const Github = styled.a`
   position: absolute;
-  bottom: 0;
+  bottom: 5px;
   z-index: 6;
 `;
 
 const FullScreenButton = styled.button`
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 5px;
+  right: 5px;
   z-index: 6;
 `;
 
@@ -175,14 +175,17 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
     ProjectDescriptionRef.current.autofocus = true;
     ProjectDescriptionRef.current.focus();
   }, []);
-  const handleFullscreenButton = () => {
-    const ref = ContentContainerRef.current.classList;
 
-    if (ref.contains('full-page')) {
-      ref.remove('full-page');
+  const handleFullscreenButton = () => {
+    const ref = ContentContainerRef.current;
+
+    if (ref.classList.contains('full-page')) {
+      ref.classList.remove('full-page');
       ProjectInformationContainerRef.current.classList.remove('full-page-helper');
+      ref.style.justifyContent = 'flex-end'; // for expand animation/transition
     } else {
-      ref.add('full-page');
+      ref.style.justifyContent = 'space-between'; // for expand animation/transition
+      ref.classList.add('full-page');
       ProjectInformationContainerRef.current.classList.add('full-page-helper');
     }
   };
