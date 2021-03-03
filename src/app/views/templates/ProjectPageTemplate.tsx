@@ -88,6 +88,11 @@ const ProjectInformation = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  ${(props) => props.theme.breakpoints.for4TabletLandscapeUp()`
+    h1 { font-size: 46px; }
+    h2 { font-size: 30px; }
+  `}
 `;
 
 const ProjectDescription = styled.div`
@@ -110,8 +115,11 @@ const BlobContainer = styled.div`
   right: 0;
   top: 5px;
   z-index: -1;
-  transform: rotate(-60deg);
-  max-width: 200px;
+  max-width: 125px;
+
+  & > img {
+    transform: rotate(-60deg);
+  }
 `;
 
 /* PROJECT DISPLAY */
