@@ -98,7 +98,7 @@ const GlobalStyle = createGlobalStyle`
   // for iframe animation/transition
   .full-page {
     .project-display-container { height: 100%; }
-    & ~ .chevron-link { height: 0px !important; min-height: 0px !important; }
+    & ~ .chevron-link { height: 0px !important; min-height: 0px !important; & > svg { height: 0px !important; } }
   }
   .full-page-helper { height: 0px !important; }
 `;

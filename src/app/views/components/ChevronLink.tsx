@@ -26,7 +26,7 @@ export const ChevronLink = ({ fill, position, link, hover }: ChevronLinkProps): 
         className="chevron-link"
         to={link}
         css={`
-          transition: height 1s, min-height 1s;
+          transition: height 1s;
           -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
           -webkit-tap-highlight-color: transparent;
 
@@ -62,12 +62,17 @@ export const ChevronLink = ({ fill, position, link, hover }: ChevronLinkProps): 
           position: 'absolute',
           top: '50%',
           [position]: '11px',
-          transform: `translateY(-50%) scale(${position === 'left' ? '1' : '-1'}, 1)`,
+          transform: `translateY(-50%) rotate(${position === 'left' ? '0' : '-180'}deg)`,
           outline: 'none',
           transformOrigin: '50% 51%',
         }}
       >
-        <svg height="100%" viewBox="0 0 85 240" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          style={{ transition: 'height 0.5s' }}
+          height="100%"
+          viewBox="0 0 85 240"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <defs>
             <filter id="inset-shadow">
               <feOffset dx="10" dy="10" />
@@ -103,7 +108,7 @@ export const ChevronLink = ({ fill, position, link, hover }: ChevronLinkProps): 
           top: '50%',
           filter: 'drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.55))',
           [position]: '11px',
-          transform: `translateY(-50%) scale(${position === 'left' ? '1' : '-1'}, 1)`,
+          transform: `translateY(-50%) rotate(${position === 'left' ? '0' : '180'}deg)`,
           transition: 'filter 0.5s, height 1s, min-height 1s',
           transformOrigin: '50% 51%',
         }}
