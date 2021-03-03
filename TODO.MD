@@ -6,7 +6,6 @@
 - contact me form / section / page
 - timeline page initially no navigation on right, appears when you select something on the timeline
 - page transitions (left/right swipe) & min length of 0.5s for navigation css transitions to show
-- style anchor links
 - replace iframe scrollbar (probably not possible)
 - desktop mouseover iframe makes iframe larger/hide [onMouseEnter](https://github.com/davidjbradshaw/iframe-resizer/blob/master/docs/parent_page/events.md#onmouseenter)
 - have each md page pass some kind of default scale at a specific width for better scaling

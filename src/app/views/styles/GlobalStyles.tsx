@@ -20,6 +20,20 @@ const GlobalStyle = createGlobalStyle`
     overflow: auto;
   }
 
+  // anchor styles
+  .page-content-styles a {
+    &:hover, &:focus {
+      color: ${Colors.accentTwo};
+      outline: none;
+    }
+
+    color: ${Colors.accentOne};
+    font-style: italic;
+    font-weight: 400;
+    text-decoration-style: dotted;
+    text-underline-offset: 3px;
+  }
+
   /* @@@@@@@@@@@ FONTS @@@@@@@@@@@ */
 
   h1 { font-family: 'Montserrat', sans-serif; }
