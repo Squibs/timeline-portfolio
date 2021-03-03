@@ -40,10 +40,10 @@ const ContentContainer = styled.main`
 
   outline: none;
   color: ${(props) => props.theme.colors.whiteTint};
+  max-width: 2560px;
 
   // remove some default styles from .page-content-styles
   padding: 0;
-  max-width: unset;
   overflow: hidden;
   width: 100%;
   height: 100%;
@@ -54,6 +54,10 @@ const ContentContainer = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+
+  ${(props) => props.theme.breakpoints.for4TabletLandscapeUp()`
+    flex-direction: row;
+  `}
 `;
 
 /* PROJECT INFORMATION */
@@ -61,6 +65,11 @@ const ProjectInformationContainer = styled.div`
   height: 50%;
   overflow: hidden;
   transition: height 1s;
+
+  ${(props) => props.theme.breakpoints.for4TabletLandscapeUp()`
+    height: 100%;
+    width: 25%;
+  `}
 `;
 
 const ProjectInformation = styled.div`
@@ -113,6 +122,11 @@ const ProjectDisplayContainer = styled.div`
   justify-content: center;
   align-items: center;
   transition: height 1s;
+
+  ${(props) => props.theme.breakpoints.for4TabletLandscapeUp()`
+    height: 100%;
+    width: 75%;
+  `}
 `;
 
 const ProjectDisplay = styled.div`
@@ -132,26 +146,36 @@ const ProjectDisplay = styled.div`
   z-index: 1;
 `;
 
-const VisitSiteButton = styled.a`
-  position: absolute;
-  bottom: 5px;
-  left: 5px;
+/* BUTTONS */
+const ButtonContainer = styled.div`
+  width: calc(100% - 10px); // padding on sides of buttons
+  display: flex;
+  justify-content: space-between;
   z-index: 6;
-`;
-
-const Github = styled.a`
-  position: absolute;
-  bottom: 5px;
-  z-index: 6;
-`;
-
-const FullScreenButton = styled.button`
   position: absolute;
   bottom: 5px;
   right: 5px;
-  z-index: 6;
+
+  ${(props) => props.theme.breakpoints.for4TabletLandscapeUp()`
+    & button { display: none;}
+    left: 25%;
+    width: calc(100% - 25%);
+  `}
+
+  @media screen and (min-width: 2560px) {
+    & > a {
+      margin-left: 640px;
+    }
+
+    width: 1920px;
+    left: initial;
+    right: initial;
+  }
 `;
 
+/* 3840 x 2160 */
+
+/* IFRAME */
 const IFrame = styled(IFrameResizer)`
   width: 1px;
   min-width: calc(100% / 0.3);
@@ -303,21 +327,23 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
         link="/timeline"
       />
 
-      {frontmatter.url && (
-        <VisitSiteButton className="project-buttons" href={frontmatter.url}>
-          Visit Site
-        </VisitSiteButton>
-      )}
+      <ButtonContainer>
+        {frontmatter.url && (
+          <a className="project-buttons" href={frontmatter.url}>
+            Visit Site
+          </a>
+        )}
 
-      {frontmatter.github && (
-        <Github className="project-buttons" href={frontmatter.github}>
-          Github
-        </Github>
-      )}
+        {frontmatter.github && (
+          <a className="project-buttons" href={frontmatter.github}>
+            Project Github
+          </a>
+        )}
 
-      <FullScreenButton className="project-buttons" type="button" onClick={handleFullscreenButton}>
-        Expand
-      </FullScreenButton>
+        <button className="project-buttons" type="button" onClick={handleFullscreenButton}>
+          Expand
+        </button>
+      </ButtonContainer>
     </PageContainer>
   );
 };
