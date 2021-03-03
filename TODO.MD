@@ -11,4 +11,5 @@
 - replace iframe scrollbar (not sure if possible)
 - desktop mouseover iframe makes iframe larger/hide [onMouseEnter](https://github.com/davidjbradshaw/iframe-resizer/blob/master/docs/parent_page/events.md#onmouseenter)
   - or fullscreen button
-- iframe scaling breakpoints
+- have each md page pass some kind of default scale at a specific width for better scaling
+  - maybe add zoom in / zoom out buttons

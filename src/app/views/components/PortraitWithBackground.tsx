@@ -12,7 +12,7 @@ const PortraitContainer = styled.div`
   width: 100%;
   height: 250px;
 
-  ${(props) => props.theme.breakpoints.for0SmallPhonesOnly()`
+  ${(props) => props.theme.breakpoints.for1SmallPhonesOnly()`
     height: 165px;
   `};
 
@@ -27,7 +27,7 @@ const SVGImage = styled.img`
   position: absolute;
   margin-top: 10px;
 
-  ${(props) => props.theme.breakpoints.for0SmallPhonesOnly()`
+  ${(props) => props.theme.breakpoints.for1SmallPhonesOnly()`
     height: 150px;
   `};
 
@@ -44,7 +44,7 @@ const ImageCropper = styled.div`
   border-radius: 50%;
   margin-top: 8px;
 
-  ${(props) => props.theme.breakpoints.for0SmallPhonesOnly()`
+  ${(props) => props.theme.breakpoints.for1SmallPhonesOnly()`
     height: 150px;
     width: 150px;
   `};

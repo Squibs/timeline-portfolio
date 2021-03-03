@@ -151,6 +151,61 @@ const FullScreenButton = styled.button`
   z-index: 6;
 `;
 
+const IFrame = styled(IFrameResizer)`
+  width: 1px;
+  min-width: calc(100% / 0.3);
+  height: calc(100% / 0.3);
+  transform: scale(0.3);
+
+  ${({ theme }) => theme.breakpoints.for0PhoneOnly()`
+    min-width: calc(100% / 0.3);
+    height: calc(100% / 0.3);
+    transform: scale(0.3);
+  `}
+
+  ${({ theme }) => theme.breakpoints.for1SmallPhonesOnly()`
+    min-width: calc(100% / 0.2);
+    height: calc(100% / 0.2);
+    transform: scale(0.2);
+  `}
+
+  @media screen and (min-width: 450px) {
+    min-width: calc(100% / 0.35);
+    height: calc(100% / 0.35);
+    transform: scale(0.35);
+  }
+
+  ${({ theme }) => theme.breakpoints.for2SlightlyBiggerPhoneUp()`
+    min-width: calc(100% / 0.5);
+    height: calc(100% / 0.5);
+    transform: scale(0.5);
+  `}
+
+  ${({ theme }) => theme.breakpoints.for3TabletPortraitUp()`
+    min-width: calc(100% / 0.6);
+    height: calc(100% / 0.6);
+    transform: scale(0.6);
+  `}
+
+  ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+    min-width: calc(100% / 0.75);
+    height: calc(100% / 0.75);
+    transform: scale(0.75);
+  `}
+
+  ${({ theme }) => theme.breakpoints.for5DesktopUp()`
+    min-width: calc(100% / 0.9);
+    height: calc(100% / 0.9);
+    transform: scale(0.9);
+  `}
+
+  ${({ theme }) => theme.breakpoints.for6BigDesktopUp()`
+    min-width: 100%;
+    height: 100%;
+    transform: scale(1);
+  `}
+`;
+
 /* ---------------------------------- types --------------------------------- */
 
 export interface ProjectPageTemplateProps {
@@ -235,16 +290,7 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
         </ProjectInformationContainer>
         <ProjectDisplayContainer className="project-display-container">
           <ProjectDisplay>
-            <IFrameResizer
-              src={frontmatter.url}
-              style={{
-                width: '1px',
-                minWidth: 'calc(100% / 0.35)',
-                height: 'calc(100% / 0.35)',
-                transform: 'scale(0.35)',
-              }}
-              scrolling
-            />
+            <IFrame src={frontmatter.url} scrolling />
           </ProjectDisplay>
         </ProjectDisplayContainer>
       </ContentContainer>

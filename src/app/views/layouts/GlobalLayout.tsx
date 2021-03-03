@@ -23,12 +23,12 @@ const BorderContainer = styled.div`
 `;
 
 const mediaQuery = (size: keyof typeof Breakpoints) => {
-  if (size === 'for0SmallPhonesOnly') {
+  if (size === 'for0PhoneOnly') {
     return (cssStyles: TemplateStringsArray) =>
       `@media screen and (max-width: ${Breakpoints[size]}) { ${cssStyles} }`;
   }
 
-  if (size === 'for1PhoneOnly') {
+  if (size === 'for1SmallPhonesOnly') {
     return (cssStyles: TemplateStringsArray) =>
       `@media screen and (max-width: ${Breakpoints[size]}) { ${cssStyles} }`;
   }
@@ -46,9 +46,10 @@ const theme: DefaultTheme = {
     accentTwo: Colors.accentTwo,
     whiteTint: Colors.whiteTint,
   },
+
   breakpoints: {
-    for0SmallPhonesOnly: () => mediaQuery('for0SmallPhonesOnly'),
-    for1PhoneOnly: () => mediaQuery('for1PhoneOnly'),
+    for0PhoneOnly: () => mediaQuery('for0PhoneOnly'),
+    for1SmallPhonesOnly: () => mediaQuery('for1SmallPhonesOnly'),
     for2SlightlyBiggerPhoneUp: () => mediaQuery('for2SlightlyBiggerPhoneUp'),
     for3TabletPortraitUp: () => mediaQuery('for3TabletPortraitUp'),
     for4TabletLandscapeUp: () => mediaQuery('for4TabletLandscapeUp'),
