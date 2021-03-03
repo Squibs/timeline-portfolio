@@ -102,6 +102,7 @@ const BlobContainer = styled.div`
   top: 5px;
   z-index: -1;
   transform: rotate(-60deg);
+  max-width: 200px;
 `;
 
 /* PROJECT DISPLAY */
