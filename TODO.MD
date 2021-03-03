@@ -12,4 +12,3 @@
 - desktop mouseover iframe makes iframe larger/hide [onMouseEnter](https://github.com/davidjbradshaw/iframe-resizer/blob/master/docs/parent_page/events.md#onmouseenter)
   - or fullscreen button
 - iframe scaling breakpoints
-- project call to action button focus/hover styles

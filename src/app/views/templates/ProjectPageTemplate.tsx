@@ -11,13 +11,23 @@ import { useScrollHook } from '../hooks';
 const PageContainer = styled.div`
   .project-buttons {
     background-color: ${(props) => props.theme.colors.accentTwo};
-    border: 1px solid ${(props) => props.theme.colors.accentOne};
     color: ${(props) => props.theme.colors.whiteTint};
+    box-shadow: 0 0 6px black;
+    border: none;
     padding: 5px;
     text-align: center;
     text-decoration: none;
     border-radius: 5px;
     font-family: 'Bitter', sans-serif;
+    font-weight: bold;
+    transition: background-color 0.5s, color 0.5s;
+
+    &:hover,
+    &:focus {
+      outline: none;
+      background-color: ${(props) => props.theme.colors.whiteTint};
+      color: ${(props) => props.theme.colors.accentTwo};
+    }
   }
 
   background-color: ${(props) => props.theme.colors.primaryNeutral};
