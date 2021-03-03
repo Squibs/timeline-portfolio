@@ -216,7 +216,12 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
           <ProjectDisplay>
             <IFrameResizer
               src={frontmatter.url}
-              style={{ width: '1px', minWidth: '100%', height: '100%', zoom: '0.5' }}
+              style={{
+                width: '1px',
+                minWidth: 'calc(100% / 0.35)',
+                height: 'calc(100% / 0.35)',
+                transform: 'scale(0.35)',
+              }}
               scrolling
             />
           </ProjectDisplay>
