@@ -1,16 +1,14 @@
-- (kinda fixed) move page scrolling logic all to inner div somehow
 - scrollbar fade-in fade-out
 - adjust margins media queries for content
 - remove unnecessary gatsby plugins or other npm packages
 - favicon
 - accessibility elements/tags
-- contact me section / page
+- contact me form / section / page
 - timeline page initially no navigation on right, appears when you select something on the timeline
 - page transitions (left/right swipe) & min length of 0.5s for navigation css transitions to show
 - style anchor links
-- replace iframe scrollbar (not sure if possible)
+- replace iframe scrollbar (probably not possible)
 - desktop mouseover iframe makes iframe larger/hide [onMouseEnter](https://github.com/davidjbradshaw/iframe-resizer/blob/master/docs/parent_page/events.md#onmouseenter)
-  - or fullscreen button
 - have each md page pass some kind of default scale at a specific width for better scaling
   - maybe add zoom in / zoom out buttons
 - ? add note for each md page that styles might be off inside of the iframe
