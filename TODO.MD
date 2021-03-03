@@ -13,3 +13,4 @@
   - or fullscreen button
 - have each md page pass some kind of default scale at a specific width for better scaling
   - maybe add zoom in / zoom out buttons
+- ? add note for each md page that styles might be off inside of the iframe
