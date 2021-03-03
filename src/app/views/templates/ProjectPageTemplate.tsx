@@ -9,6 +9,17 @@ import { useScrollHook } from '../hooks';
 /* --------------------------------- styles --------------------------------- */
 
 const PageContainer = styled.div`
+  .project-buttons {
+    background-color: ${(props) => props.theme.colors.accentTwo};
+    border: 1px solid ${(props) => props.theme.colors.accentOne};
+    color: ${(props) => props.theme.colors.whiteTint};
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: 'Bitter', sans-serif;
+  }
+
   background-color: ${(props) => props.theme.colors.primaryNeutral};
 `;
 
@@ -235,11 +246,19 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
         link="/timeline"
       />
 
-      {frontmatter.url && <VisitSiteButton href={frontmatter.url}>Visit Site</VisitSiteButton>}
+      {frontmatter.url && (
+        <VisitSiteButton className="project-buttons" href={frontmatter.url}>
+          Visit Site
+        </VisitSiteButton>
+      )}
 
-      {frontmatter.github && <Github href={frontmatter.github}>Github</Github>}
+      {frontmatter.github && (
+        <Github className="project-buttons" href={frontmatter.github}>
+          Github
+        </Github>
+      )}
 
-      <FullScreenButton type="button" onClick={handleFullscreenButton}>
+      <FullScreenButton className="project-buttons" type="button" onClick={handleFullscreenButton}>
         Expand
       </FullScreenButton>
     </PageContainer>
