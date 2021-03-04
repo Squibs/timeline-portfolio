@@ -220,16 +220,16 @@ const IFrame = styled(IFrameResizer)`
     transform: scale(0.6);
   `}
 
-  ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
-    min-width: calc(100% / 0.75);
-    height: calc(100% / 0.75);
-    transform: scale(0.75);
-  `}
+  @media screen and (min-width: 1050px) {
+    min-width: calc(100% / 0.7);
+    height: calc(100% / 0.7);
+    transform: scale(0.7);
+  }
 
   ${({ theme }) => theme.breakpoints.for5DesktopUp()`
-    min-width: calc(100% / 0.9);
-    height: calc(100% / 0.9);
-    transform: scale(0.9);
+    min-width: calc(100% / 0.85);
+    height: calc(100% / 0.85);
+    transform: scale(0.85);
   `}
 
   ${({ theme }) => theme.breakpoints.for6BigDesktopUp()`
