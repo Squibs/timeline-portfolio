@@ -13,3 +13,10 @@
 - ? add note for each md page that styles might be off inside of the iframe
 - ? have buttons grayed out on page rather than gone. expand will always disappear on larger devices
 - ? make buttons larger on larger screens
+
+- ? click on square to select project for navigation
+- ? click on squares on timeline to expand the project
+- ? having everything hidden with just the gray squares and colored borders would immediately be seen as a way to interact with the site
+  - not sure if having everything already expanded would read the same way when visiting the website.
+  - could potentially add tutorial box saying click to select box, page nav, etc...
+  - could add text inside of grey square with border saying click to select on each project on timeline
