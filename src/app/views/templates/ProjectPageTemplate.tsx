@@ -102,8 +102,8 @@ const ProjectDescription = styled.div`
 
   outline: none;
   overflow-y: scroll;
-  width: calc(100% - 15px);
-  padding: 0 5px;
+  width: calc(100% - 45px);
+  padding: 0 20px;
 `;
 
 const BlobContainer = styled.div`

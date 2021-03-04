@@ -47,13 +47,13 @@ export const ChevronLink = ({ fill, position, link, hover }: ChevronLinkProps): 
             }
 
             & + div {
-              filter: drop-shadow(8px 0px 16px ${hover}) !important;
+              filter: drop-shadow(8px 0px 10px ${hover}) !important;
             }
           }
         `}
         style={{
-          minHeight: '100px',
-          height: '15%',
+          minHeight: '75px',
+          height: '10%',
           padding: 0,
           border: 0,
           background: 'transparent',
@@ -75,7 +75,7 @@ export const ChevronLink = ({ fill, position, link, hover }: ChevronLinkProps): 
         >
           <defs>
             <filter id="inset-shadow">
-              <feOffset dx="10" dy="10" />
+              <feOffset dx="12" dy="2" />
               <feGaussianBlur stdDeviation="10" result="offset-blur" />
               <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse" />
               <feFlood floodColor="black" floodOpacity="1" result="color" />
@@ -98,15 +98,15 @@ export const ChevronLink = ({ fill, position, link, hover }: ChevronLinkProps): 
       <div
         className="chevron-link"
         style={{
-          minHeight: '100px',
-          height: '15%',
+          minHeight: '75px',
+          height: '10%',
           padding: 0,
           border: 0,
           background: 'transparent',
           zIndex: 4,
           position: 'absolute',
           top: '50%',
-          filter: 'drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.55))',
+          filter: 'drop-shadow(2px 0px 4px rgba(0, 0, 0, 0.55))',
           [position]: '11px',
           transform: `translateY(-50%) rotate(${position === 'left' ? '0' : '180'}deg)`,
           transition: 'filter 0.5s, height 1s, min-height 1s',
