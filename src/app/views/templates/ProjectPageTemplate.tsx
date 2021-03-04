@@ -165,6 +165,7 @@ const ButtonContainer = styled.div`
   width: calc(100% - 10px); // padding on sides of buttons
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
   z-index: 6;
   position: absolute;
   bottom: 5px;
@@ -341,7 +342,7 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
 
       <ButtonContainer>
         {frontmatter.url && (
-          <a className="project-buttons" href={frontmatter.url}>
+          <a className="project-buttons" href={frontmatter.url} style={{ maxHeight: '15px' }}>
             Site
             <ExternalLink
               css={`
@@ -353,7 +354,7 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
         )}
 
         {frontmatter.github && (
-          <a className="project-buttons" href={frontmatter.github}>
+          <a className="project-buttons" href={frontmatter.github} style={{ maxHeight: '15px' }}>
             Github
             <GitHub
               css={`
@@ -365,10 +366,9 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
         )}
 
         <button className="project-buttons" type="button" onClick={handleFullscreenButton}>
-          Expand
           <Maximize2
             css={`
-              height: 15px;
+              height: 20px;
               vertical-align: -8%;
             `}
           />
