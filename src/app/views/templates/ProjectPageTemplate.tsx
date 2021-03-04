@@ -90,8 +90,8 @@ const ProjectInformation = styled.div`
   align-items: center;
 
   ${(props) => props.theme.breakpoints.for4TabletLandscapeUp()`
-    h1 { font-size: 46px; }
-    h2 { font-size: 30px; }
+    h1 { font-size: 36px; }
+    h2 { font-size: 28px; }
   `}
 `;
 
@@ -104,6 +104,11 @@ const ProjectDescription = styled.div`
   overflow-y: scroll;
   width: calc(100% - 45px);
   padding: 0 20px;
+
+  ${(props) => props.theme.breakpoints.for3TabletPortraitUp()`
+    padding: 0 30px;
+    width: calc(100% - 60px);
+  `}
 `;
 
 const BlobContainer = styled.div`
@@ -180,8 +185,6 @@ const ButtonContainer = styled.div`
     right: initial;
   }
 `;
-
-/* 3840 x 2160 */
 
 /* IFRAME */
 const IFrame = styled(IFrameResizer)`
@@ -363,7 +366,7 @@ export const pageQuery = graphql`
     markdownRemark(frontmatter: { slug: { eq: $slug } }) {
       html
       frontmatter {
-        date(formatString: "MMMM - YYYY")
+        date(formatString: "MMMM, YYYY")
         slug
         title
         url
