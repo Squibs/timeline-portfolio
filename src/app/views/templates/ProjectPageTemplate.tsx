@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import IFrameResizer from 'iframe-resizer-react';
+import { ExternalLink, GitHub, Maximize2 } from 'react-feather';
 import { ChevronLink } from '../components';
 import { Colors } from '../shared';
 import { useScrollHook } from '../hooks';
@@ -341,18 +342,36 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
       <ButtonContainer>
         {frontmatter.url && (
           <a className="project-buttons" href={frontmatter.url}>
-            Visit Site
+            Site
+            <ExternalLink
+              css={`
+                height: 15px;
+                vertical-align: -6%;
+              `}
+            />
           </a>
         )}
 
         {frontmatter.github && (
           <a className="project-buttons" href={frontmatter.github}>
-            Project Github
+            Github
+            <GitHub
+              css={`
+                height: 15px;
+                vertical-align: -8%;
+              `}
+            />
           </a>
         )}
 
         <button className="project-buttons" type="button" onClick={handleFullscreenButton}>
           Expand
+          <Maximize2
+            css={`
+              height: 15px;
+              vertical-align: -8%;
+            `}
+          />
         </button>
       </ButtonContainer>
     </PageContainer>
