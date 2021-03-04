@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { ChevronLink } from '../components';
+import { ChevronLink, TimelineCreator } from '../components';
 import { Colors } from '../shared';
 import { useScrollHook } from '../hooks';
+import { graphql, useStaticQuery } from 'gatsby';
 
 /* --------------------------------- styles --------------------------------- */
 
@@ -18,6 +19,8 @@ const ContentContainer = styled.main`
   }
 `;
 
+const TimelineContainer = styled.div``;
+
 /* -------------------------------- component ------------------------------- */
 
 const TimelinePage: React.FC = () => {
@@ -30,6 +33,22 @@ const TimelinePage: React.FC = () => {
     contentContainerRef.current.autofocus = true;
     contentContainerRef.current.focus();
   }, []);
+
+  const data = useStaticQuery(graphql`
+    query TimelineImages {
+      images: allFile(filter: { relativeDirectory: { eq: "timelinePage" } }) {
+        nodes {
+          id
+          publicURL
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
+    }
+  `);
 
   return (
     <PageContainer className="page-container-styles">
@@ -47,176 +66,30 @@ const TimelinePage: React.FC = () => {
         onScroll={() => handleScroll()}
       >
         <h1>My Timeline</h1>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
-          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
-          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
-          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
-          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
-          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
-          suscipit, neque metus facilisis nunc, in vestibulum urna.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
-          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
-          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
-          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
-          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
-          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
-          suscipit, neque metus facilisis nunc, in vestibulum urna.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
-          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
-          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
-          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
-          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
-          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
-          suscipit, neque metus facilisis nunc, in vestibulum urna.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
-          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
-          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
-          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
-          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
-          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
-          suscipit, neque metus facilisis nunc, in vestibulum urna.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
-          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
-          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
-          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
-          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
-          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
-          suscipit, neque metus facilisis nunc, in vestibulum urna.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
-          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
-          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
-          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
-          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
-          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
-          suscipit, neque metus facilisis nunc, in vestibulum urna.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
-          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
-          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
-          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
-          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
-          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
-          suscipit, neque metus facilisis nunc, in vestibulum urna.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
-          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
-          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
-          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
-          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
-          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
-          suscipit, neque metus facilisis nunc, in vestibulum urna.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
-          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
-          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
-          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
-          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
-          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
-          suscipit, neque metus facilisis nunc, in vestibulum urna.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
-          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
-          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
-          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
-          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
-          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
-          suscipit, neque metus facilisis nunc, in vestibulum urna.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
-          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
-          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
-          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
-          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
-          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
-          suscipit, neque metus facilisis nunc, in vestibulum urna.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
-          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
-          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
-          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
-          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
-          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
-          suscipit, neque metus facilisis nunc, in vestibulum urna.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
-          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
-          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
-          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
-          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
-          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
-          suscipit, neque metus facilisis nunc, in vestibulum urna.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
-          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
-          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
-          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
-          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
-          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
-          suscipit, neque metus facilisis nunc, in vestibulum urna.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
-          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
-          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
-          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
-          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
-          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
-          suscipit, neque metus facilisis nunc, in vestibulum urna.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
-          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
-          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
-          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
-          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
-          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
-          suscipit, neque metus facilisis nunc, in vestibulum urna.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
-          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
-          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
-          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
-          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
-          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
-          suscipit, neque metus facilisis nunc, in vestibulum urna.
-        </p>
+        <TimelineContainer>
+          <TimelineCreator
+            projects={[
+              {
+                title: 'Learning To Necro',
+                description:
+                  'Aliquip aliquip ad nisi sunt. Ad sint amet quis excepteur aliquip nostrud in aliquip magna cupidatat labore consectetur. Ipsum ipsum laborum et labore pariatur adipisicing elit deserunt consequat. Aliquip excepteur sit proident incididunt duis sit voluptate. Ea et aliqua aliqua do officia minim Lorem et enim nostrud anim aliqua exercitation culpa.',
+                image: data.images.nodes[3].childImageSharp.fluid,
+              },
+              {
+                title: 'Pomodoro Clock',
+                description:
+                  'Esse dolor sit elit sunt nostrud fugiat eiusmod deserunt adipisicing adipisicing cupidatat enim do. Ipsum pariatur reprehenderit irure ullamco. Non exercitation mollit velit consequat non aliqua fugiat.',
+                image: data.images.nodes[2].childImageSharp.fluid,
+              },
+              {
+                title: 'Quote Machine',
+                description:
+                  'Eiusmod reprehenderit consectetur nulla laborum tempor incididunt ex ex incididunt adipisicing laborum proident. Ipsum incididunt esse fugiat est mollit sit sit consequat et. Excepteur deserunt tempor culpa deserunt consequat. Incididunt enim voluptate ad enim esse adipisicing esse ullamco dolore nostrud est magna. Officia do esse dolor amet ipsum sint et. Veniam culpa eu ea do id est laboris proident.',
+                image: data.images.nodes[4].childImageSharp.fluid,
+              },
+            ]}
+          />
+        </TimelineContainer>
       </ContentContainer>
     </PageContainer>
   );
