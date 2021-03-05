@@ -87,8 +87,9 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
   };
 
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
-    if (e.deltaY > 0) timelineContainerRef.current.scrollLeft += 100;
-    else timelineContainerRef.current.scrollLeft -= 100;
+    if (e.deltaY > 0)
+      timelineContainerRef.current.scrollLeft += timelineContainerRef.current.clientWidth;
+    else timelineContainerRef.current.scrollLeft -= timelineContainerRef.current.clientWidth;
   };
 
   return (

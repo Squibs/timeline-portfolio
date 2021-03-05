@@ -27,6 +27,7 @@ const ContentContainer = styled.main`
 
   h1 {
     margin: 0px;
+    margin-top: 10px;
     height: 8%;
     display: flex;
     justify-content: center;
