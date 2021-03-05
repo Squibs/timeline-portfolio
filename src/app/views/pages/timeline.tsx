@@ -23,15 +23,27 @@ const ContentContainer = styled.main`
   flex-direction: column;
   justify-content: space-around;
   max-width: 1800px;
-  width: calc(100% - 90px);
+  width: calc(100% - 85px);
+
+  @media screen and (min-height: 750px) {
+    width: calc(100% - 100px);
+  }
+
+  @media screen and (min-height: 800px) and (min-width: 750px) {
+    width: calc(100% - 140px);
+  }
 
   h1 {
     margin: 0px;
-    margin-top: 10px;
+    margin: 10px 0;
     height: 8%;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media screen and (max-height: 800px) {
+      font-size: 30px;
+    }
   }
 `;
 
