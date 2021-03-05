@@ -43,15 +43,37 @@ const TimelineContainer = styled.div`
   z-index: 1;
 `;
 
+/* ---------------------------------- types --------------------------------- */
+
+type Node = {
+  id: string;
+  base: string;
+  childImageSharp: {
+    fluid: {
+      base64: string;
+      aspectRatio: number;
+      src: string;
+      srcSet: string;
+      sizes: string;
+    };
+  };
+};
+
+type Query = {
+  images: {
+    nodes: Node[];
+  };
+};
+
 /* -------------------------------- component ------------------------------- */
 
 const TimelinePage: React.FC = () => {
-  const data = useStaticQuery(graphql`
+  const data: Query = useStaticQuery(graphql`
     query TimelineImages {
       images: allFile(filter: { relativeDirectory: { eq: "timelinePage" } }) {
         nodes {
           id
-          publicURL
+          base
           childImageSharp {
             fluid {
               ...GatsbyImageSharpFluid
@@ -61,6 +83,10 @@ const TimelinePage: React.FC = () => {
       }
     }
   `);
+
+  const imageSelector = (imgName: string) => {
+    return data.images.nodes.filter((node: Node) => node.base === imgName)[0];
+  };
 
   return (
     <PageContainer className="page-container-styles">
@@ -81,22 +107,22 @@ const TimelinePage: React.FC = () => {
                 title: 'Learning To Necro',
                 description:
                   'Aliquip aliquip ad nisi sunt. Ad sint amet quis excepteur aliquip nostrud in aliquip magna cupidatat labore consectetur. Ipsum ipsum laborum et labore pariatur adipisicing elit deserunt consequat. Aliquip excepteur sit proident incididunt duis sit voluptate. Ea et aliqua aliqua do officia minim Lorem et enim nostrud anim aliqua exercitation culpa.',
-                image: data.images.nodes[3].childImageSharp.fluid,
-                id: data.images.nodes[3].id,
+                image: imageSelector('screenshot-learning-to-necro.png').childImageSharp.fluid,
+                id: imageSelector('screenshot-learning-to-necro.png').id,
               },
               {
                 title: 'Pomodoro Clock',
                 description:
                   'Esse dolor sit elit sunt nostrud fugiat eiusmod deserunt adipisicing adipisicing cupidatat enim do. Ipsum pariatur reprehenderit irure ullamco. Non exercitation mollit velit consequat non aliqua fugiat.',
-                image: data.images.nodes[2].childImageSharp.fluid,
-                id: data.images.nodes[2].id,
+                image: imageSelector('screenshot-pomodoro-clock.png').childImageSharp.fluid,
+                id: imageSelector('screenshot-pomodoro-clock.png').id,
               },
               {
                 title: 'Quote Machine',
                 description:
                   'Eiusmod reprehenderit consectetur nulla laborum tempor incididunt ex ex incididunt adipisicing laborum proident. Ipsum incididunt esse fugiat est mollit sit sit consequat et. Excepteur deserunt tempor culpa deserunt consequat. Incididunt enim voluptate ad enim esse adipisicing esse ullamco dolore nostrud est magna. Officia do esse dolor amet ipsum sint et. Veniam culpa eu ea do id est laboris proident.',
-                image: data.images.nodes[4].childImageSharp.fluid,
-                id: data.images.nodes[4].id,
+                image: imageSelector('screenshot-quote-machine.png').childImageSharp.fluid,
+                id: imageSelector('screenshot-quote-machine.png').id,
               },
             ]}
           />
