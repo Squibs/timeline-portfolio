@@ -1,11 +1,37 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Img from 'gatsby-image';
+import styled from 'styled-components';
+
+/* --------------------------------- styles --------------------------------- */
+
+const TimelineContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  overflow-y: hidden;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  align-items: center;
+`;
+
+const TimelineProjectUpperContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  flex: 0 0 auto;
+`;
+
+const TimelineProjectLowerContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  flex: 0 0 auto;
+`;
 
 /* ---------------------------------- types --------------------------------- */
 
 type Project = {
   title: string;
   description: string;
+  id: string;
   image: {
     aspectRatio: number;
     base64: string;
@@ -24,23 +50,25 @@ type Props = TimelineCreatorProps;
 /* -------------------------------- component ------------------------------- */
 
 const TimelineCreator = ({ projects }: Props): JSX.Element => {
-  const createUpperTimelinePoint = ({ title, description, image }: Project): JSX.Element => {
+  const timelineContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+
+  const createUpperTimelinePoint = ({ title, description, image, id }: Project): JSX.Element => {
     return (
-      <>
-        <h1>{title}</h1>
+      <TimelineProjectUpperContainer key={id}>
+        <h2>{title}</h2>
         <p>{description}</p>
         <Img fluid={image} />
-      </>
+      </TimelineProjectUpperContainer>
     );
   };
 
-  const createLowerTimelinePoint = ({ title, description, image }: Project): JSX.Element => {
+  const createLowerTimelinePoint = ({ title, description, image, id }: Project): JSX.Element => {
     return (
-      <>
-        <h1>{title}</h1>
+      <TimelineProjectLowerContainer key={id}>
+        <h2>{title}</h2>
         <p>{description}</p>
         <Img fluid={image} />
-      </>
+      </TimelineProjectLowerContainer>
     );
   };
 
@@ -58,7 +86,16 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
     return timelineArray;
   };
 
-  return <>{createTimeline()}</>;
+  const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    if (e.deltaY > 0) timelineContainerRef.current.scrollLeft += 100;
+    else timelineContainerRef.current.scrollLeft -= 100;
+  };
+
+  return (
+    <TimelineContainer onWheel={handleWheel} ref={timelineContainerRef}>
+      {createTimeline()}
+    </TimelineContainer>
+  );
 };
 
 export default TimelineCreator;
