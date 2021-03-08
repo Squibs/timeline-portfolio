@@ -20,19 +20,34 @@ const TimelineProjectUpperContainer = styled.div`
   flex: 0 0 auto;
   display: flex;
   justify-content: space-between;
+
+  & > div > p {
+    border-left: 3px dashed red;
+    border-top: 3px solid orange;
+    border-radius: 25px 0 0 0;
+  }
 `;
 
 const TimelineProjectLowerContainer = styled.div`
   height: 100%;
   width: 100%;
   flex: 0 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  & > div:first-child > div {
+    border-left: 3px dashed purple;
+    border-bottom: 3px solid turquoise;
+    padding-top: 100px;
+  }
 `;
 
 const TitleDescriptionContainer = styled.div`
   width: 50%;
   height: 40%;
   position: relative;
-  padding-top: 35px;
+  padding-top: 35px; // title pushed down on all, overridden in lower container &>div:f-c>div
 
   h2 {
     background-color: blue;
@@ -44,11 +59,8 @@ const TitleDescriptionContainer = styled.div`
 
   p {
     padding: 15px;
-    border-left: 3px dashed red;
-    border-top: 3px solid orange;
     margin: 0;
     height: 100%;
-    border-radius: 25px 0 0 0;
   }
 `;
 
@@ -66,7 +78,7 @@ const TitleContainer = styled.div`
 
 const ProjectImageContainer = styled.div`
   width: 50%;
-  height: 40%; // min 50% or fit-content not working
+  height: 35%; // min 50% or fit-content not working
   border-radius: 25px;
   border: 3px solid blue;
   overflow: hidden;
@@ -121,9 +133,15 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
   const createLowerTimelinePoint = ({ title, description, image, id }: Project): JSX.Element => {
     return (
       <TimelineProjectLowerContainer key={id}>
-        <h2>{title}</h2>
-        <p>{description}</p>
-        <Img fluid={image} />
+        <TitleDescriptionContainer>
+          <TitleContainer>
+            <h2>{title}</h2>
+          </TitleContainer>
+          <p>{description}</p>
+        </TitleDescriptionContainer>
+        <ProjectImageContainer>
+          <ProjectImage fluid={image} />
+        </ProjectImageContainer>
       </TimelineProjectLowerContainer>
     );
   };
