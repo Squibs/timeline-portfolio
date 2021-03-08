@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Img, { FluidObject } from 'gatsby-image';
 import styled from 'styled-components';
 
@@ -12,6 +12,7 @@ const TimelineContainer = styled.div`
   flex-wrap: nowrap;
   overflow-x: auto;
   align-items: center;
+  min-height: 380px;
 `;
 
 const TimelineProjectUpperContainer = styled.div`
@@ -22,15 +23,23 @@ const TimelineProjectUpperContainer = styled.div`
   padding-left: 200px;
   padding-top: 20px;
   flex-wrap: wrap;
-  align-content: flex-start;
   position: relative;
-  justify-content: flex-end;
   max-width: 1200px;
 
   & > div > p {
     border-left: 3px dashed red;
     border-top: 3px solid orange;
     border-radius: 25px 0 0 0;
+  }
+
+  // TitleDescriptionContainer overrides
+  & > div:first-child {
+    height: 38%;
+
+    // for when only upper containers
+    @media screen and (max-height: 686px) {
+      height: 60%;
+    }
   }
 `;
 
@@ -39,25 +48,24 @@ const TimelineProjectLowerContainer = styled.div`
   width: 100%;
   flex: 0 0 auto;
   display: flex;
-  align-content: flex-start;
   padding-left: 200px;
   padding-bottom: 20px;
   position: relative;
   flex-wrap: wrap-reverse;
   max-width: 1200px;
 
+  // TitleContainer overrides
   & > div:first-child > div {
     border-left: 3px dashed purple;
     border-bottom: 3px solid turquoise;
-    padding-top: 10%;
+    padding-top: 15%;
   }
 `;
 
 const TitleDescriptionContainer = styled.div`
-  /* width: 50%; */
-  height: 40%;
+  height: 45%;
   position: relative;
-  padding-top: 35px; // title pushed down on all, overridden in lower container &>div:f-c>div
+  padding-top: 35px; // title pushed down on all
   flex: 0 1 calc(50% - 3px); // 3 px half (one-side) of border surrounding image
 
   h2 {
@@ -72,6 +80,11 @@ const TitleDescriptionContainer = styled.div`
     padding: 15px;
     margin: 0;
     height: 100%;
+  }
+
+  // for when only upper containers
+  @media screen and (max-height: 686px) {
+    height: 70%;
   }
 `;
 
@@ -88,39 +101,37 @@ const TitleContainer = styled.div`
 `;
 
 const ProjectImageContainer = styled.div`
-  /* width: 50%; */
-  height: 35%; // min 50% or fit-content not working
+  height: 40%; // min 50% or fit-content not working
   border-radius: 25px;
   border: 3px solid blue;
   overflow: hidden;
   z-index: 1;
   flex: 0 1 calc(50% - 3px); // 3 px half (one-side) of border surrounding image
+
+  // for when only upper containers
+  @media screen and (max-height: 686px) {
+    height: 70%;
+  }
 `;
 
 // https://github.com/gatsbyjs/gatsby/discussions/28212
 const ProjectImage = styled(Img)<{ fluid: FluidObject | FluidObject[] }>``;
 
 const TimelineSquaresContainer = styled.div`
-  width: calc(100% - 125px);
+  width: calc(100% - calc(5%));
   height: 50%;
   height: fit-content;
   display: flex;
   position: absolute;
-  top: calc(50% - 15px);
+  top: calc(50% - 38px);
   justify-content: space-between;
-  /* left: calc(-85% + 238px); // 200px padding on each project container + half of square width + maybe 3-6px border from image */
   left: calc(125px + 38px);
-`;
 
-// for when in main main container
-// const TimelineSquaresContainer = styled.div`
-//   /* left: calc(-85% + 238px); // 200px padding on each project container + half of square width + maybe 3-6px border from image */
-//   position: absolute;
-//   display: flex;
-//   width: calc((100% * 3) + (200px * 3));
-//   flex-shrink: 0;
-//   justify-content: space-between;
-// `;
+  // for when only upper containers
+  @media screen and (max-height: 686px) {
+    top: calc(80% - 15px);
+  }
+`;
 
 const TimelineSquare = styled.div`
   height: 75px;
@@ -155,6 +166,7 @@ type Props = TimelineCreatorProps;
 
 const TimelineCreator = ({ projects }: Props): JSX.Element => {
   const timelineContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const [timelineArray, setTimelineArray] = useState<JSX.Element[]>([]);
 
   const createUpperTimelinePoint = ({ title, description, image, id }: Project): JSX.Element => {
     return (
@@ -208,31 +220,48 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
     );
   };
 
-  const createTimeline = () => {
-    const timelineArray = [];
+  const createTimeline = useCallback(() => {
+    const tArray = [];
+    // setTimelineArray([]);
 
     for (let i = 0; i < projects.length; i += 1) {
-      if (i % 2 === 0) {
-        timelineArray.push(createUpperTimelinePoint(projects[i]));
+      if (timelineContainerRef.current.offsetHeight >= 550) {
+        if (i % 2 === 0) {
+          tArray.push(createUpperTimelinePoint(projects[i]));
+        } else {
+          tArray.push(createLowerTimelinePoint(projects[i]));
+        }
       } else {
-        timelineArray.push(createLowerTimelinePoint(projects[i]));
+        tArray.push(createUpperTimelinePoint(projects[i]));
       }
     }
 
-    return timelineArray;
-  };
+    setTimelineArray(tArray);
+  }, [projects]);
+
+  // call createTimeline on mount
+  useEffect(() => {
+    createTimeline();
+  }, [createTimeline]);
+
+  // update createTimeline on window resize, if too small, only upper timeline points
+  useEffect(() => {
+    window.addEventListener('resize', createTimeline);
+
+    return () => {
+      window.removeEventListener('resize', createTimeline);
+    };
+  }, [createTimeline, projects, timelineArray]);
 
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
-    // if (e.deltaY > 0)
-    //   timelineContainerRef.current.scrollLeft += timelineContainerRef.current.clientWidth;
-    // else timelineContainerRef.current.scrollLeft -= timelineContainerRef.current.clientWidth;
+    // timelineContainerRef.current.scrollLeft += timelineContainerRef.current.clientWidth;
     if (e.deltaY > 0) timelineContainerRef.current.scrollLeft += 15;
     else timelineContainerRef.current.scrollLeft -= 15;
   };
 
   return (
     <TimelineContainer onWheel={handleWheel} ref={timelineContainerRef}>
-      {createTimeline()}
+      {timelineArray}
     </TimelineContainer>
   );
 };

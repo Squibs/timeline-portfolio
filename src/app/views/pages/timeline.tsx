@@ -53,6 +53,7 @@ const TimelineContainer = styled.div`
   border-radius: 25px;
   border: 6px solid ${(props) => props.theme.colors.accentOne};
   z-index: 1;
+  margin-bottom: 10px;
 `;
 
 /* ---------------------------------- types --------------------------------- */
@@ -117,8 +118,6 @@ const TimelinePage: React.FC = () => {
   const imageSelector = (imgName: string) => {
     return data.images.nodes.filter((node: Node) => node.base === imgName)[0];
   };
-
-  console.log(data.background.childImageSharp.fixed.src);
 
   return (
     <PageContainer className="page-container-styles">
