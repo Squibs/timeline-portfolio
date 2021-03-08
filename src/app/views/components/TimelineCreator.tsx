@@ -39,19 +39,25 @@ const TitleDescriptionContainer = styled.div`
     width: 90%;
     font-size: 20px;
     border-radius: 25px 25px 0 0;
+    margin: 0;
   }
 
   p {
     padding: 15px;
+    border-left: 3px dashed red;
+    border-top: 3px solid orange;
+    margin: 0;
+    height: 100%;
+    border-radius: 25px 0 0 0;
   }
 `;
 
 const TitleContainer = styled.div`
-  border-bottom: 5px solid blue;
   display: flex;
   justify-content: center;
   align-items: center;
   height: fit-content;
+  border-radius: 0 0 0 25px;
 
   & > h2 {
     margin: 0;
