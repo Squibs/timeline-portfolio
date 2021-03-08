@@ -8,11 +8,21 @@ const TimelineContainer = styled.div`
   height: 100%;
   width: 100%;
   overflow-y: hidden;
+  overflow-x: auto;
   display: flex;
   flex-wrap: nowrap;
-  overflow-x: auto;
   align-items: center;
   min-height: 380px;
+  position: relative;
+
+  & > div:first-child {
+    padding-left: 100px;
+
+    & > div:last-child {
+      left: calc(25px + 38px);
+      width: calc(100% + calc(5%));
+    }
+  }
 `;
 
 const TimelineProjectUpperContainer = styled.div`
@@ -25,6 +35,7 @@ const TimelineProjectUpperContainer = styled.div`
   flex-wrap: wrap;
   position: relative;
   max-width: 1200px;
+  min-width: 800px;
 
   & > div > p {
     border-left: 3px dashed red;
@@ -139,6 +150,21 @@ const TimelineSquare = styled.div`
   content: '';
   background-color: pink;
   box-shadow: inset 0 0 10px green;
+  z-index: 2;
+`;
+
+const TimelineLine = styled.div`
+  width: 250%; // adjust with amount of projects
+  height: 0px;
+  position: absolute;
+  z-index: 1;
+  flex-grow: 1;
+  border: 20px dashed red;
+
+  // for when only upper containers
+  @media screen and (max-height: 686px) {
+    top: calc(85% - 15px);
+  }
 `;
 
 /* ---------------------------------- types --------------------------------- */
@@ -182,13 +208,6 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
         </ProjectImageContainer>
         <TimelineSquaresContainer>
           <TimelineSquare />
-          <TimelineSquare />
-          <TimelineSquare />
-          <TimelineSquare />
-          <TimelineSquare />
-          <TimelineSquare />
-          <TimelineSquare />
-          <TimelineSquare />
         </TimelineSquaresContainer>
       </TimelineProjectUpperContainer>
     );
@@ -207,13 +226,6 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
           <ProjectImage fluid={image} />
         </ProjectImageContainer>
         <TimelineSquaresContainer>
-          <TimelineSquare />
-          <TimelineSquare />
-          <TimelineSquare />
-          <TimelineSquare />
-          <TimelineSquare />
-          <TimelineSquare />
-          <TimelineSquare />
           <TimelineSquare />
         </TimelineSquaresContainer>
       </TimelineProjectLowerContainer>
@@ -262,6 +274,7 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
   return (
     <TimelineContainer onWheel={handleWheel} ref={timelineContainerRef}>
       {timelineArray}
+      <TimelineLine />
     </TimelineContainer>
   );
 };

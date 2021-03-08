@@ -133,7 +133,7 @@ const TimelinePage: React.FC = () => {
         <h1>My Timeline</h1>
         <TimelineContainer
           style={{
-            background: `url('${data.background.childImageSharp.fixed.src}') center cover no-repeat`,
+            background: `url('${data.background.childImageSharp.fixed.src}')`,
           }}
         >
           <TimelineCreator
