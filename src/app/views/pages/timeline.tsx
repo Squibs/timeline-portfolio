@@ -71,10 +71,20 @@ type Node = {
   };
 };
 
+type BackgroundImage = {
+  childImageSharp: {
+    id: string;
+    fixed: {
+      src: string;
+    };
+  };
+};
+
 type Query = {
   images: {
     nodes: Node[];
   };
+  background: BackgroundImage;
 };
 
 /* -------------------------------- component ------------------------------- */
@@ -93,12 +103,22 @@ const TimelinePage: React.FC = () => {
           }
         }
       }
+      background: file(relativePath: { eq: "timelinePage/diagonal-striped-brick-pattern.png" }) {
+        childImageSharp {
+          id
+          fixed(width: 1920) {
+            src
+          }
+        }
+      }
     }
   `);
 
   const imageSelector = (imgName: string) => {
     return data.images.nodes.filter((node: Node) => node.base === imgName)[0];
   };
+
+  console.log(data.background.childImageSharp.fixed.src);
 
   return (
     <PageContainer className="page-container-styles">
@@ -112,7 +132,11 @@ const TimelinePage: React.FC = () => {
 
       <ContentContainer className="page-content-styles">
         <h1>My Timeline</h1>
-        <TimelineContainer>
+        <TimelineContainer
+          style={{
+            background: `url('${data.background.childImageSharp.fixed.src}') center cover no-repeat`,
+          }}
+        >
           <TimelineCreator
             projects={[
               {

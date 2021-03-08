@@ -19,7 +19,13 @@ const TimelineProjectUpperContainer = styled.div`
   width: 100%;
   flex: 0 0 auto;
   display: flex;
-  justify-content: space-between;
+  padding-left: 200px;
+  padding-top: 20px;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  position: relative;
+  justify-content: flex-end;
+  max-width: 1200px;
 
   & > div > p {
     border-left: 3px dashed red;
@@ -33,21 +39,26 @@ const TimelineProjectLowerContainer = styled.div`
   width: 100%;
   flex: 0 0 auto;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  align-content: flex-start;
+  padding-left: 200px;
+  padding-bottom: 20px;
+  position: relative;
+  flex-wrap: wrap-reverse;
+  max-width: 1200px;
 
   & > div:first-child > div {
     border-left: 3px dashed purple;
     border-bottom: 3px solid turquoise;
-    padding-top: 100px;
+    padding-top: 10%;
   }
 `;
 
 const TitleDescriptionContainer = styled.div`
-  width: 50%;
+  /* width: 50%; */
   height: 40%;
   position: relative;
   padding-top: 35px; // title pushed down on all, overridden in lower container &>div:f-c>div
+  flex: 0 1 calc(50% - 3px); // 3 px half (one-side) of border surrounding image
 
   h2 {
     background-color: blue;
@@ -77,16 +88,47 @@ const TitleContainer = styled.div`
 `;
 
 const ProjectImageContainer = styled.div`
-  width: 50%;
+  /* width: 50%; */
   height: 35%; // min 50% or fit-content not working
   border-radius: 25px;
   border: 3px solid blue;
   overflow: hidden;
   z-index: 1;
+  flex: 0 1 calc(50% - 3px); // 3 px half (one-side) of border surrounding image
 `;
 
 // https://github.com/gatsbyjs/gatsby/discussions/28212
 const ProjectImage = styled(Img)<{ fluid: FluidObject | FluidObject[] }>``;
+
+const TimelineSquaresContainer = styled.div`
+  width: calc(100% - 125px);
+  height: 50%;
+  height: fit-content;
+  display: flex;
+  position: absolute;
+  top: calc(50% - 15px);
+  justify-content: space-between;
+  /* left: calc(-85% + 238px); // 200px padding on each project container + half of square width + maybe 3-6px border from image */
+  left: calc(125px + 38px);
+`;
+
+// for when in main main container
+// const TimelineSquaresContainer = styled.div`
+//   /* left: calc(-85% + 238px); // 200px padding on each project container + half of square width + maybe 3-6px border from image */
+//   position: absolute;
+//   display: flex;
+//   width: calc((100% * 3) + (200px * 3));
+//   flex-shrink: 0;
+//   justify-content: space-between;
+// `;
+
+const TimelineSquare = styled.div`
+  height: 75px;
+  width: 75px;
+  content: '';
+  background-color: pink;
+  box-shadow: inset 0 0 10px green;
+`;
 
 /* ---------------------------------- types --------------------------------- */
 
@@ -126,6 +168,16 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
         <ProjectImageContainer>
           <ProjectImage fluid={image} />
         </ProjectImageContainer>
+        <TimelineSquaresContainer>
+          <TimelineSquare />
+          <TimelineSquare />
+          <TimelineSquare />
+          <TimelineSquare />
+          <TimelineSquare />
+          <TimelineSquare />
+          <TimelineSquare />
+          <TimelineSquare />
+        </TimelineSquaresContainer>
       </TimelineProjectUpperContainer>
     );
   };
@@ -142,6 +194,16 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
         <ProjectImageContainer>
           <ProjectImage fluid={image} />
         </ProjectImageContainer>
+        <TimelineSquaresContainer>
+          <TimelineSquare />
+          <TimelineSquare />
+          <TimelineSquare />
+          <TimelineSquare />
+          <TimelineSquare />
+          <TimelineSquare />
+          <TimelineSquare />
+          <TimelineSquare />
+        </TimelineSquaresContainer>
       </TimelineProjectLowerContainer>
     );
   };
@@ -161,9 +223,11 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
   };
 
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
-    if (e.deltaY > 0)
-      timelineContainerRef.current.scrollLeft += timelineContainerRef.current.clientWidth;
-    else timelineContainerRef.current.scrollLeft -= timelineContainerRef.current.clientWidth;
+    // if (e.deltaY > 0)
+    //   timelineContainerRef.current.scrollLeft += timelineContainerRef.current.clientWidth;
+    // else timelineContainerRef.current.scrollLeft -= timelineContainerRef.current.clientWidth;
+    if (e.deltaY > 0) timelineContainerRef.current.scrollLeft += 15;
+    else timelineContainerRef.current.scrollLeft -= 15;
   };
 
   return (
