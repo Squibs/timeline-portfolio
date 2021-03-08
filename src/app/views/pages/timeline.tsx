@@ -21,7 +21,6 @@ const ContentContainer = styled.main`
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   max-width: 1800px;
   width: calc(100% - 85px);
 
@@ -54,6 +53,7 @@ const TimelineContainer = styled.div`
   border: 6px solid ${(props) => props.theme.colors.accentOne};
   z-index: 1;
   margin-bottom: 10px;
+  max-height: 1200px;
 `;
 
 /* ---------------------------------- types --------------------------------- */
