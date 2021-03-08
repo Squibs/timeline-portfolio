@@ -10,6 +10,7 @@
 - desktop mouseover iframe makes iframe larger/hide [onMouseEnter](https://github.com/davidjbradshaw/iframe-resizer/blob/master/docs/parent_page/events.md#onmouseenter)
 - have each md page pass some kind of default scale at a specific width for better scaling
   - maybe add zoom in / zoom out buttons
+- need min height queries for timeline horizontal
 - ? add note for each md page that styles might be off inside of the iframe
 - ? have buttons grayed out on page rather than gone. expand will always disappear on larger devices
 - ? make buttons larger on larger screens
