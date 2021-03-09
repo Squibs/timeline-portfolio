@@ -4,167 +4,64 @@ import styled from 'styled-components';
 
 /* --------------------------------- styles --------------------------------- */
 
-const TimelineContainer = styled.div`
+// used mainly to hide scrollbar
+const TimelineOuterContainer = styled.div`
   height: 100%;
   width: 100%;
   overflow-y: hidden;
   overflow-x: auto;
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  min-height: 380px;
-  position: relative;
 
-  & > div:first-child {
-    padding-left: 100px;
-
-    & > div:last-child {
-      left: calc(25px + 38px);
-      width: calc(100% + calc(5%));
-    }
+  h2 {
+    font-size: 28px;
   }
+
+  .UpperOrLowerContainer {
+    display: flex;
+    flex: 0 0 100vw;
+    width: 100vw;
+  }
+`;
+
+const TimelineInnerContainer = styled.div`
+  display: inline-flex;
+  height: 100%;
+  position: relative;
 `;
 
 const TimelineProjectUpperContainer = styled.div`
-  height: 100%;
-  width: 100%;
-  flex: 0 0 auto;
-  display: flex;
-  padding-left: 200px;
-  padding-top: 20px;
-  flex-wrap: wrap;
-  position: relative;
-  max-width: 1200px;
-  min-width: 800px;
-
-  & > div > p {
-    border-left: 3px dashed red;
-    border-top: 3px solid orange;
-    border-radius: 25px 0 0 0;
-  }
-
-  // TitleDescriptionContainer overrides
-  & > div:first-child {
-    height: 38%;
-
-    // for when only upper containers
-    @media screen and (max-height: 686px) {
-      height: 60%;
-    }
-  }
+  align-items: flex-start;
 `;
 
 const TimelineProjectLowerContainer = styled.div`
-  height: 100%;
-  width: 100%;
-  flex: 0 0 auto;
-  display: flex;
-  padding-left: 200px;
-  padding-bottom: 20px;
-  position: relative;
-  flex-wrap: wrap-reverse;
-  max-width: 1200px;
-
-  // TitleContainer overrides
-  & > div:first-child > div {
-    border-left: 3px dashed purple;
-    border-bottom: 3px solid turquoise;
-    padding-top: 15%;
-  }
+  align-items: flex-end;
 `;
 
 const TitleDescriptionContainer = styled.div`
-  height: 45%;
-  position: relative;
-  padding-top: 35px; // title pushed down on all
-  flex: 0 1 calc(50% - 3px); // 3 px half (one-side) of border surrounding image
-
-  h2 {
-    background-color: blue;
-    width: 90%;
-    font-size: 20px;
-    border-radius: 25px 25px 0 0;
-    margin: 0;
-  }
-
-  p {
-    padding: 15px;
-    margin: 0;
-    height: 100%;
-  }
-
-  // for when only upper containers
-  @media screen and (max-height: 686px) {
-    height: 70%;
-  }
+  width: 50%;
 `;
 
-const TitleContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: fit-content;
-  border-radius: 0 0 0 25px;
-
-  & > h2 {
-    margin: 0;
-  }
-`;
+const TitleContainer = styled.div``;
 
 const ProjectImageContainer = styled.div`
-  height: 40%; // min 50% or fit-content not working
-  border-radius: 25px;
-  border: 3px solid blue;
-  overflow: hidden;
-  z-index: 1;
-  flex: 0 1 calc(50% - 3px); // 3 px half (one-side) of border surrounding image
-
-  // for when only upper containers
-  @media screen and (max-height: 686px) {
-    height: 70%;
-  }
+  width: 50%;
 `;
 
 // https://github.com/gatsbyjs/gatsby/discussions/28212
 const ProjectImage = styled(Img)<{ fluid: FluidObject | FluidObject[] }>``;
 
 const TimelineSquaresContainer = styled.div`
-  width: calc(100% - calc(5%));
-  height: 50%;
-  height: fit-content;
-  display: flex;
-  position: absolute;
-  top: calc(50% - 38px);
-  justify-content: space-between;
-  left: calc(125px + 38px);
-
-  // for when only upper containers
-  @media screen and (max-height: 686px) {
-    top: calc(80% - 15px);
-  }
+  display: none;
 `;
 
-const TimelineSquare = styled.div`
-  height: 75px;
-  width: 75px;
-  content: '';
-  background-color: pink;
-  box-shadow: inset 0 0 10px green;
-  z-index: 2;
-`;
+const TimelineSquare = styled.div``;
 
 const TimelineLine = styled.div`
-  width: 250%; // adjust with amount of projects
   height: 0px;
+  border: 10px dashed red;
   position: absolute;
-  z-index: 1;
-  flex-grow: 1;
-  border: 20px dashed red;
-
-  // for when only upper containers
-  @media screen and (max-height: 686px) {
-    top: calc(85% - 15px);
-  }
+  top: 50%;
+  width: calc(100% - 20px);
+  z-index: -1;
 `;
 
 /* ---------------------------------- types --------------------------------- */
@@ -193,10 +90,11 @@ type Props = TimelineCreatorProps;
 const TimelineCreator = ({ projects }: Props): JSX.Element => {
   const timelineContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const [timelineArray, setTimelineArray] = useState<JSX.Element[]>([]);
+  const [timelineLineWidth, setTimelineLineWidth] = useState<number>();
 
   const createUpperTimelinePoint = ({ title, description, image, id }: Project): JSX.Element => {
     return (
-      <TimelineProjectUpperContainer key={id}>
+      <TimelineProjectUpperContainer key={id} className="UpperOrLowerContainer">
         <TitleDescriptionContainer>
           <TitleContainer>
             <h2>{title}</h2>
@@ -215,7 +113,7 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
 
   const createLowerTimelinePoint = ({ title, description, image, id }: Project): JSX.Element => {
     return (
-      <TimelineProjectLowerContainer key={id}>
+      <TimelineProjectLowerContainer key={id} className="UpperOrLowerContainer">
         <TitleDescriptionContainer>
           <TitleContainer>
             <h2>{title}</h2>
@@ -272,10 +170,12 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
   };
 
   return (
-    <TimelineContainer onWheel={handleWheel} ref={timelineContainerRef}>
-      {timelineArray}
-      <TimelineLine />
-    </TimelineContainer>
+    <TimelineOuterContainer onWheel={handleWheel} ref={timelineContainerRef}>
+      <TimelineInnerContainer>
+        {timelineArray}
+        <TimelineLine />
+      </TimelineInnerContainer>
+    </TimelineOuterContainer>
   );
 };
 

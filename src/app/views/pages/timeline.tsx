@@ -54,6 +54,7 @@ const TimelineContainer = styled.div`
   z-index: 1;
   margin-bottom: 10px;
   max-height: 1200px;
+  position: relative;
 `;
 
 /* ---------------------------------- types --------------------------------- */
@@ -141,21 +142,21 @@ const TimelinePage: React.FC = () => {
               {
                 title: 'Learning To Necro',
                 description:
-                  'Aliquip aliquip ad nisi sunt. Ad sint amet quis excepteur aliquip nostrud in aliquip magna cupidatat labore consectetur. Ipsum ipsum laborum et labore pariatur adipisicing elit deserunt consequat. Aliquip excepteur sit proident incididunt duis sit voluptate. Ea et aliqua aliqua do officia minim Lorem et enim nostrud anim aliqua exercitation culpa.',
+                  'Aliquip aliquip ad nisi sunt. Ipsum ipsum laborum et labore pariatur adipisicing elit deserunt consequat. Aliquip excepteur sit proident incididunt duis sit voluptate. Ea et aliqua aliqua do officia minim Lorem et enim nostrud anim aliqua exercitation culpa.',
                 image: imageSelector('screenshot-learning-to-necro.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-learning-to-necro.png').id,
               },
               {
                 title: 'Pomodoro Clock',
                 description:
-                  'Esse dolor sit elit sunt nostrud fugiat eiusmod deserunt adipisicing adipisicing cupidatat enim do. Ipsum pariatur reprehenderit irure ullamco. Non exercitation mollit velit consequat non aliqua fugiat.',
+                  'Esse dolor sit elit sunt nostrud incididunt incididunt ex ex incididunt adipisicing fugiat eiusmod deserunt adipisicing incididunt adipisicing adipisicing cupidatat enim do. Ipsum pariatur reprehenderit irure ullamco. Non exercitation deserunt adipisicing adipisicing cupidatat enim do mollit velit consequat non aliqua fugiat.',
                 image: imageSelector('screenshot-pomodoro-clock.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-pomodoro-clock.png').id,
               },
               {
                 title: 'Quote Machine',
                 description:
-                  'Eiusmod reprehenderit consectetur nulla laborum tempor incididunt ex ex incididunt adipisicing laborum proident. Ipsum incididunt esse fugiat est mollit sit sit consequat et. Excepteur deserunt tempor culpa deserunt consequat. Incididunt enim voluptate ad enim esse adipisicing esse ullamco dolore nostrud est magna. Officia do esse dolor amet ipsum sint et. Veniam culpa eu ea do id est laboris proident.',
+                  'Eiusmod reprehenderit consectetur nulla laborum tempor. Excepteur deserunt tempor culpa deserunt consequat. Incididunt enim voluptate ad enim esse adipisicing esse ullamco dolore nostrud est magna. Officia do esse dolor amet ipsum sint et. Veniam culpa eu ea do id est laboris proident.',
                 image: imageSelector('screenshot-quote-machine.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-quote-machine.png').id,
               },
