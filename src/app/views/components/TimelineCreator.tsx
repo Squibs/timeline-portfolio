@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 /* --------------------------------- styles --------------------------------- */
 
+// https://jsfiddle.net/nLbag9u5/260/
 // used mainly to hide scrollbar
 const TimelineOuterContainer = styled.div`
   height: 100%;
@@ -14,18 +15,18 @@ const TimelineOuterContainer = styled.div`
   h2 {
     font-size: 28px;
   }
-
-  .UpperOrLowerContainer {
-    display: flex;
-    flex: 0 0 100vw;
-    width: 100vw;
-  }
 `;
 
 const TimelineInnerContainer = styled.div`
-  display: inline-flex;
   height: 100%;
+  display: flex;
   position: relative;
+
+  .UpperOrLowerContainer {
+    display: flex;
+    flex: 0 0 100%;
+    flex-direction: column;
+  }
 `;
 
 const TimelineProjectUpperContainer = styled.div`
@@ -37,13 +38,13 @@ const TimelineProjectLowerContainer = styled.div`
 `;
 
 const TitleDescriptionContainer = styled.div`
-  width: 50%;
+  width: 100%;
 `;
 
 const TitleContainer = styled.div``;
 
 const ProjectImageContainer = styled.div`
-  width: 50%;
+  width: 100%;
 `;
 
 // https://github.com/gatsbyjs/gatsby/discussions/28212
@@ -56,12 +57,11 @@ const TimelineSquaresContainer = styled.div`
 const TimelineSquare = styled.div``;
 
 const TimelineLine = styled.div`
-  height: 0px;
   border: 10px dashed red;
   position: absolute;
-  top: 50%;
-  width: calc(100% - 20px);
-  z-index: -1;
+  top: calc(50% - 10px);
+  // width set programmatically similar to the following; to adjust go to jsx element
+  /* width: calc((100% * (INNER-CONTAINER-NUMBER-OF-CHILDREN - 1)) - 20px); */
 `;
 
 /* ---------------------------------- types --------------------------------- */
@@ -88,7 +88,8 @@ type Props = TimelineCreatorProps;
 /* -------------------------------- component ------------------------------- */
 
 const TimelineCreator = ({ projects }: Props): JSX.Element => {
-  const timelineContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const timelineOuterContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const timelineInnerContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const [timelineArray, setTimelineArray] = useState<JSX.Element[]>([]);
   const [timelineLineWidth, setTimelineLineWidth] = useState<number>();
 
@@ -130,12 +131,17 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
     );
   };
 
+  // set timeline-line width based on number of children of inner container
+  useEffect(() => {
+    setTimelineLineWidth(timelineInnerContainerRef.current.children.length - 1);
+  }, [timelineLineWidth]);
+
+  // create timeline callback
   const createTimeline = useCallback(() => {
     const tArray = [];
-    // setTimelineArray([]);
 
     for (let i = 0; i < projects.length; i += 1) {
-      if (timelineContainerRef.current.offsetHeight >= 550) {
+      if (timelineOuterContainerRef.current.offsetHeight >= 550) {
         if (i % 2 === 0) {
           tArray.push(createUpperTimelinePoint(projects[i]));
         } else {
@@ -149,11 +155,6 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
     setTimelineArray(tArray);
   }, [projects]);
 
-  // call createTimeline on mount
-  useEffect(() => {
-    createTimeline();
-  }, [createTimeline]);
-
   // update createTimeline on window resize, if too small, only upper timeline points
   useEffect(() => {
     window.addEventListener('resize', createTimeline);
@@ -163,17 +164,22 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
     };
   }, [createTimeline, projects, timelineArray]);
 
+  // call createTimeline on mount
+  useEffect(() => {
+    createTimeline();
+  }, [createTimeline]);
+
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
-    // timelineContainerRef.current.scrollLeft += timelineContainerRef.current.clientWidth;
-    if (e.deltaY > 0) timelineContainerRef.current.scrollLeft += 15;
-    else timelineContainerRef.current.scrollLeft -= 15;
+    // timelineOuterContainerRef.current.scrollLeft += timelineOuterContainerRef.current.clientWidth;
+    if (e.deltaY > 0) timelineOuterContainerRef.current.scrollLeft += 15;
+    else timelineOuterContainerRef.current.scrollLeft -= 15;
   };
 
   return (
-    <TimelineOuterContainer onWheel={handleWheel} ref={timelineContainerRef}>
-      <TimelineInnerContainer>
+    <TimelineOuterContainer onWheel={handleWheel} ref={timelineOuterContainerRef}>
+      <TimelineInnerContainer ref={timelineInnerContainerRef}>
         {timelineArray}
-        <TimelineLine />
+        <TimelineLine style={{ width: `calc((100% * ${timelineLineWidth}) - 20px)` }} />
       </TimelineInnerContainer>
     </TimelineOuterContainer>
   );
