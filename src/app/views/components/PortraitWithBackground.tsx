@@ -12,11 +12,11 @@ const PortraitContainer = styled.div`
   width: 100%;
   height: 250px;
 
-  ${(props) => props.theme.breakpoints.for1SmallPhonesOnly()`
+  ${({ theme }) => theme.breakpoints.for1SmallPhonesOnly()`
     height: 165px;
   `};
 
-  ${(props) => props.theme.breakpoints.for3TabletPortraitUp()`
+  ${({ theme }) => theme.breakpoints.for3TabletPortraitUp()`
     height: 340px;
   `}
 `;
@@ -27,11 +27,11 @@ const SVGImage = styled.img`
   position: absolute;
   margin-top: 10px;
 
-  ${(props) => props.theme.breakpoints.for1SmallPhonesOnly()`
+  ${({ theme }) => theme.breakpoints.for1SmallPhonesOnly()`
     height: 150px;
   `};
 
-  ${(props) => props.theme.breakpoints.for3TabletPortraitUp()`
+  ${({ theme }) => theme.breakpoints.for3TabletPortraitUp()`
     height: 325px;
   `}
 `;
@@ -44,12 +44,12 @@ const ImageCropper = styled.div`
   border-radius: 50%;
   margin-top: 8px;
 
-  ${(props) => props.theme.breakpoints.for1SmallPhonesOnly()`
+  ${({ theme }) => theme.breakpoints.for1SmallPhonesOnly()`
     height: 150px;
     width: 150px;
   `};
 
-  ${(props) => props.theme.breakpoints.for3TabletPortraitUp()`
+  ${({ theme }) => theme.breakpoints.for3TabletPortraitUp()`
     height: 325px;
     width: 325px;
   `}

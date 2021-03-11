@@ -7,13 +7,13 @@ import { Colors } from '../shared';
 /* --------------------------------- styles --------------------------------- */
 
 const PageContainer = styled.div`
-  background-color: ${(props) => props.theme.colors.primaryLight};
+  background-color: ${({ theme }) => theme.colors.primaryLight};
   overflow: hidden;
 `;
 
 const ContentContainer = styled.main`
   outline: none;
-  color: ${(props) => props.theme.colors.primaryDark};
+  color: ${({ theme }) => theme.colors.primaryDark};
   p {
     font-weight: 400;
   }
@@ -50,7 +50,7 @@ const TimelineContainer = styled.div`
   height: 85%;
   overflow: hidden;
   border-radius: 25px;
-  border: 6px solid ${(props) => props.theme.colors.accentOne};
+  border: 6px solid ${({ theme }) => theme.colors.accentOne};
   z-index: 1;
   margin-bottom: 10px;
   max-height: 1200px;

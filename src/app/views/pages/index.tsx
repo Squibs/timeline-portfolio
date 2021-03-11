@@ -7,12 +7,12 @@ import { useScrollHook } from '../hooks';
 /* --------------------------------- styles --------------------------------- */
 
 const PageContainer = styled.div`
-  background-color: ${(props) => props.theme.colors.primaryDark};
+  background-color: ${({ theme }) => theme.colors.primaryDark};
 `;
 
 const ContentContainer = styled.main`
   outline: none;
-  color: ${(props) => props.theme.colors.whiteTint};
+  color: ${({ theme }) => theme.colors.whiteTint};
   p {
     font-weight: 300;
   }

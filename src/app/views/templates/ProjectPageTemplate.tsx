@@ -11,8 +11,8 @@ import { useScrollHook } from '../hooks';
 
 const PageContainer = styled.div`
   .project-buttons {
-    background-color: ${(props) => props.theme.colors.accentTwo};
-    color: ${(props) => props.theme.colors.whiteTint};
+    background-color: ${({ theme }) => theme.colors.accentTwo};
+    color: ${({ theme }) => theme.colors.whiteTint};
     box-shadow: 0 0 6px black;
     border: none;
     padding: 5px;
@@ -26,12 +26,12 @@ const PageContainer = styled.div`
     &:hover,
     &:focus {
       outline: none;
-      background-color: ${(props) => props.theme.colors.whiteTint};
-      color: ${(props) => props.theme.colors.accentTwo};
+      background-color: ${({ theme }) => theme.colors.whiteTint};
+      color: ${({ theme }) => theme.colors.accentTwo};
     }
   }
 
-  background-color: ${(props) => props.theme.colors.primaryNeutral};
+  background-color: ${({ theme }) => theme.colors.primaryNeutral};
 `;
 
 const ContentContainer = styled.main`
@@ -40,7 +40,7 @@ const ContentContainer = styled.main`
   }
 
   outline: none;
-  color: ${(props) => props.theme.colors.whiteTint};
+  color: ${({ theme }) => theme.colors.whiteTint};
   max-width: 2560px;
 
   // remove some default styles from .page-content-styles
@@ -56,7 +56,7 @@ const ContentContainer = styled.main`
   flex-direction: column;
   justify-content: flex-end;
 
-  ${(props) => props.theme.breakpoints.for4TabletLandscapeUp()`
+  ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
     flex-direction: row;
   `}
 `;
@@ -67,7 +67,7 @@ const ProjectInformationContainer = styled.div`
   overflow: hidden;
   transition: height 1s;
 
-  ${(props) => props.theme.breakpoints.for4TabletLandscapeUp()`
+  ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
     height: 100%;
     width: 25%;
   `}
@@ -90,7 +90,7 @@ const ProjectInformation = styled.div`
   flex-direction: column;
   align-items: center;
 
-  ${(props) => props.theme.breakpoints.for4TabletLandscapeUp()`
+  ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
     h1 { font-size: 36px; }
     h2 { font-size: 28px; }
   `}
@@ -106,7 +106,7 @@ const ProjectDescription = styled.div`
   width: calc(100% - 45px);
   padding: 0 20px;
 
-  ${(props) => props.theme.breakpoints.for3TabletPortraitUp()`
+  ${({ theme }) => theme.breakpoints.for3TabletPortraitUp()`
     padding: 0 30px;
     width: calc(100% - 60px);
   `}
@@ -137,7 +137,7 @@ const ProjectDisplayContainer = styled.div`
   align-items: center;
   transition: height 1s;
 
-  ${(props) => props.theme.breakpoints.for4TabletLandscapeUp()`
+  ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
     height: 100%;
     width: 75%;
   `}
@@ -145,9 +145,9 @@ const ProjectDisplayContainer = styled.div`
 
 const ProjectDisplay = styled.div`
   height: 100%;
-  background-color: ${(props) => props.theme.colors.primaryNeutral};
+  background-color: ${({ theme }) => theme.colors.primaryNeutral};
   border-radius: 15px;
-  border: 3px solid ${(props) => props.theme.colors.accentOne};
+  border: 3px solid ${({ theme }) => theme.colors.accentOne};
   width: calc(100% - 20px);
   height: calc(100% - 20px);
   overflow: hidden;
@@ -171,7 +171,7 @@ const ButtonContainer = styled.div`
   bottom: 5px;
   right: 5px;
 
-  ${(props) => props.theme.breakpoints.for4TabletLandscapeUp()`
+  ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
     & button { display: none;}
     left: 25%;
     width: calc(100% - 25%);
