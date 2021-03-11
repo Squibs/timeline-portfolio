@@ -1,0 +1,15 @@
+export enum TimelineColors {
+  colorOne = '#54478C',
+  colorTwo = '#2C699A',
+  colorThree = '#048BA8',
+  colorFour = '#0DB39E',
+  colorFive = '#16DB93',
+  colorSix = '#83E377',
+  colorSeven = '#B9E769',
+  colorEight = '#EFEA5A',
+  colorNine = '#F1C453',
+  colorTen = '#F29E4C',
+  colorEleven = '#F67048',
+  colorTwelve = '#F94144',
+  colorGray = '#C4C4C4',
+}

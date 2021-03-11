@@ -6,18 +6,47 @@ declare module 'gatsby-plugin-transition-link/AniLink';
 declare module 'styled-components' {
   export interface DefaultTheme {
     colors: {
-      /** Light Gray */
+      /** Light Gray: Black Font */
       primaryLight: string;
-      /** Y In Mn Blue  */
+      /** Y In Mn Blue: White Font  */
       primaryNeutral: string;
-      /** Gunmetal */
+      /** Gunmetal: White Font */
       primaryDark: string;
-      /** Vegas Gold */
+      /** Vegas Gold: Black Font */
       accentOne: string;
-      /** Upsdell Red */
+      /** Upsdell Red: White Font */
       accentTwo: string;
-      /** Cultured */
+      /** Cultured: Black Font */
       whiteTint: string;
+    };
+
+    timelineColors: {
+      /** Dark Slate Blue (Purple): White Font */
+      colorOne: string;
+      /** Sapphire Blue: White Font */
+      colorTwo: string;
+      /** Blue Munsell: White Font */
+      colorThree: string;
+      /** Keppel: White Font */
+      colorFour: string;
+      /** Medium Aquamarine: White Font */
+      colorFive: string;
+      /** Light Green: Black Font */
+      colorSix: string;
+      /** Inchworm: Black Font */
+      colorSeven: string;
+      /** Corn: Black Font */
+      colorEight: string;
+      /** Maize Crayola: Black Font */
+      colorNine: string;
+      /** Sandy Brown: Black Font */
+      colorTen: string;
+      /** Outrageous Orange: White Font */
+      colorEleven: string;
+      /** Red Salsa: White Font */
+      colorTwelve: string;
+      /** Silver: Black Font */
+      colorGray: string;
     };
 
     breakpoints: {

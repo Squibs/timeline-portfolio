@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { ThemeProvider, DefaultTheme } from 'styled-components';
-import { Breakpoints, Colors } from '../shared';
+import { Breakpoints, Colors, TimelineColors } from '../shared';
 
 const BorderContainer = styled.div`
   width: calc(100% - 40px);
@@ -45,6 +45,22 @@ const theme: DefaultTheme = {
     accentOne: Colors.accentOne,
     accentTwo: Colors.accentTwo,
     whiteTint: Colors.whiteTint,
+  },
+
+  timelineColors: {
+    colorOne: TimelineColors.colorOne,
+    colorTwo: TimelineColors.colorTwo,
+    colorThree: TimelineColors.colorThree,
+    colorFour: TimelineColors.colorFour,
+    colorFive: TimelineColors.colorFive,
+    colorSix: TimelineColors.colorSix,
+    colorSeven: TimelineColors.colorSeven,
+    colorEight: TimelineColors.colorEight,
+    colorNine: TimelineColors.colorNine,
+    colorTen: TimelineColors.colorTen,
+    colorEleven: TimelineColors.colorEleven,
+    colorTwelve: TimelineColors.colorTwelve,
+    colorGray: TimelineColors.colorGray,
   },
 
   breakpoints: {
