@@ -45,9 +45,9 @@ const TimelineProjectUpperContainer = styled.div`
   align-items: flex-start;
 
   & > div > p {
-    border-right: 3px dashed red;
+    border-left: 3px dashed red;
     border-top: 3px solid orange;
-    border-radius: 0 25px 0 0;
+    border-radius: 25px 0 0 0;
     margin-right: 10px;
     flex: 1;
     min-height: 25px;
@@ -58,10 +58,11 @@ const TimelineProjectUpperContainer = styled.div`
     content: '';
     width: calc(50% - 13px);
     height: 10px;
-    border-radius: 0 0 25px 0;
+    border-radius: 0 0 0 25px;
     border-bottom: 3px dashed red;
-    border-right: 3px dashed red;
-    margin-left: 50%;
+    border-left: 3px dashed red;
+    margin-right: 50%;
+    margin-left: 10px;
   }
 `;
 
@@ -83,7 +84,7 @@ const TitleDescriptionContainer = styled.div`
 
 const TitleContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
 `;
 
 const ProjectImageContainer = styled.div`
