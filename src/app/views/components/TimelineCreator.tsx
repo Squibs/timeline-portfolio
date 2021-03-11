@@ -13,9 +13,21 @@ const TimelineOuterContainer = styled.div`
   overflow-x: auto;
 
   h2 {
-    font-size: 28px;
+    font-size: 1.25rem;
+    background-color: blue;
+    width: 90%;
+    border-radius: 25px 25px 0 0;
+    margin: 0;
+  }
+
+  p {
+    font-size: 0.8rem;
+    padding: 5px;
+    margin: 0;
   }
 `;
+
+// TODO; FIX SCROLLBAR FOR FIREFOX RIGHT NOW IT'S INVISIBLE, DUE TO GLOBAL STYLES
 
 const TimelineInnerContainer = styled.div`
   height: 100%;
@@ -31,6 +43,26 @@ const TimelineInnerContainer = styled.div`
 
 const TimelineProjectUpperContainer = styled.div`
   align-items: flex-start;
+
+  & > div > p {
+    border-right: 3px dashed red;
+    border-top: 3px solid orange;
+    border-radius: 0 25px 0 0;
+    margin-right: 10px;
+    flex: 1;
+    min-height: 25px;
+  }
+
+  &:after {
+    order: 2;
+    content: '';
+    width: calc(50% - 13px);
+    height: 10px;
+    border-radius: 0 0 25px 0;
+    border-bottom: 3px dashed red;
+    border-right: 3px dashed red;
+    margin-left: 50%;
+  }
 `;
 
 const TimelineProjectLowerContainer = styled.div`
@@ -38,28 +70,55 @@ const TimelineProjectLowerContainer = styled.div`
 `;
 
 const TitleDescriptionContainer = styled.div`
+  order: 2;
+  margin-top: 5px;
+  /* margin-left: 5px; */
+  flex: 1;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 10px);
+  margin-left: auto;
 `;
 
-const TitleContainer = styled.div``;
+const TitleContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+`;
 
 const ProjectImageContainer = styled.div`
-  width: 100%;
+  order: 1;
+  border-radius: 25px;
+  border: 3px solid blue;
+  overflow: hidden;
+  width: calc(100% - 10px);
+  align-self: center;
+  margin: 5px 0;
+  background-color: black;
 `;
 
 // https://github.com/gatsbyjs/gatsby/discussions/28212
 const ProjectImage = styled(Img)<{ fluid: FluidObject | FluidObject[] }>``;
 
 const TimelineSquaresContainer = styled.div`
-  display: none;
+  order: 3;
+  background-color: green;
+  width: 50px;
+  flex: 0 0 50px;
+  position: relative;
+  align-self: center;
+  margin-bottom: 5px;
 `;
 
-const TimelineSquare = styled.div``;
+const TimelineSquare = styled.div`
+  display: none;
+`;
 
 const TimelineLine = styled.div`
   border: 10px dashed red;
   position: absolute;
-  top: calc(50% - 10px);
+  bottom: 17px;
+  z-index: -1;
   // width set programmatically similar to the following; to adjust go to jsx element
   /* width: calc((100% * (INNER-CONTAINER-NUMBER-OF-CHILDREN - 1)) - 20px); */
 `;
@@ -141,7 +200,7 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
     const tArray = [];
 
     for (let i = 0; i < projects.length; i += 1) {
-      if (timelineOuterContainerRef.current.offsetHeight >= 550) {
+      if (timelineOuterContainerRef.current.offsetWidth >= 700) {
         if (i % 2 === 0) {
           tArray.push(createUpperTimelinePoint(projects[i]));
         } else {

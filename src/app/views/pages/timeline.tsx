@@ -142,7 +142,7 @@ const TimelinePage: React.FC = () => {
               {
                 title: 'Learning To Necro',
                 description:
-                  'Aliquip aliquip ad nisi sunt. Ipsum ipsum laborum et labore pariatur adipisicing elit deserunt consequat. Aliquip excepteur sit proident incididunt duis sit voluptate. Ea et aliqua aliqua do officia minim Lorem et enim nostrud anim aliqua exercitation culpa.',
+                  'Aliquip aliquip ad nisi sunt. Ipsum ipsum laborum et labore pariatur adipisicing.',
                 image: imageSelector('screenshot-learning-to-necro.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-learning-to-necro.png').id,
               },
