@@ -163,7 +163,8 @@ const TimelineSquaresContainer = styled.button`
   &:hover,
   &:focus {
     outline: none;
-    border: none;
+    border-width: 0px;
+    transition: border-width 1s;
 
     & > div {
       background-color: ${({ theme }) => theme.timelineColors.colorOne};
