@@ -145,10 +145,10 @@ const ProjectImageContainer = styled.div`
 // https://github.com/gatsbyjs/gatsby/discussions/28212
 const ProjectImage = styled(Img)<{ fluid: FluidObject | FluidObject[] }>``;
 
-const TimelineSquaresContainer = styled.div`
+const TimelineSquaresContainer = styled.button`
   order: 3;
-  width: 50px;
-  flex: 0 0 50px;
+  width: 76px;
+  height: 76px;
   position: relative;
   align-self: center;
   margin-bottom: 5px;
@@ -156,18 +156,36 @@ const TimelineSquaresContainer = styled.div`
   justify-content: center;
   align-items: center;
   border: 10px solid #54478c;
+  background-color: transparent;
   margin-top: -8px;
   border-radius: 50%;
+
+  &:hover,
+  &:focus {
+    outline: none;
+    border: none;
+
+    & > div {
+      background-color: ${({ theme }) => theme.timelineColors.colorOne};
+      color: ${({ theme }) => theme.colors.whiteTint};
+      height: 76px;
+      flex: 0 0 76px;
+    }
+  }
 `;
 
-const TimelineSquare = styled.button`
-  border: none;
-  width: 44px;
+const TimelineSquare = styled.div`
   height: 44px;
-  background-color: #c4c4c4;
-  padding: 0;
+  flex: 0 0 44px;
+  background-color: ${({ theme }) => theme.timelineColors.colorGray};
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: 'Bitter', sans-serif;
+  color: ${({ theme }) => theme.colors.primaryDark};
+  font-weight: 400;
+  transition: flex 0.5s, height 0.5s, color 0.5s, background-color 0.5s;
 `;
 
 const TimelineLine = styled.div`
