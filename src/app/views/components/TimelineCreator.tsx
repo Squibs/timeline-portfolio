@@ -102,6 +102,7 @@ const TitleDescriptionContainer = styled.div`
   width: calc(100% - 10px);
   margin-left: auto;
   margin-right: auto;
+  flex: 1 1 auto;
 `;
 
 const TitleContainer = styled.div`
@@ -135,6 +136,7 @@ const ProjectImageContainer = styled.div`
   margin: 5px 0;
   background-color: black;
   min-height: 80px;
+  flex: 0 100 auto;
 `;
 
 // https://github.com/gatsbyjs/gatsby/discussions/28212
@@ -152,6 +154,7 @@ const TimelineSquaresContainer = styled.div`
   align-items: center;
   border: 10px solid #54478c;
   margin-top: -8px;
+  border-radius: 50%;
 `;
 
 const TimelineSquare = styled.button`
@@ -160,12 +163,14 @@ const TimelineSquare = styled.button`
   height: 44px;
   background-color: #c4c4c4;
   padding: 0;
+  border-radius: 50%;
+  font-family: 'Bitter', sans-serif;
 `;
 
 const TimelineLine = styled.div`
-  border: 10px dashed #c4c4c4;
+  border-top: 10px dotted #c4c4c4;
   position: absolute;
-  bottom: 28px;
+  bottom: 34px;
   z-index: -1;
   // width set programmatically similar to the following; to adjust go to jsx element
   /* width: calc((100% * (INNER-CONTAINER-NUMBER-OF-CHILDREN - 1)) - 20px); */
