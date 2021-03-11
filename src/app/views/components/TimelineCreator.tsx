@@ -11,15 +11,22 @@ const TimelineOuterContainer = styled.div`
   width: 100%;
   overflow-y: hidden;
   overflow-x: auto;
+  min-height: 270px;
 
   h2 {
-    background-color: blue;
+    background-color: #54478c;
     width: 85%;
     border-radius: 25px 25px 0 0;
     margin: 0;
+    padding: 2px 2px 0 2px;
+
+    ${({ theme }) => theme.breakpoints.for0PhoneOnly()`
+      width: 78%;
+      padding: 10px 5px 0 5px;
+    `}
 
     ${({ theme }) => theme.breakpoints.for1SmallPhonesOnly()`
-      width: 75%;
+      width: 70%;
     `}
   }
 
@@ -48,12 +55,24 @@ const TimelineProjectUpperContainer = styled.div`
   align-items: flex-start;
 
   & > div > p {
-    border-left: 3px dashed red;
-    border-top: 3px solid orange;
+    border-left: 3px solid #54478c;
     border-radius: 25px 0 0 0;
     margin-right: 10px;
     flex: 1;
     min-height: 25px;
+    display: flex;
+    flex-direction: column;
+
+    &:before {
+      content: '';
+      height: 30px;
+      margin-top: -5px;
+      margin-bottom: -27px;
+      border-top: 3px solid #54478c;
+      width: 100%;
+      border-radius: 25px 0 0 0;
+      margin-left: -6px;
+    }
   }
 
   &:after {
@@ -62,10 +81,10 @@ const TimelineProjectUpperContainer = styled.div`
     width: calc(50% - 13px);
     height: 10px;
     border-radius: 0 0 0 25px;
-    border-bottom: 3px dashed red;
-    border-left: 3px dashed red;
+    border-bottom: 3px solid #54478c;
+    border-left: 3px solid #54478c;
     margin-right: 50%;
-    margin-left: 10px;
+    margin-left: 5px;
   }
 `;
 
@@ -82,22 +101,40 @@ const TitleDescriptionContainer = styled.div`
   flex-direction: column;
   width: calc(100% - 10px);
   margin-left: auto;
+  margin-right: auto;
 `;
 
 const TitleContainer = styled.div`
   display: flex;
   justify-content: center;
+  border-radius: 0 0 25px;
+  flex-direction: column;
+  align-items: center;
+
+  &:after {
+    content: '';
+    width: 80%;
+    border-right: 3px solid #54478c;
+    border-bottom: 3px solid #54478c;
+    height: 100px;
+    border-radius: 0 0 25px 0;
+    align-self: flex-end;
+    margin-bottom: -3px;
+    margin-top: -100px;
+    margin-right: -3px;
+  }
 `;
 
 const ProjectImageContainer = styled.div`
   order: 1;
   border-radius: 25px;
-  border: 3px solid blue;
+  border: 3px solid #54478c;
   overflow: hidden;
   width: calc(100% - 10px);
   align-self: center;
   margin: 5px 0;
   background-color: black;
+  min-height: 80px;
 `;
 
 // https://github.com/gatsbyjs/gatsby/discussions/28212
@@ -105,22 +142,30 @@ const ProjectImage = styled(Img)<{ fluid: FluidObject | FluidObject[] }>``;
 
 const TimelineSquaresContainer = styled.div`
   order: 3;
-  background-color: green;
   width: 50px;
   flex: 0 0 50px;
   position: relative;
   align-self: center;
   margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 10px solid #54478c;
+  margin-top: -8px;
 `;
 
-const TimelineSquare = styled.div`
-  display: none;
+const TimelineSquare = styled.button`
+  border: none;
+  width: 44px;
+  height: 44px;
+  background-color: #c4c4c4;
+  padding: 0;
 `;
 
 const TimelineLine = styled.div`
-  border: 10px dashed red;
+  border: 10px dashed #c4c4c4;
   position: absolute;
-  bottom: 17px;
+  bottom: 28px;
   z-index: -1;
   // width set programmatically similar to the following; to adjust go to jsx element
   /* width: calc((100% * (INNER-CONTAINER-NUMBER-OF-CHILDREN - 1)) - 20px); */
@@ -168,7 +213,7 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
           <ProjectImage fluid={image} />
         </ProjectImageContainer>
         <TimelineSquaresContainer>
-          <TimelineSquare />
+          <TimelineSquare>View</TimelineSquare>
         </TimelineSquaresContainer>
       </TimelineProjectUpperContainer>
     );
