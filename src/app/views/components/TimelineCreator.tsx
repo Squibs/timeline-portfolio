@@ -13,11 +13,14 @@ const TimelineOuterContainer = styled.div`
   overflow-x: auto;
 
   h2 {
-    font-size: 1.25rem;
     background-color: blue;
-    width: 90%;
+    width: 85%;
     border-radius: 25px 25px 0 0;
     margin: 0;
+
+    ${({ theme }) => theme.breakpoints.for1SmallPhonesOnly()`
+      width: 75%;
+    `}
   }
 
   p {
@@ -73,7 +76,6 @@ const TimelineProjectLowerContainer = styled.div`
 const TitleDescriptionContainer = styled.div`
   order: 2;
   margin-top: 5px;
-  /* margin-left: 5px; */
   flex: 1;
   width: 100%;
   display: flex;
