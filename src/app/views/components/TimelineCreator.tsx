@@ -2,6 +2,11 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Img, { FluidObject } from 'gatsby-image';
 import styled from 'styled-components';
 
+// TODO; FIX SCROLLBAR FOR FIREFOX RIGHT NOW IT'S INVISIBLE, DUE TO GLOBAL STYLES
+// font size queries
+// adjust scroll to nearest project for mobile ~ 0.5-0.75 sec delay if in-between
+// color theme in rainbow order with correct font colors
+
 /* --------------------------------- styles --------------------------------- */
 
 // https://jsfiddle.net/nLbag9u5/260/
@@ -36,8 +41,6 @@ const TimelineOuterContainer = styled.div`
     margin: 0;
   }
 `;
-
-// TODO; FIX SCROLLBAR FOR FIREFOX RIGHT NOW IT'S INVISIBLE, DUE TO GLOBAL STYLES
 
 const TimelineInnerContainer = styled.div`
   height: 100%;
@@ -171,6 +174,7 @@ const TimelineLine = styled.div`
   border-top: 10px dotted #c4c4c4;
   position: absolute;
   bottom: 34px;
+  left: 10px;
   z-index: -1;
   // width set programmatically similar to the following; to adjust go to jsx element
   /* width: calc((100% * (INNER-CONTAINER-NUMBER-OF-CHILDREN - 1)) - 20px); */
