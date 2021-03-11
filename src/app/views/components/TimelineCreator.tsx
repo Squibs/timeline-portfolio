@@ -139,7 +139,7 @@ const ProjectImageContainer = styled.div`
   margin: 5px 0;
   background-color: black;
   min-height: 80px;
-  flex: 0 100 auto;
+  flex: 0 5000 auto;
 `;
 
 // https://github.com/gatsbyjs/gatsby/discussions/28212
@@ -155,7 +155,7 @@ const TimelineSquaresContainer = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 10px solid #54478c;
+  border: 8px solid #54478c;
   background-color: transparent;
   margin-top: -8px;
   border-radius: 50%;
@@ -192,7 +192,7 @@ const TimelineSquare = styled.div`
 const TimelineLine = styled.div`
   border-top: 10px dotted #c4c4c4;
   position: absolute;
-  bottom: 34px;
+  bottom: 38px;
   left: 10px;
   z-index: -1;
   // width set programmatically similar to the following; to adjust go to jsx element
@@ -260,7 +260,7 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
           <ProjectImage fluid={image} />
         </ProjectImageContainer>
         <TimelineSquaresContainer>
-          <TimelineSquare />
+          <TimelineSquare>View</TimelineSquare>
         </TimelineSquaresContainer>
       </TimelineProjectLowerContainer>
     );
