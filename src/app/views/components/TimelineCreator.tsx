@@ -47,17 +47,27 @@ const TimelineInnerContainer = styled.div`
   display: flex;
   position: relative;
 
-  .UpperOrLowerContainer {
-    display: flex;
-    flex: 0 0 100%;
-    flex-direction: column;
+  .UpperContainer {
+  }
+
+  .LowerContainer {
+    ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+      align-items: flex-end;
+    `}
   }
 `;
 
-const TimelineProjectUpperContainer = styled.div`
-  align-items: flex-start;
+const UpperOrLowerContainer = styled.div`
+  display: flex;
+  flex: 0 0 100%;
+  flex-direction: column;
 
-  & > div > p {
+  ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+      flex-direction: row;
+      flex-wrap: wrap;
+    `}
+
+  & > div:first-child > p {
     border-left: 3px solid #54478c;
     border-radius: 25px 0 0 0;
     margin-right: 10px;
@@ -67,16 +77,23 @@ const TimelineProjectUpperContainer = styled.div`
     flex-direction: column;
     margin-left: -3px;
 
+    ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+      border: unset;
+      margin: unset;
+    `}
+
     &:before {
       content: '';
       height: 30px;
-      margin-top: -5px;
-      margin-bottom: -27px;
       border-top: 3px solid #54478c;
       border-left: 3px solid #54478c;
       width: 100%;
       border-radius: 25px 0 0 0;
-      margin-left: -8px;
+      margin: -5px 0 -27px -8px;
+
+      ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+        display: none;
+      `}
     }
   }
 
@@ -90,24 +107,27 @@ const TimelineProjectUpperContainer = styled.div`
     border-left: 3px solid #54478c;
     margin-right: 50%;
     margin-left: 2px;
-  }
-`;
 
-const TimelineProjectLowerContainer = styled.div`
-  align-items: flex-end;
+    ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+      display: none;
+    `}
+  }
 `;
 
 const TitleDescriptionContainer = styled.div`
   order: 2;
-  margin-top: 5px;
-  flex: 1;
   width: 100%;
   display: flex;
   flex-direction: column;
   width: calc(100% - 10px);
-  margin-left: auto;
-  margin-right: auto;
+  margin: 5px auto 0 auto;
   flex: 1 1 auto;
+
+  ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+    order: 1;
+    margin: unset;
+    flex: 0 0 50%;
+  `}
 `;
 
 const TitleContainer = styled.div`
@@ -128,20 +148,34 @@ const TitleContainer = styled.div`
     margin-bottom: -3px;
     margin-top: -100px;
     margin-right: -3px;
+
+    ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+        display: none;
+    `}
   }
 `;
 
 const ProjectImageContainer = styled.div`
   order: 1;
-  border-radius: 25px;
-  border: 3px solid #54478c;
-  overflow: hidden;
-  width: calc(100% - 10px);
+  width: calc(100% - 4px);
   align-self: center;
   margin: 5px 0;
-  background-color: black;
   min-height: 80px;
   flex: 0 5000 auto;
+
+  ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+      order: 2;
+      flex: 0 0 50%;
+      align-self: unset;
+      margin: unset;
+  `}
+
+  & > div {
+    background-color: black;
+    border: 3px solid #54478c;
+    overflow: hidden;
+    border-radius: 25px;
+  }
 `;
 
 // https://github.com/gatsbyjs/gatsby/discussions/28212
@@ -204,9 +238,9 @@ const TimelineLine = styled.div`
 /* ---------------------------------- types --------------------------------- */
 
 type Project = {
+  id: string;
   title: string;
   description: string;
-  id: string;
   image: {
     aspectRatio: number;
     base64: string;
@@ -230,9 +264,12 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
   const [timelineArray, setTimelineArray] = useState<JSX.Element[]>([]);
   const [timelineLineWidth, setTimelineLineWidth] = useState<number>();
 
-  const createUpperTimelinePoint = ({ title, description, image, id }: Project): JSX.Element => {
+  const createUpperOrLowerContainers = ({ title, description, image, id }: Project, i: number) => {
     return (
-      <TimelineProjectUpperContainer key={id} className="UpperOrLowerContainer">
+      <UpperOrLowerContainer
+        key={id}
+        className={`${i % 2 === 0 ? 'UpperContainer' : 'LowerContainer'}`}
+      >
         <TitleDescriptionContainer>
           <TitleContainer>
             <h2>{title}</h2>
@@ -245,33 +282,9 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
         <TimelineSquaresContainer>
           <TimelineSquare>View</TimelineSquare>
         </TimelineSquaresContainer>
-      </TimelineProjectUpperContainer>
+      </UpperOrLowerContainer>
     );
   };
-
-  const createLowerTimelinePoint = ({ title, description, image, id }: Project): JSX.Element => {
-    return (
-      <TimelineProjectLowerContainer key={id} className="UpperOrLowerContainer">
-        <TitleDescriptionContainer>
-          <TitleContainer>
-            <h2>{title}</h2>
-          </TitleContainer>
-          <p>{description}</p>
-        </TitleDescriptionContainer>
-        <ProjectImageContainer>
-          <ProjectImage fluid={image} />
-        </ProjectImageContainer>
-        <TimelineSquaresContainer>
-          <TimelineSquare>View</TimelineSquare>
-        </TimelineSquaresContainer>
-      </TimelineProjectLowerContainer>
-    );
-  };
-
-  // set timeline-line width based on number of children of inner container
-  useEffect(() => {
-    setTimelineLineWidth(timelineInnerContainerRef.current.children.length - 1);
-  }, [timelineLineWidth]);
 
   // create timeline callback
   const createTimeline = useCallback(() => {
@@ -280,12 +293,12 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
     for (let i = 0; i < projects.length; i += 1) {
       if (timelineOuterContainerRef.current.offsetWidth >= 700) {
         if (i % 2 === 0) {
-          tArray.push(createUpperTimelinePoint(projects[i]));
+          tArray.push(createUpperOrLowerContainers(projects[i], i));
         } else {
-          tArray.push(createLowerTimelinePoint(projects[i]));
+          tArray.push(createUpperOrLowerContainers(projects[i], i));
         }
       } else {
-        tArray.push(createUpperTimelinePoint(projects[i]));
+        tArray.push(createUpperOrLowerContainers(projects[i], i));
       }
     }
 
@@ -311,6 +324,11 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
     if (e.deltaY > 0) timelineOuterContainerRef.current.scrollLeft += 15;
     else timelineOuterContainerRef.current.scrollLeft -= 15;
   };
+
+  // set timeline-line width based on number of children of inner container
+  useEffect(() => {
+    setTimelineLineWidth(timelineInnerContainerRef.current.children.length - 1);
+  }, [timelineLineWidth]);
 
   return (
     <TimelineOuterContainer onWheel={handleWheel} ref={timelineOuterContainerRef}>
