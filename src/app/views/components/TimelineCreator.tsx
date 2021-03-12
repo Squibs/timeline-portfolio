@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import Img, { FluidObject } from 'gatsby-image';
+import Img from 'gatsby-image';
 import styled from 'styled-components';
 
 // TODO; FIX SCROLLBAR FOR FIREFOX RIGHT NOW IT'S INVISIBLE, DUE TO GLOBAL STYLES
@@ -47,12 +47,71 @@ const TimelineInnerContainer = styled.div`
   display: flex;
   position: relative;
 
+  ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+    & > div:not(:first-child) {
+      margin-left: -25%;
+    }
+  `}
+
   .UpperContainer {
+    ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+      flex-wrap: wrap;
+
+      & > div:first-child {
+        & > p {
+          border-top: 3px solid #54478c;
+        }
+      }
+    `}
   }
 
   .LowerContainer {
     ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
-      align-items: flex-end;
+      align-self: flex-end;
+      flex-wrap: wrap-inverse;
+
+      & > button {
+        top: -38px;
+      }
+
+      & > div:first-child {
+        align-self: flex-start;
+        margin-top: 40px;
+
+        &:before {
+          content: '';
+          width: 98%;
+          height: 20px;
+          border-top: 3px solid #54478c;
+          border-left: 3px solid #54478c;
+          border-radius: 25px 0 0 0;
+          margin-top: -20px;
+        }
+
+        & > div {
+          border-radius: 0 0 0 25px;
+          border-bottom: 3px solid #54478c;
+          border-left: 3px solid #54478c;
+        }
+
+        & > p {
+          border: unset;
+          margin-bottom: 0;
+
+          &:before {
+            border-left: 3px solid transparent;
+            border-top: 3px solid transparent;
+          }
+        }
+      }
+
+      & > div:nth-child(2) {
+        align-self: flex-end;
+      }
+
+      &:after {
+        display: none;
+      }
     `}
   }
 `;
@@ -61,41 +120,13 @@ const UpperOrLowerContainer = styled.div`
   display: flex;
   flex: 0 0 100%;
   flex-direction: column;
+  position: relative;
 
   ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
-      flex-direction: row;
-      flex-wrap: wrap;
-    `}
-
-  & > div:first-child > p {
-    border-left: 3px solid #54478c;
-    border-radius: 25px 0 0 0;
-    margin-right: 10px;
-    flex: 1;
-    min-height: 25px;
-    display: flex;
-    flex-direction: column;
-    margin-left: -3px;
-
-    ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
-      border: unset;
-      margin: unset;
-    `}
-
-    &:before {
-      content: '';
-      height: 30px;
-      border-top: 3px solid #54478c;
-      border-left: 3px solid #54478c;
-      width: 100%;
-      border-radius: 25px 0 0 0;
-      margin: -5px 0 -27px -8px;
-
-      ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
-        display: none;
-      `}
-    }
-  }
+    flex-direction: row;
+    height: 50%;
+    flex: 0 0 65%;
+  `}
 
   &:after {
     order: 2;
@@ -105,11 +136,11 @@ const UpperOrLowerContainer = styled.div`
     border-radius: 0 0 0 25px;
     border-bottom: 3px solid #54478c;
     border-left: 3px solid #54478c;
-    margin-right: 50%;
-    margin-left: 2px;
+    margin: 0 50% 0 2px;
 
     ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
-      display: none;
+      margin: unset;
+      margin: 0 0 0 5px;
     `}
   }
 `;
@@ -127,7 +158,40 @@ const TitleDescriptionContainer = styled.div`
     order: 1;
     margin: unset;
     flex: 0 0 50%;
+    height: 70%;
+    margin: 5px 0;
+    align-self: flex-end;
   `}
+
+  & > p {
+    border-left: 3px solid #54478c;
+    border-radius: 25px 0 0 0;
+    margin: 0 10px 0 -3px;
+    flex: 1;
+    min-height: 25px;
+    display: flex;
+    flex-direction: column;
+
+    ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+      margin: unset;
+      margin-left: 5px;
+      margin-bottom: -5px;
+    `}
+
+    &:before {
+      content: '';
+      height: 30px;
+      border-top: 3px solid #54478c;
+      border-left: 3px solid #54478c;
+      width: 100%;
+      border-radius: 25px 0 0 0;
+      margin: -5px 0 -27px -8px;
+
+      ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+        display: none;
+      `}
+    }
+  }
 `;
 
 const TitleContainer = styled.div`
@@ -170,29 +234,41 @@ const ProjectImageContainer = styled.div`
 
   ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
       order: 2;
-      flex: 0 0 50%;
+      flex: 0 0 calc(50% - 5px);
       align-self: unset;
       margin: unset;
+      height: 85%;
+      margin: 5px 5px 5px 0;
   `}
 `;
 
+// styles assigned on Img jsx element
 // https://github.com/gatsbyjs/gatsby/discussions/28212
-const ProjectImage = styled(Img)<{ fluid: FluidObject | FluidObject[] }>``;
+// const ProjectImage = styled(Img)<{ fluid: FluidObject | FluidObject[] }>`
+//   height: 100%
+// `;
 
 const TimelineSquaresContainer = styled.button`
   order: 3;
   width: 76px;
   height: 76px;
-  position: relative;
   align-self: center;
   margin-bottom: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 8px solid #54478c;
-  background-color: transparent;
+  background-color: ${({ theme }) => theme.colors.whiteTint};
   margin-top: -8px;
   border-radius: 50%;
+
+  ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+    align-self: unset;
+    margin: unset;
+    position: absolute;
+    bottom: -38px;
+    left: calc(50% - 38px);
+  `}
 
   &:hover,
   &:focus {
@@ -231,6 +307,10 @@ const TimelineLine = styled.div`
   z-index: -1;
   // width set programmatically similar to the following; to adjust go to jsx element
   /* width: calc((100% * (INNER-CONTAINER-NUMBER-OF-CHILDREN - 1)) - 20px); */
+
+  ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+    bottom: calc(50% - 5px);
+  `}
 `;
 
 /* ---------------------------------- types --------------------------------- */
@@ -260,7 +340,9 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
   const timelineOuterContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const timelineInnerContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const [timelineArray, setTimelineArray] = useState<JSX.Element[]>([]);
-  const [timelineLineWidth, setTimelineLineWidth] = useState<number>();
+  const [timelineProjectCount, setTimelineProjectCount] = useState<number>();
+  const [timelineProjectWidth, setTimelineProjectWidth] = useState<number>();
+  const [timelineWidth, setTimelineWidth] = useState<number>();
 
   const createUpperOrLowerContainers = ({ title, description, image, id }: Project, i: number) => {
     return (
@@ -275,7 +357,11 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
           <p>{description}</p>
         </TitleDescriptionContainer>
         <ProjectImageContainer>
-          <ProjectImage fluid={image} />
+          <Img
+            fluid={image}
+            imgStyle={{ objectFit: 'cover', objectPosition: '50% 0%' }}
+            style={{ height: '100%', width: '100%' }}
+          />
         </ProjectImageContainer>
         <TimelineSquaresContainer>
           <TimelineSquare>View</TimelineSquare>
@@ -301,6 +387,22 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
     }
 
     setTimelineArray(tArray);
+
+    // store width of timeline container
+    setTimelineWidth(timelineInnerContainerRef.current.getBoundingClientRect().width);
+
+    // store width of each project that is part of the timeline
+    // probably an easier way to get the width percentage I set in the styled-component
+    // only two values as of now, and it was fluctuating between 64 and 65 percent, so I just
+    // hard assigned 65 percent if it wasn't equal to 100 percent. 100 percent being for mobile.
+    setTimelineProjectWidth(
+      (timelineInnerContainerRef.current.children[0].getBoundingClientRect().width /
+        timelineInnerContainerRef.current.getBoundingClientRect().width) *
+        100 ===
+        100
+        ? 100
+        : 65,
+    );
   }, [projects]);
 
   // update createTimeline on window resize, if too small, only upper timeline points
@@ -315,7 +417,7 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
   // call createTimeline on mount
   useEffect(() => {
     createTimeline();
-  }, [createTimeline]);
+  }, [createTimeline, timelineProjectCount]);
 
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
     // timelineOuterContainerRef.current.scrollLeft += timelineOuterContainerRef.current.clientWidth;
@@ -325,14 +427,18 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
 
   // set timeline-line width based on number of children of inner container
   useEffect(() => {
-    setTimelineLineWidth(timelineInnerContainerRef.current.children.length - 1);
-  }, [timelineLineWidth]);
+    setTimelineProjectCount(timelineInnerContainerRef.current.children.length - 1);
+  }, [timelineProjectCount]);
 
   return (
     <TimelineOuterContainer onWheel={handleWheel} ref={timelineOuterContainerRef}>
       <TimelineInnerContainer ref={timelineInnerContainerRef}>
         {timelineArray}
-        <TimelineLine style={{ width: `calc((100% * ${timelineLineWidth}) - 20px)` }} />
+        <TimelineLine
+          style={{
+            width: `calc((${timelineProjectWidth}% * ${timelineProjectCount}) - (20px + ((${timelineWidth}px * 0.25) * (${timelineProjectCount} - 2))) )`,
+          }}
+        />
       </TimelineInnerContainer>
     </TimelineOuterContainer>
   );
