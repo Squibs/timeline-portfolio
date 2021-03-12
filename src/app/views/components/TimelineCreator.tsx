@@ -162,6 +162,11 @@ const ProjectImageContainer = styled.div`
   margin: 5px 0;
   min-height: 80px;
   flex: 0 5000 auto;
+  background-color: black;
+  border: 3px solid #54478c;
+  overflow: hidden;
+  border-radius: 25px;
+  box-sizing: border-box;
 
   ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
       order: 2;
@@ -169,13 +174,6 @@ const ProjectImageContainer = styled.div`
       align-self: unset;
       margin: unset;
   `}
-
-  & > div {
-    background-color: black;
-    border: 3px solid #54478c;
-    overflow: hidden;
-    border-radius: 25px;
-  }
 `;
 
 // https://github.com/gatsbyjs/gatsby/discussions/28212
