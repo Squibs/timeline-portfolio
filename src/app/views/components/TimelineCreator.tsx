@@ -65,6 +65,7 @@ const TimelineProjectUpperContainer = styled.div`
     min-height: 25px;
     display: flex;
     flex-direction: column;
+    margin-left: -3px;
 
     &:before {
       content: '';
@@ -72,9 +73,10 @@ const TimelineProjectUpperContainer = styled.div`
       margin-top: -5px;
       margin-bottom: -27px;
       border-top: 3px solid #54478c;
+      border-left: 3px solid #54478c;
       width: 100%;
       border-radius: 25px 0 0 0;
-      margin-left: -6px;
+      margin-left: -8px;
     }
   }
 
@@ -87,7 +89,7 @@ const TimelineProjectUpperContainer = styled.div`
     border-bottom: 3px solid #54478c;
     border-left: 3px solid #54478c;
     margin-right: 50%;
-    margin-left: 5px;
+    margin-left: 2px;
   }
 `;
 
