@@ -2,7 +2,8 @@
 - adjust margins media queries for content
 - remove unnecessary gatsby plugins or other npm packages
 - favicon
-- accessibility elements/tags
+- add blobs to timeline, maybe sprinkle throughout
+- accessibility elements/tags (image alt tags) - use firefox accessibility in console
 - contact me form / section / page
 - timeline page initially no navigation on right, appears when you select something on the timeline
 - page transitions (left/right swipe) & min length of 0.5s for navigation css transitions to show
