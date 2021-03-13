@@ -14,9 +14,8 @@ import styled from 'styled-components';
 const TimelineOuterContainer = styled.div`
   height: 100%;
   width: 100%;
-  overflow-y: hidden;
+  overflow-y: auto;
   overflow-x: auto;
-  min-height: 270px;
 
   h2 {
     background-color: #54478c;
@@ -46,6 +45,7 @@ const TimelineInnerContainer = styled.div`
   height: 100%;
   display: flex;
   position: relative;
+  min-height: 300px;
 
   ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
     & > div:not(:first-child) {
@@ -275,6 +275,7 @@ const TimelineSquaresContainer = styled.button`
     outline: none;
     border-width: 0px;
     transition: border-width 1s;
+    cursor: pointer;
 
     & > div {
       background-color: ${({ theme }) => theme.timelineColors.colorOne};
@@ -424,6 +425,18 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
     if (e.deltaY > 0) timelineOuterContainerRef.current.scrollLeft += 15;
     else timelineOuterContainerRef.current.scrollLeft -= 15;
   };
+
+  // prevent vertical scrolling with mousewheel, incase there is any vertical scrolling
+  useEffect(() => {
+    const { current } = timelineOuterContainerRef;
+    const cancelWheel = (e: WheelEvent) => e.preventDefault();
+
+    current.addEventListener('wheel', cancelWheel, { passive: false });
+
+    return () => {
+      current.removeEventListener('wheel', cancelWheel);
+    };
+  }, []);
 
   // set timeline-line width based on number of children of inner container
   useEffect(() => {
