@@ -16,6 +16,7 @@ const TimelineOuterContainer = styled.div`
   width: 100%;
   overflow-y: auto;
   overflow-x: auto;
+  cursor: grab;
 
   h2 {
     background-color: #54478c;
@@ -263,6 +264,7 @@ const ProjectImageContainer = styled.div`
   overflow: hidden;
   border-radius: 25px;
   box-sizing: border-box;
+  pointer-events: none;
 
   @media screen and (min-width: 900px) and (min-height: 650px) {
     order: 2;
@@ -472,8 +474,53 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
     setTimelineProjectCount(timelineInnerContainerRef.current.children.length - 1);
   }, [timelineProjectCount]);
 
+  // cursor able to drag timeline
+  // https://htmldom.dev/drag-to-scroll/
+
+  let pos = { top: 0, left: 0, x: 0, y: 0 };
+
+  const mouseMoveHandler = (e: MouseEvent) => {
+    // how far the mouse has been moved
+    const dx = e.clientX - pos.x;
+    const dy = e.clientY - pos.y;
+
+    // scroll the element
+    timelineOuterContainerRef.current.scrollTop = pos.top - dy;
+    timelineOuterContainerRef.current.scrollLeft = pos.left - dx;
+  };
+
+  const mouseUpHandler = () => {
+    timelineOuterContainerRef.current.style.cursor = 'grab';
+    timelineOuterContainerRef.current.style.removeProperty('user-select');
+
+    document.removeEventListener('mousemove', mouseMoveHandler);
+    document.removeEventListener('mouseup', mouseUpHandler);
+  };
+
+  const mouseDownHandler = (e: React.MouseEvent) => {
+    // change the cursor and prevent user from selecting the text
+    timelineOuterContainerRef.current.style.cursor = 'grabbing';
+    timelineOuterContainerRef.current.style.userSelect = 'none';
+
+    pos = {
+      // the current scroll
+      left: timelineOuterContainerRef.current.scrollLeft,
+      top: timelineOuterContainerRef.current.scrollTop,
+      // get the current mouse position
+      x: e.clientX,
+      y: e.clientY,
+    };
+
+    document.addEventListener('mousemove', mouseMoveHandler);
+    document.addEventListener('mouseup', mouseUpHandler);
+  };
+
   return (
-    <TimelineOuterContainer onWheel={handleWheel} ref={timelineOuterContainerRef}>
+    <TimelineOuterContainer
+      onWheel={handleWheel}
+      ref={timelineOuterContainerRef}
+      onMouseDown={mouseDownHandler}
+    >
       <TimelineInnerContainer ref={timelineInnerContainerRef}>
         {timelineArray}
         <TimelineLine
