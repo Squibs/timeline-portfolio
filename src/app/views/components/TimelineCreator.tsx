@@ -22,16 +22,21 @@ const TimelineOuterContainer = styled.div`
     width: 85%;
     border-radius: 25px 25px 0 0;
     margin: 0;
-    padding: 2px 2px 0 2px;
+    padding: 5px 5px 0 5px;
 
     ${({ theme }) => theme.breakpoints.for0PhoneOnly()`
       width: 78%;
-      padding: 10px 5px 0 5px;
     `}
 
     ${({ theme }) => theme.breakpoints.for1SmallPhonesOnly()`
       width: 70%;
+      font-size: 22px;
     `}
+
+    @media screen and (min-width: 900px) and (min-height: 650px) {
+      font-size: 18px;
+      margin-left: 20px;
+    }
   }
 
   p {
@@ -47,14 +52,14 @@ const TimelineInnerContainer = styled.div`
   position: relative;
   min-height: 300px;
 
-  ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+  @media screen and (min-width: 900px) and (min-height: 650px) {
     & > div:not(:first-child) {
       margin-left: -25%;
     }
-  `}
+  }
 
   .UpperContainer {
-    ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+    @media screen and (min-width: 900px) and (min-height: 650px) {
       flex-wrap: wrap;
 
       & > div:first-child {
@@ -62,11 +67,11 @@ const TimelineInnerContainer = styled.div`
           border-top: 3px solid #54478c;
         }
       }
-    `}
+    }
   }
 
   .LowerContainer {
-    ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+    @media screen and (min-width: 900px) and (min-height: 650px) {
       align-self: flex-end;
       flex-wrap: wrap-inverse;
 
@@ -112,7 +117,7 @@ const TimelineInnerContainer = styled.div`
       &:after {
         display: none;
       }
-    `}
+    }
   }
 `;
 
@@ -122,11 +127,11 @@ const UpperOrLowerContainer = styled.div`
   flex-direction: column;
   position: relative;
 
-  ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+  @media screen and (min-width: 900px) and (min-height: 650px) {
     flex-direction: row;
     height: 50%;
     flex: 0 0 65%;
-  `}
+  }
 
   &:after {
     order: 2;
@@ -138,10 +143,10 @@ const UpperOrLowerContainer = styled.div`
     border-left: 3px solid #54478c;
     margin: 0 50% 0 2px;
 
-    ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+    @media screen and (min-width: 900px) and (min-height: 650px) {
       margin: unset;
       margin: 0 0 0 5px;
-    `}
+    }
   }
 `;
 
@@ -154,14 +159,14 @@ const TitleDescriptionContainer = styled.div`
   margin: 5px auto 0 auto;
   flex: 1 1 auto;
 
-  ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+  @media screen and (min-width: 900px) and (min-height: 650px) {
     order: 1;
     margin: unset;
     flex: 0 0 50%;
     height: 70%;
     margin: 5px 0;
     align-self: flex-end;
-  `}
+  }
 
   & > p {
     border-left: 3px solid #54478c;
@@ -172,11 +177,11 @@ const TitleDescriptionContainer = styled.div`
     display: flex;
     flex-direction: column;
 
-    ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+    @media screen and (min-width: 900px) and (min-height: 650px) {
       margin: unset;
       margin-left: 5px;
       margin-bottom: -5px;
-    `}
+    }
 
     &:before {
       content: '';
@@ -187,9 +192,9 @@ const TitleDescriptionContainer = styled.div`
       border-radius: 25px 0 0 0;
       margin: -5px 0 -27px -8px;
 
-      ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+      @media screen and (min-width: 900px) and (min-height: 650px) {
         display: none;
-      `}
+      }
     }
   }
 `;
@@ -213,9 +218,9 @@ const TitleContainer = styled.div`
     margin-top: -100px;
     margin-right: -3px;
 
-    ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
-        display: none;
-    `}
+    @media screen and (min-width: 900px) and (min-height: 650px) {
+      display: none;
+    }
   }
 `;
 
@@ -232,14 +237,14 @@ const ProjectImageContainer = styled.div`
   border-radius: 25px;
   box-sizing: border-box;
 
-  ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
-      order: 2;
-      flex: 0 0 calc(50% - 5px);
-      align-self: unset;
-      margin: unset;
-      height: 85%;
-      margin: 5px 5px 5px 0;
-  `}
+  @media screen and (min-width: 900px) and (min-height: 650px) {
+    order: 2;
+    flex: 0 0 calc(50% - 5px);
+    align-self: unset;
+    margin: unset;
+    height: 85%;
+    margin: 5px 5px 5px 0;
+  }
 `;
 
 // styles assigned on Img jsx element
@@ -262,13 +267,13 @@ const TimelineSquaresContainer = styled.button`
   margin-top: -8px;
   border-radius: 50%;
 
-  ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+  @media screen and (min-width: 900px) and (min-height: 650px) {
     align-self: unset;
     margin: unset;
     position: absolute;
     bottom: -38px;
     left: calc(50% - 38px);
-  `}
+  }
 
   &:hover,
   &:focus {
@@ -309,9 +314,9 @@ const TimelineLine = styled.div`
   // width set programmatically similar to the following; to adjust go to jsx element
   /* width: calc((100% * (INNER-CONTAINER-NUMBER-OF-CHILDREN - 1)) - 20px); */
 
-  ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+  @media screen and (min-width: 900px) and (min-height: 650px) {
     bottom: calc(50% - 5px);
-  `}
+  }
 `;
 
 /* ---------------------------------- types --------------------------------- */
@@ -346,11 +351,21 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
   const [timelineWidth, setTimelineWidth] = useState<number>();
 
   const createUpperOrLowerContainers = ({ title, description, image, id }: Project, i: number) => {
+    let test;
+
+    // 900 x 650 viewport equivalent
+    if (
+      timelineOuterContainerRef.current.offsetWidth >= 803 &&
+      timelineOuterContainerRef.current.offsetHeight >= 518.5
+    ) {
+      if (i % 2 === 0) test = 'UpperContainer';
+      else test = 'LowerContainer';
+    } else {
+      test = 'UpperContainer';
+    }
+
     return (
-      <UpperOrLowerContainer
-        key={id}
-        className={`${i % 2 === 0 ? 'UpperContainer' : 'LowerContainer'}`}
-      >
+      <UpperOrLowerContainer key={id} className={test}>
         <TitleDescriptionContainer>
           <TitleContainer>
             <h2>{title}</h2>
@@ -376,15 +391,7 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
     const tArray = [];
 
     for (let i = 0; i < projects.length; i += 1) {
-      if (timelineOuterContainerRef.current.offsetWidth >= 700) {
-        if (i % 2 === 0) {
-          tArray.push(createUpperOrLowerContainers(projects[i], i));
-        } else {
-          tArray.push(createUpperOrLowerContainers(projects[i], i));
-        }
-      } else {
-        tArray.push(createUpperOrLowerContainers(projects[i], i));
-      }
+      tArray.push(createUpperOrLowerContainers(projects[i], i));
     }
 
     setTimelineArray(tArray);
