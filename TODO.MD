@@ -1,3 +1,4 @@
+- add ability to drag every element with mouse on other pages.
 - scrollbar fade-in fade-out
 - adjust margins media queries for content
 - remove unnecessary gatsby plugins or other npm packages
