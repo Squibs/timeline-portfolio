@@ -23,6 +23,7 @@ const TimelineOuterContainer = styled.div`
     border-radius: 25px 25px 0 0;
     margin: 0;
     padding: 5px 5px 0 5px;
+    margin-bottom: -1px;
 
     ${({ theme }) => theme.breakpoints.for0PhoneOnly()`
       width: 78%;
@@ -38,6 +39,12 @@ const TimelineOuterContainer = styled.div`
       margin-left: 20px;
     }
 
+    @media screen and (min-width: 900px) and (min-height: 1200px) {
+      font-size: 35px;
+      margin-left: 20px;
+      margin-top: 20px;
+    }
+
     @media screen and (min-width: 1200px) and (min-height: 800px) {
       font-size: 30px;
       margin-left: 20px;
@@ -51,6 +58,10 @@ const TimelineOuterContainer = styled.div`
 
     @media screen and (min-width: 1200px) and (min-height: 800px) {
       font-size: 16px;
+    }
+
+    @media screen and (min-width: 900px) and (min-height: 1200px) {
+      font-size: 18px;
     }
   }
 `;
@@ -95,11 +106,12 @@ const TimelineInnerContainer = styled.div`
         &:before {
           content: '';
           width: 98%;
-          height: 20px;
+          height: 40px;
           border-top: 3px solid #54478c;
           border-left: 3px solid #54478c;
           border-radius: 25px 0 0 0;
           margin-top: -20px;
+          margin-bottom: -1px;
         }
 
         & > div {
@@ -140,6 +152,12 @@ const UpperOrLowerContainer = styled.div`
     flex-direction: row;
     height: 50%;
     flex: 0 0 65%;
+  }
+
+  @media screen and (max-width: 1200px) and (min-height: 1200px) {
+    flex-direction: row;
+    height: 50%;
+    flex: 0 0 85%;
   }
 
   &:after {
@@ -410,15 +428,10 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
 
     // store width of each project that is part of the timeline
     // probably an easier way to get the width percentage I set in the styled-component
-    // only two values as of now, and it was fluctuating between 64 and 65 percent, so I just
-    // hard assigned 65 percent if it wasn't equal to 100 percent. 100 percent being for mobile.
     setTimelineProjectWidth(
       (timelineInnerContainerRef.current.children[0].getBoundingClientRect().width /
         timelineInnerContainerRef.current.getBoundingClientRect().width) *
-        100 ===
-        100
-        ? 100
-        : 65,
+        100,
     );
   }, [projects]);
 
