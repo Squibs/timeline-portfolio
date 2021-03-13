@@ -34,15 +34,24 @@ const TimelineOuterContainer = styled.div`
     `}
 
     @media screen and (min-width: 900px) and (min-height: 650px) {
-      font-size: 18px;
+      font-size: 26px;
+      margin-left: 20px;
+    }
+
+    @media screen and (min-width: 1200px) and (min-height: 800px) {
+      font-size: 30px;
       margin-left: 20px;
     }
   }
 
   p {
-    font-size: 0.8rem;
+    font-size: 13px;
     padding: 5px;
     margin: 0;
+
+    @media screen and (min-width: 1200px) and (min-height: 800px) {
+      font-size: 16px;
+    }
   }
 `;
 
@@ -353,9 +362,9 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
   const createUpperOrLowerContainers = ({ title, description, image, id }: Project, i: number) => {
     let test;
 
-    // 900 x 650 viewport equivalent
+    // 900 x 650 viewport equivalent (have media queries that shrink )
     if (
-      timelineOuterContainerRef.current.offsetWidth >= 803 &&
+      timelineOuterContainerRef.current.offsetWidth >= 748 &&
       timelineOuterContainerRef.current.offsetHeight >= 518.5
     ) {
       if (i % 2 === 0) test = 'UpperContainer';
