@@ -1,4 +1,9 @@
 - adjust scroll to nearest project for mobile ~ 0.5-0.75 sec delay if in-between - on timeline
+  - center scroll on currently selected project
+  - add "SELECTED" css class to currently selected project button
+  - change text of selected project button to 'selected' or something else
+  - auto navigate to selected project after an amount of time ~0.5 - 1 sec (could come with the following TODO)
+- page transitions (left/right swipe) & min length of 0.5s for navigation css transitions to show
 - scrollbar fade-in fade-out
 - remove unnecessary gatsby plugins or other npm packages
 - favicon
@@ -6,7 +11,6 @@
 - accessibility elements/tags (image alt tags) - use firefox accessibility in console
 - contact me form / section / page
 - timeline page initially no navigation on right, appears when you select something on the timeline
-- page transitions (left/right swipe) & min length of 0.5s for navigation css transitions to show
 - have each md page pass some kind of default scale at a specific width for better scaling
   - maybe add zoom in / zoom out buttons
 - ? add note for each md page that styles might be off inside of the iframe
