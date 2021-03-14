@@ -4,11 +4,6 @@ import styled from 'styled-components';
 import { useScrollHook } from '../hooks';
 import { Breakpoints } from '../shared';
 
-// TODO; FIX SCROLLBAR FOR FIREFOX RIGHT NOW IT'S INVISIBLE, DUE TO GLOBAL STYLES
-// font size queries
-// adjust scroll to nearest project for mobile ~ 0.5-0.75 sec delay if in-between
-// color theme in rainbow order with correct font colors
-
 /* --------------------------------- styles --------------------------------- */
 
 // https://jsfiddle.net/nLbag9u5/260/
