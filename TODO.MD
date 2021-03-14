@@ -1,5 +1,4 @@
 - adjust scroll to nearest project for mobile ~ 0.5-0.75 sec delay if in-between - on timeline
-- color theme in rainbow order with correct font colors - on timeline
 - scrollbar fade-in fade-out
 - remove unnecessary gatsby plugins or other npm packages
 - favicon

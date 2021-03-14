@@ -22,29 +22,29 @@ declare module 'styled-components' {
 
     timelineColors: {
       /** Dark Slate Blue (Purple): White Font */
-      colorOne: string;
+      color1: string;
       /** Sapphire Blue: White Font */
-      colorTwo: string;
+      color2: string;
       /** Blue Munsell: White Font */
-      colorThree: string;
+      color3: string;
       /** Keppel: White Font */
-      colorFour: string;
+      color4: string;
       /** Medium Aquamarine: White Font */
-      colorFive: string;
+      color5: string;
       /** Light Green: Black Font */
-      colorSix: string;
+      color6: string;
       /** Inchworm: Black Font */
-      colorSeven: string;
+      color7: string;
       /** Corn: Black Font */
-      colorEight: string;
+      color8: string;
       /** Maize Crayola: Black Font */
-      colorNine: string;
+      color9: string;
       /** Sandy Brown: Black Font */
-      colorTen: string;
+      color10: string;
       /** Outrageous Orange: White Font */
-      colorEleven: string;
+      color11: string;
       /** Red Salsa: White Font */
-      colorTwelve: string;
+      color12: string;
       /** Silver: Black Font */
       colorGray: string;
     };

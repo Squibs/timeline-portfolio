@@ -2,7 +2,23 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { useScrollHook } from '../hooks';
-import { Breakpoints } from '../shared';
+import { Breakpoints, TimelineColors, Colors } from '../shared';
+
+/* ------------------------- styled components types ------------------------ */
+
+type TimelineColor = {
+  timelineColor: string;
+};
+
+type UpperOrLowerContainerProps = TimelineColor;
+
+type TitleDescriptionContainerProps = TimelineColor;
+
+type TitleContainerProps = TimelineColor & { timelineFontColor: string };
+
+type ProjectImageContainerProps = TimelineColor;
+
+type TimelineSquaresContainerProps = TimelineColor & { timelineFontColor: string };
 
 /* --------------------------------- styles --------------------------------- */
 
@@ -24,7 +40,6 @@ const TimelineOuterContainer = styled.div`
   cursor: grab;
 
   h2 {
-    background-color: #54478c;
     width: 85%;
     border-radius: 25px 25px 0 0;
     margin: 0;
@@ -87,12 +102,6 @@ const TimelineInnerContainer = styled.div`
   .UpperContainer {
     @media screen and (min-width: 900px) and (min-height: 650px) {
       flex-wrap: wrap;
-
-      & > div:first-child {
-        & > p {
-          border-top: 3px solid #54478c;
-        }
-      }
     }
   }
 
@@ -113,8 +122,6 @@ const TimelineInnerContainer = styled.div`
           content: '';
           width: 98%;
           height: 40px;
-          border-top: 3px solid #54478c;
-          border-left: 3px solid #54478c;
           border-radius: 25px 0 0 0;
           margin-top: -20px;
           margin-bottom: -1px;
@@ -122,8 +129,6 @@ const TimelineInnerContainer = styled.div`
 
         & > div {
           border-radius: 0 0 0 25px;
-          border-bottom: 3px solid #54478c;
-          border-left: 3px solid #54478c;
         }
 
         & > p {
@@ -148,7 +153,7 @@ const TimelineInnerContainer = styled.div`
   }
 `;
 
-const UpperOrLowerContainer = styled.div`
+const UpperOrLowerContainer = styled.div<UpperOrLowerContainerProps>`
   display: flex;
   flex: 0 0 100%;
   flex-direction: column;
@@ -172,8 +177,8 @@ const UpperOrLowerContainer = styled.div`
     width: calc(50% - 13px);
     height: 10px;
     border-radius: 0 0 0 25px;
-    border-bottom: 3px solid #54478c;
-    border-left: 3px solid #54478c;
+    border-bottom: 3px solid ${(props) => props.timelineColor};
+    border-left: 3px solid ${(props) => props.timelineColor};
     margin: 0 50% 0 2px;
 
     @media screen and (min-width: 900px) and (min-height: 650px) {
@@ -183,7 +188,7 @@ const UpperOrLowerContainer = styled.div`
   }
 `;
 
-const TitleDescriptionContainer = styled.div`
+const TitleDescriptionContainer = styled.div<TitleDescriptionContainerProps>`
   order: 2;
   width: 100%;
   display: flex;
@@ -202,7 +207,7 @@ const TitleDescriptionContainer = styled.div`
   }
 
   & > p {
-    border-left: 3px solid #54478c;
+    border-left: 3px solid ${(props) => props.timelineColor};
     border-radius: 25px 0 0 0;
     margin: 0 10px 0 -3px;
     flex: 1;
@@ -219,8 +224,8 @@ const TitleDescriptionContainer = styled.div`
     &:before {
       content: '';
       height: 30px;
-      border-top: 3px solid #54478c;
-      border-left: 3px solid #54478c;
+      border-top: 3px solid ${(props) => props.timelineColor};
+      border-left: 3px solid ${(props) => props.timelineColor};
       width: 100%;
       border-radius: 25px 0 0 0;
       margin: -5px 0 -27px -8px;
@@ -232,18 +237,23 @@ const TitleDescriptionContainer = styled.div`
   }
 `;
 
-const TitleContainer = styled.div`
+const TitleContainer = styled.div<TitleContainerProps>`
   display: flex;
   justify-content: center;
   border-radius: 0 0 25px;
   flex-direction: column;
   align-items: center;
 
+  h2 {
+    background-color: ${(props) => props.timelineColor};
+    color: ${(props) => props.timelineFontColor};
+  }
+
   &:after {
     content: '';
     width: 80%;
-    border-right: 3px solid #54478c;
-    border-bottom: 3px solid #54478c;
+    border-right: 3px solid ${(props) => props.timelineColor};
+    border-bottom: 3px solid ${(props) => props.timelineColor};
     height: 100px;
     border-radius: 0 0 25px 0;
     align-self: flex-end;
@@ -257,7 +267,7 @@ const TitleContainer = styled.div`
   }
 `;
 
-const ProjectImageContainer = styled.div`
+const ProjectImageContainer = styled.div<ProjectImageContainerProps>`
   order: 1;
   width: calc(100% - 4px);
   align-self: center;
@@ -265,7 +275,7 @@ const ProjectImageContainer = styled.div`
   min-height: 80px;
   flex: 0 5000 auto;
   background-color: black;
-  border: 3px solid #54478c;
+  border: 3px solid ${(props) => props.timelineColor};
   overflow: hidden;
   border-radius: 25px;
   box-sizing: border-box;
@@ -287,7 +297,7 @@ const ProjectImageContainer = styled.div`
 //   height: 100%
 // `;
 
-const TimelineSquaresContainer = styled.button`
+const TimelineSquaresContainer = styled.button<TimelineSquaresContainerProps>`
   order: 3;
   width: 76px;
   height: 76px;
@@ -296,7 +306,7 @@ const TimelineSquaresContainer = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 8px solid #54478c;
+  border: 8px solid ${(props) => props.timelineColor};
   background-color: ${({ theme }) => theme.colors.whiteTint};
   margin-top: -8px;
   border-radius: 50%;
@@ -317,8 +327,8 @@ const TimelineSquaresContainer = styled.button`
     cursor: pointer;
 
     & > div {
-      background-color: ${({ theme }) => theme.timelineColors.colorOne};
-      color: ${({ theme }) => theme.colors.whiteTint};
+      background-color: ${(props) => props.timelineColor};
+      color: ${(props) => props.timelineFontColor};
       height: 76px;
       flex: 0 0 76px;
     }
@@ -386,35 +396,77 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
   const handleScroll = useScrollHook(timelineOuterContainerRef);
 
   const createUpperOrLowerContainers = ({ title, description, image, id }: Project, i: number) => {
-    let test;
+    let upperOrLower;
 
     // 900 x 650 viewport equivalent (have media queries that shrink )
     if (
       timelineOuterContainerRef.current.offsetWidth >= 748 &&
       timelineOuterContainerRef.current.offsetHeight >= 518.5
     ) {
-      if (i % 2 === 0) test = 'UpperContainer';
-      else test = 'LowerContainer';
+      if (i % 2 === 0) upperOrLower = 'UpperContainer';
+      else upperOrLower = 'LowerContainer';
     } else {
-      test = 'UpperContainer';
+      upperOrLower = 'UpperContainer';
     }
 
+    // keep j within (1 - 12) range; repeats if it goes higher than 12.
+    // used to repeat timeline color pattern
+    const j = (i % 12) + 1;
+
+    // assign color from TimelineColors
+    const roygbiv = TimelineColors[`color${j}` as keyof typeof TimelineColors];
+    // assign appropriate font color for background
+    const lightOrDarkFont = j >= 6 && j <= 10 ? Colors.primaryDark : Colors.whiteTint;
+
+    // have css styles on UpperOrLowerContainer, because these came from css classes
+    // that were applied depending on if the container is upper or lower
+    // i've moved the logic here so that they can as-well change color. (.UpperContainer & .LowerContainer)
     return (
-      <UpperOrLowerContainer key={id} className={test}>
-        <TitleDescriptionContainer>
-          <TitleContainer>
+      <UpperOrLowerContainer
+        key={id}
+        className={upperOrLower}
+        timelineColor={roygbiv}
+        css={`
+          ${upperOrLower === 'UpperContainer' &&
+          `
+            @media screen and (min-width: 900px) and (min-height: 650px) {
+              & > div:first-child > p {
+                border-top: 3px solid ${roygbiv};
+              }
+            }
+          `}
+          ${upperOrLower === 'LowerContainer' &&
+          `
+            @media screen and (min-width: 900px) and (min-height: 650px) {
+              & > div:first-child {
+                &:before {
+                  border-top: 3px solid ${roygbiv};
+                  border-left: 3px solid ${roygbiv};
+                }
+
+                & > div {
+                  border-bottom: 3px solid ${roygbiv};
+                  border-left: 3px solid ${roygbiv};
+                }
+              }
+            }
+          `}
+        `}
+      >
+        <TitleDescriptionContainer timelineColor={roygbiv}>
+          <TitleContainer timelineColor={roygbiv} timelineFontColor={lightOrDarkFont}>
             <h2>{title}</h2>
           </TitleContainer>
           <p>{description}</p>
         </TitleDescriptionContainer>
-        <ProjectImageContainer>
+        <ProjectImageContainer timelineColor={roygbiv}>
           <Img
             fluid={image}
             imgStyle={{ objectFit: 'cover', objectPosition: '50% 0%' }}
             style={{ height: '100%', width: '100%' }}
           />
         </ProjectImageContainer>
-        <TimelineSquaresContainer>
+        <TimelineSquaresContainer timelineColor={roygbiv} timelineFontColor={lightOrDarkFont}>
           <TimelineSquare>View</TimelineSquare>
         </TimelineSquaresContainer>
       </UpperOrLowerContainer>
