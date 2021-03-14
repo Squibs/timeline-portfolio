@@ -464,8 +464,8 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
 
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
     // timelineOuterContainerRef.current.scrollLeft += timelineOuterContainerRef.current.clientWidth;
-    if (e.deltaY > 0) timelineOuterContainerRef.current.scrollLeft += 15;
-    else timelineOuterContainerRef.current.scrollLeft -= 15;
+    if (e.deltaY > 0) timelineOuterContainerRef.current.scrollLeft += 25;
+    else timelineOuterContainerRef.current.scrollLeft -= 25;
   };
 
   // prevent vertical scrolling with mousewheel, incase there is any vertical scrolling
