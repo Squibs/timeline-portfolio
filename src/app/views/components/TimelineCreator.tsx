@@ -1,10 +1,15 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { useScrollHook } from '../hooks';
 import { Breakpoints, TimelineColors, Colors } from '../shared';
+import { AppState } from '../../state/store';
+import { timelineOperations } from '../../state/ducks/timeline';
 
-/* ------------------------- styled components types ------------------------ */
+/* -------------------------------------------------------------------------- */
+/*                           styled components types                          */
+/* -------------------------------------------------------------------------- */
 
 type TimelineColor = {
   timelineColor: string;
@@ -20,7 +25,9 @@ type ProjectImageContainerProps = TimelineColor;
 
 type TimelineSquaresContainerProps = TimelineColor & { timelineFontColor: string };
 
-/* --------------------------------- styles --------------------------------- */
+/* -------------------------------------------------------------------------- */
+/*                                   styles                                   */
+/* -------------------------------------------------------------------------- */
 
 // https://jsfiddle.net/nLbag9u5/260/
 // used mainly to hide scrollbar
@@ -94,7 +101,7 @@ const TimelineInnerContainer = styled.div`
   min-height: 300px;
 
   @media screen and (min-width: 900px) and (min-height: 650px) {
-    & > div:not(:first-child) {
+    & > div:not(:first-child):not(:last-child) {
       margin-left: -25%;
     }
   }
@@ -363,12 +370,15 @@ const TimelineLine = styled.div`
   }
 `;
 
-/* ---------------------------------- types --------------------------------- */
+/* -------------------------------------------------------------------------- */
+/*                               component types                              */
+/* -------------------------------------------------------------------------- */
 
 type Project = {
   id: string;
   title: string;
   description: string;
+  projectLink: string;
   image: {
     aspectRatio: number;
     base64: string;
@@ -384,18 +394,34 @@ type TimelineCreatorProps = {
 
 type Props = TimelineCreatorProps;
 
-/* -------------------------------- component ------------------------------- */
+/* -------------------------------------------------------------------------- */
+/*                                  component                                 */
+/* -------------------------------------------------------------------------- */
 
 const TimelineCreator = ({ projects }: Props): JSX.Element => {
   const timelineOuterContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const timelineInnerContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const [timelineArray, setTimelineArray] = useState<JSX.Element[]>([]);
   const [timelineProjectCount, setTimelineProjectCount] = useState<number>();
-  const [timelineProjectWidth, setTimelineProjectWidth] = useState<number>();
-  const [timelineWidth, setTimelineWidth] = useState<number>();
   const handleScroll = useScrollHook(timelineOuterContainerRef);
 
-  const createUpperOrLowerContainers = ({ title, description, image, id }: Project, i: number) => {
+  // map state to props
+  const { selectedProject } = useSelector(
+    ({ timeline: { timeline } }: AppState) => ({
+      selectedProject: timeline.selectedProject,
+    }),
+    shallowEqual,
+  );
+
+  // map dispatch to props
+  const dispatch = useDispatch();
+
+  /* ------------------------- create timeline helpers ------------------------ */
+
+  const createUpperOrLowerContainers = (
+    { title, description, image, id, projectLink }: Project,
+    i: number,
+  ) => {
     let upperOrLower;
 
     // 900 x 650 viewport equivalent (have media queries that shrink )
@@ -409,9 +435,16 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
       upperOrLower = 'UpperContainer';
     }
 
+    // old:
     // keep j within (1 - 12) range; repeats if it goes higher than 12.
     // used to repeat timeline color pattern
-    const j = (i % 12) + 1;
+    // const j = (i % 12) + 1;
+
+    // new:
+    // j raises from 1 to 12 then lowers from 12 to 1 without repeating any numbers
+    // figured out equation after messing around with the equation from:
+    // https://stackoverflow.com/a/64661265/15020999
+    const j = -Math.abs((i % (11 * 2)) - 11) + 12;
 
     // assign color from TimelineColors
     const roygbiv = TimelineColors[`color${j}` as keyof typeof TimelineColors];
@@ -466,7 +499,11 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
             style={{ height: '100%', width: '100%' }}
           />
         </ProjectImageContainer>
-        <TimelineSquaresContainer timelineColor={roygbiv} timelineFontColor={lightOrDarkFont}>
+        <TimelineSquaresContainer
+          timelineColor={roygbiv}
+          timelineFontColor={lightOrDarkFont}
+          onClick={() => console.log(projectLink)}
+        >
           <TimelineSquare>View</TimelineSquare>
         </TimelineSquaresContainer>
       </UpperOrLowerContainer>
@@ -482,17 +519,6 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
     }
 
     setTimelineArray(tArray);
-
-    // store width of timeline container
-    setTimelineWidth(timelineInnerContainerRef.current.getBoundingClientRect().width);
-
-    // store width of each project that is part of the timeline
-    // probably an easier way to get the width percentage I set in the styled-component
-    setTimelineProjectWidth(
-      (timelineInnerContainerRef.current.children[0].getBoundingClientRect().width /
-        timelineInnerContainerRef.current.getBoundingClientRect().width) *
-        100,
-    );
   }, [projects]);
 
   // update createTimeline on window resize, if too small, only upper timeline points
@@ -507,7 +533,9 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
   // call createTimeline on mount
   useEffect(() => {
     createTimeline();
-  }, [createTimeline, timelineProjectCount]);
+  }, [createTimeline]);
+
+  /* ---------------------------- handle mousewheel --------------------------- */
 
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
     // timelineOuterContainerRef.current.scrollLeft += timelineOuterContainerRef.current.clientWidth;
@@ -527,10 +555,14 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
     };
   }, []);
 
+  /* ------------------- get amount of projects in timeline ------------------- */
+
   // set timeline-line width based on number of children of inner container
   useEffect(() => {
     setTimelineProjectCount(timelineInnerContainerRef.current.children.length - 1);
   }, [timelineProjectCount]);
+
+  /* ----------------------- handle mouse drag to scroll ---------------------- */
 
   // cursor able to drag timeline
   // https://htmldom.dev/drag-to-scroll/
@@ -573,6 +605,8 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
     document.addEventListener('mouseup', mouseUpHandler);
   };
 
+  /* ---------------------------- component return ---------------------------- */
+
   return (
     <TimelineOuterContainer
       onWheel={handleWheel}
@@ -584,9 +618,14 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
       <TimelineInnerContainer ref={timelineInnerContainerRef}>
         {timelineArray}
         <TimelineLine
-          style={{
-            width: `calc((${timelineProjectWidth}% * ${timelineProjectCount}) - (20px + ((${timelineWidth}px * 0.25) * (${timelineProjectCount} - 2))) )`,
-          }}
+          css={`
+            width: calc(100% * ${timelineProjectCount} - 20px);
+
+            @media screen and (min-width: 900px) and (min-height: 650px) {
+              // close enough to the correct equation
+              width: calc(((100% * 0.4) * ${timelineProjectCount}) + (25% - 20px));
+            }
+          `}
         />
       </TimelineInnerContainer>
     </TimelineOuterContainer>
