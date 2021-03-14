@@ -9,7 +9,7 @@ const initialState: TimelineState = {
 const timelineReducer = (state = initialState, action: TimelineActionTypes): TimelineState => {
   switch (action.type) {
     case TimelineActions.PROJECT_SELECT:
-      return { ...state, selectedProject: action.payload };
+      return { ...state, selectedProject: action.payload || '' };
     default:
       return state;
   }
