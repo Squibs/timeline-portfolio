@@ -128,6 +128,7 @@ const TimelinePage: React.FC = () => {
         hover={Colors.primaryNeutral}
         position="right"
         link="/project/learning-to-necro"
+        display="none"
       />
 
       <ContentContainer className="page-content-styles">

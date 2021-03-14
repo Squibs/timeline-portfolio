@@ -8,6 +8,7 @@ type ChevronLinkProps = {
   position: string;
   link: string;
   hover: string;
+  display?: string;
 };
 
 /* -------------------------- ChevronLink component ------------------------- */
@@ -18,7 +19,13 @@ type ChevronLinkProps = {
  * @param link Where this should link to using Gatsby Link.
  * @param hover Color chevron and glow will be when link is hovered.
  */
-export const ChevronLink = ({ fill, position, link, hover }: ChevronLinkProps): JSX.Element => {
+export const ChevronLink = ({
+  fill,
+  position,
+  link,
+  hover,
+  display,
+}: ChevronLinkProps): JSX.Element => {
   return (
     <>
       {/* link/button for page navigation */}
@@ -52,6 +59,7 @@ export const ChevronLink = ({ fill, position, link, hover }: ChevronLinkProps): 
           }
         `}
         style={{
+          display: `${display || 'unset'}`,
           minHeight: '75px',
           height: '10%',
           padding: 0,
@@ -98,6 +106,7 @@ export const ChevronLink = ({ fill, position, link, hover }: ChevronLinkProps): 
       <div
         className="chevron-link"
         style={{
+          display: `${display || 'unset'}`,
           minHeight: '75px',
           height: '10%',
           padding: 0,
@@ -119,6 +128,10 @@ export const ChevronLink = ({ fill, position, link, hover }: ChevronLinkProps): 
       </div>
     </>
   );
+};
+
+ChevronLink.defaultProps = {
+  display: null,
 };
 
 export default ChevronLink;
