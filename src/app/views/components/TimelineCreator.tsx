@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
+import { useScrollHook } from '../hooks';
+import { Breakpoints } from '../shared';
 
 // TODO; FIX SCROLLBAR FOR FIREFOX RIGHT NOW IT'S INVISIBLE, DUE TO GLOBAL STYLES
 // font size queries
@@ -12,8 +14,16 @@ import styled from 'styled-components';
 // https://jsfiddle.net/nLbag9u5/260/
 // used mainly to hide scrollbar
 const TimelineOuterContainer = styled.div`
-  height: 100%;
-  width: 100%;
+  // page-content-styles overrides
+  padding: unset;
+  max-width: unset;
+  text-align: unset;
+  @media screen and (min-width: ${Breakpoints.for4TabletLandscapeUp}) {
+    padding: unset;
+  }
+
+  height: calc(100% - 1px); // 1 px for gap between edge and scrollbar
+  width: 100%; // none here, because screen-sizes that would have vertical are oddly shaped, and probably pretty rare
   overflow-y: auto;
   overflow-x: auto;
   cursor: grab;
@@ -378,6 +388,7 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
   const [timelineProjectCount, setTimelineProjectCount] = useState<number>();
   const [timelineProjectWidth, setTimelineProjectWidth] = useState<number>();
   const [timelineWidth, setTimelineWidth] = useState<number>();
+  const handleScroll = useScrollHook(timelineOuterContainerRef);
 
   const createUpperOrLowerContainers = ({ title, description, image, id }: Project, i: number) => {
     let test;
@@ -520,6 +531,8 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
       onWheel={handleWheel}
       ref={timelineOuterContainerRef}
       onMouseDown={mouseDownHandler}
+      onScroll={() => handleScroll()}
+      className="page-content-styles"
     >
       <TimelineInnerContainer ref={timelineInnerContainerRef}>
         {timelineArray}
