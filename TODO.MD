@@ -1,6 +1,4 @@
-- add ability to drag every element with mouse on other pages.
 - scrollbar fade-in fade-out
-- adjust margins media queries for content
 - remove unnecessary gatsby plugins or other npm packages
 - favicon
 - add blobs to timeline, maybe sprinkle throughout
@@ -8,18 +6,12 @@
 - contact me form / section / page
 - timeline page initially no navigation on right, appears when you select something on the timeline
 - page transitions (left/right swipe) & min length of 0.5s for navigation css transitions to show
-- replace iframe scrollbar (probably not possible)
-- desktop mouseover iframe makes iframe larger/hide [onMouseEnter](https://github.com/davidjbradshaw/iframe-resizer/blob/master/docs/parent_page/events.md#onmouseenter)
 - have each md page pass some kind of default scale at a specific width for better scaling
   - maybe add zoom in / zoom out buttons
-- need min height queries for timeline horizontal
 - ? add note for each md page that styles might be off inside of the iframe
 - ? have buttons grayed out on page rather than gone. expand will always disappear on larger devices
 - ? make buttons larger on larger screens
-
 - ? click on square to select project for navigation
-- ? click on squares on timeline to expand the project
-- ? having everything hidden with just the gray squares and colored borders would immediately be seen as a way to interact with the site
-  - not sure if having everything already expanded would read the same way when visiting the website.
-  - could potentially add tutorial box saying click to select box, page nav, etc...
-  - could add text inside of grey square with border saying click to select on each project on timeline
+- ? add ability to drag every element with mouse on other pages.
+
+- X replace iframe scrollbar (probably not possible) - not really possible
