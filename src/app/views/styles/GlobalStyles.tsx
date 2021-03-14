@@ -72,10 +72,11 @@ const GlobalStyle = createGlobalStyle`
 
     /* hides default scrollbars */
     scrollbar-width: thin;
-    scrollbar-color: transparent transparent;
+    scrollbar-color: transparent transparent !important;
     -ms-overflow-style: none;
     &::-webkit-scrollbar {
       width: 6px;
+      height: 6px;
       background-color: transparent;
     }
     &::-webkit-scrollbar-track {
@@ -85,27 +86,17 @@ const GlobalStyle = createGlobalStyle`
     }
     &::-webkit-scrollbar-thumb {
       background-color: transparent;
+      border-radius: 6px;
     }
   }
 
+  // applied when page is actually scrolled
   .on-scroll {
-    scrollbar-width: thin;
-    -ms-overflow-styled: none;
     // cc is scrollbar opacity using hex code alpha (00-ff)
-    scrollbar-color: ${Colors.accentOne}cc
-      ${Colors.primaryDark};
-    &::-webkit-scrollbar {
-      width: 6px !important;
-      background-color: transparent;
-    }
-    &::-webkit-scrollbar-track {
-      box-shadow: none !important;
-      -webkit-box-shadow: none !important;
-      background: transparent !important;
-    }
+    scrollbar-color: ${Colors.accentOne}cc transparent !important;
+
     &::-webkit-scrollbar-thumb {
       background-color: ${Colors.accentOne}cc;
-      border-radius: 6px;
     }
   }
 
