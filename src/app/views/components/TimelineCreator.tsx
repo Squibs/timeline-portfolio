@@ -404,122 +404,112 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
   const [timelineArray, setTimelineArray] = useState<JSX.Element[]>([]);
   const [timelineProjectCount, setTimelineProjectCount] = useState<number>();
   const handleScroll = useScrollHook(timelineOuterContainerRef);
-
-  // map state to props
-  const { selectedProject } = useSelector(
-    ({ timeline: { timeline } }: AppState) => ({
-      selectedProject: timeline.selectedProject,
-    }),
-    shallowEqual,
-  );
-
-  // map dispatch to props
   const dispatch = useDispatch();
 
   /* ------------------------- create timeline helpers ------------------------ */
 
-  const createUpperOrLowerContainers = (
-    { title, description, image, id, projectLink }: Project,
-    i: number,
-  ) => {
-    let upperOrLower;
-
-    // 900 x 650 viewport equivalent (have media queries that shrink )
-    if (
-      timelineOuterContainerRef.current.offsetWidth >= 748 &&
-      timelineOuterContainerRef.current.offsetHeight >= 518.5
-    ) {
-      if (i % 2 === 0) upperOrLower = 'UpperContainer';
-      else upperOrLower = 'LowerContainer';
-    } else {
-      upperOrLower = 'UpperContainer';
-    }
-
-    // old:
-    // keep j within (1 - 12) range; repeats if it goes higher than 12.
-    // used to repeat timeline color pattern
-    // const j = (i % 12) + 1;
-
-    // new:
-    // j raises from 1 to 12 then lowers from 12 to 1 without repeating any numbers
-    // figured out equation after messing around with the equation from:
-    // https://stackoverflow.com/a/64661265/15020999
-    const j = -Math.abs((i % (11 * 2)) - 11) + 12;
-
-    // assign color from TimelineColors
-    const roygbiv = TimelineColors[`color${j}` as keyof typeof TimelineColors];
-    // assign appropriate font color for background
-    const lightOrDarkFont = j >= 6 && j <= 10 ? Colors.primaryDark : Colors.whiteTint;
-
-    // have css styles on UpperOrLowerContainer, because these came from css classes
-    // that were applied depending on if the container is upper or lower
-    // i've moved the logic here so that they can as-well change color. (.UpperContainer & .LowerContainer)
-    return (
-      <UpperOrLowerContainer
-        key={id}
-        className={upperOrLower}
-        timelineColor={roygbiv}
-        css={`
-          ${upperOrLower === 'UpperContainer' &&
-          `
-            @media screen and (min-width: 900px) and (min-height: 650px) {
-              & > div:first-child > p {
-                border-top: 3px solid ${roygbiv};
-              }
-            }
-          `}
-          ${upperOrLower === 'LowerContainer' &&
-          `
-            @media screen and (min-width: 900px) and (min-height: 650px) {
-              & > div:first-child {
-                &:before {
-                  border-top: 3px solid ${roygbiv};
-                  border-left: 3px solid ${roygbiv};
-                }
-
-                & > div {
-                  border-bottom: 3px solid ${roygbiv};
-                  border-left: 3px solid ${roygbiv};
-                }
-              }
-            }
-          `}
-        `}
-      >
-        <TitleDescriptionContainer timelineColor={roygbiv}>
-          <TitleContainer timelineColor={roygbiv} timelineFontColor={lightOrDarkFont}>
-            <h2>{title}</h2>
-          </TitleContainer>
-          <p>{description}</p>
-        </TitleDescriptionContainer>
-        <ProjectImageContainer timelineColor={roygbiv}>
-          <Img
-            fluid={image}
-            imgStyle={{ objectFit: 'cover', objectPosition: '50% 0%' }}
-            style={{ height: '100%', width: '100%' }}
-          />
-        </ProjectImageContainer>
-        <TimelineSquaresContainer
-          timelineColor={roygbiv}
-          timelineFontColor={lightOrDarkFont}
-          onClick={() => console.log(projectLink)}
-        >
-          <TimelineSquare>View</TimelineSquare>
-        </TimelineSquaresContainer>
-      </UpperOrLowerContainer>
-    );
-  };
-
   // create timeline callback
   const createTimeline = useCallback(() => {
     const tArray = [];
+
+    const createUpperOrLowerContainers = (
+      { title, description, image, id, projectLink }: Project,
+      i: number,
+    ) => {
+      let upperOrLower;
+
+      // 900 x 650 viewport equivalent (have media queries that shrink )
+      if (
+        timelineOuterContainerRef.current.offsetWidth >= 748 &&
+        timelineOuterContainerRef.current.offsetHeight >= 518.5
+      ) {
+        if (i % 2 === 0) upperOrLower = 'UpperContainer';
+        else upperOrLower = 'LowerContainer';
+      } else {
+        upperOrLower = 'UpperContainer';
+      }
+
+      // old:
+      // keep j within (1 - 12) range; repeats if it goes higher than 12.
+      // used to repeat timeline color pattern
+      // const j = (i % 12) + 1;
+
+      // new:
+      // j raises from 1 to 12 then lowers from 12 to 1 without repeating any numbers
+      // figured out equation after messing around with the equation from:
+      // https://stackoverflow.com/a/64661265/15020999
+      const j = -Math.abs((i % (11 * 2)) - 11) + 12;
+
+      // assign color from TimelineColors
+      const roygbiv = TimelineColors[`color${j}` as keyof typeof TimelineColors];
+      // assign appropriate font color for background
+      const lightOrDarkFont = j >= 6 && j <= 10 ? Colors.primaryDark : Colors.whiteTint;
+
+      // have css styles on UpperOrLowerContainer, because these came from css classes
+      // that were applied depending on if the container is upper or lower
+      // i've moved the logic here so that they can as-well change color. (.UpperContainer & .LowerContainer)
+      return (
+        <UpperOrLowerContainer
+          key={id}
+          className={upperOrLower}
+          timelineColor={roygbiv}
+          css={`
+            ${upperOrLower === 'UpperContainer' &&
+            `
+              @media screen and (min-width: 900px) and (min-height: 650px) {
+                & > div:first-child > p {
+                  border-top: 3px solid ${roygbiv};
+                }
+              }
+            `}
+            ${upperOrLower === 'LowerContainer' &&
+            `
+              @media screen and (min-width: 900px) and (min-height: 650px) {
+                & > div:first-child {
+                  &:before {
+                    border-top: 3px solid ${roygbiv};
+                    border-left: 3px solid ${roygbiv};
+                  }
+
+                  & > div {
+                    border-bottom: 3px solid ${roygbiv};
+                    border-left: 3px solid ${roygbiv};
+                  }
+                }
+              }
+            `}
+          `}
+        >
+          <TitleDescriptionContainer timelineColor={roygbiv}>
+            <TitleContainer timelineColor={roygbiv} timelineFontColor={lightOrDarkFont}>
+              <h2>{title}</h2>
+            </TitleContainer>
+            <p>{description}</p>
+          </TitleDescriptionContainer>
+          <ProjectImageContainer timelineColor={roygbiv}>
+            <Img
+              fluid={image}
+              imgStyle={{ objectFit: 'cover', objectPosition: '50% 0%' }}
+              style={{ height: '100%', width: '100%' }}
+            />
+          </ProjectImageContainer>
+          <TimelineSquaresContainer
+            timelineColor={roygbiv}
+            timelineFontColor={lightOrDarkFont}
+            onClick={() => dispatch(timelineOperations.projectSelect(projectLink))}
+          >
+            <TimelineSquare>View</TimelineSquare>
+          </TimelineSquaresContainer>
+        </UpperOrLowerContainer>
+      );
+    };
 
     for (let i = 0; i < projects.length; i += 1) {
       tArray.push(createUpperOrLowerContainers(projects[i], i));
     }
 
     setTimelineArray(tArray);
-  }, [projects]);
+  }, [dispatch, projects]);
 
   // update createTimeline on window resize, if too small, only upper timeline points
   useEffect(() => {

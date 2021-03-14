@@ -1,8 +1,10 @@
 import React from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 import { ChevronLink, TimelineCreator } from '../components';
 import { Colors } from '../shared';
+import { AppState } from '../../state/store';
 
 /* --------------------------------- styles --------------------------------- */
 
@@ -92,6 +94,13 @@ type Query = {
 /* -------------------------------- component ------------------------------- */
 
 const TimelinePage: React.FC = () => {
+  const { selectedProject } = useSelector(
+    ({ timeline: { timeline } }: AppState) => ({
+      selectedProject: timeline.selectedProject,
+    }),
+    shallowEqual,
+  );
+
   const data: Query = useStaticQuery(graphql`
     query TimelineImages {
       images: allFile(filter: { relativeDirectory: { eq: "timelinePage" } }) {
@@ -127,8 +136,7 @@ const TimelinePage: React.FC = () => {
         fill={Colors.whiteTint}
         hover={Colors.primaryNeutral}
         position="right"
-        link="/project/learning-to-necro"
-        display="none"
+        link={selectedProject}
       />
 
       <ContentContainer className="page-content-styles">
@@ -146,6 +154,7 @@ const TimelinePage: React.FC = () => {
                   'Aliquip aliquip ad nisi sunt. Ipsum ipsum laborum et labore pariatur adipisicing.',
                 image: imageSelector('screenshot-learning-to-necro.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-learning-to-necro.png').id,
+                projectLink: '/project/learning-to-necro',
               },
               {
                 title: 'Pomodoro Clock',
@@ -153,6 +162,7 @@ const TimelinePage: React.FC = () => {
                   'Esse dolor sit elit sunt nostrud incididunt incididunt ex ex incididunt adipisicing fugiat eiusmod deserunt adipisicing incididunt adipisicing adipisicing cupidatat enim do. Ipsum pariatur reprehenderit irure ullamco. Non exercitation deserunt adipisicing adipisicing cupidatat enim do mollit velit consequat non aliqua fugiat.',
                 image: imageSelector('screenshot-pomodoro-clock.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-pomodoro-clock.png').id,
+                projectLink: '/project/pomodoro-clock',
               },
               {
                 title: 'Quote Machine',
@@ -160,6 +170,7 @@ const TimelinePage: React.FC = () => {
                   'Eiusmod reprehenderit consectetur nulla laborum tempor. Excepteur deserunt tempor culpa deserunt consequat. Incididunt enim voluptate ad enim esse adipisicing esse ullamco dolore nostrud est magna. Officia do esse dolor amet ipsum sint et. Veniam culpa eu ea do id est laboris proident.',
                 image: imageSelector('screenshot-quote-machine.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-quote-machine.png').id,
+                projectLink: '/project/quote-machine',
               },
             ]}
           />
