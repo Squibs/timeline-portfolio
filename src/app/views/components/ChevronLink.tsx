@@ -6,9 +6,8 @@ import { Link } from 'gatsby';
 type ChevronLinkProps = {
   fill: string;
   position: string;
-  link: string;
+  link?: string;
   hover: string;
-  display?: string;
 };
 
 /* -------------------------- ChevronLink component ------------------------- */
@@ -19,19 +18,13 @@ type ChevronLinkProps = {
  * @param link Where this should link to using Gatsby Link.
  * @param hover Color chevron and glow will be when link is hovered.
  */
-export const ChevronLink = ({
-  fill,
-  position,
-  link,
-  hover,
-  display,
-}: ChevronLinkProps): JSX.Element => {
+export const ChevronLink = ({ fill, position, link, hover }: ChevronLinkProps): JSX.Element => {
   return (
     <>
       {/* link/button for page navigation */}
       <Link
         className="chevron-link"
-        to={link}
+        to={link || ' '}
         css={`
           transition: height 1s;
           -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -59,7 +52,7 @@ export const ChevronLink = ({
           }
         `}
         style={{
-          display: `${display || 'unset'}`,
+          display: `${link ? 'unset' : 'none'}`,
           minHeight: '75px',
           height: '10%',
           padding: 0,
@@ -106,7 +99,7 @@ export const ChevronLink = ({
       <div
         className="chevron-link"
         style={{
-          display: `${display || 'unset'}`,
+          display: `${link ? 'unset' : 'none'}`,
           minHeight: '75px',
           height: '10%',
           padding: 0,
@@ -131,7 +124,7 @@ export const ChevronLink = ({
 };
 
 ChevronLink.defaultProps = {
-  display: null,
+  link: null,
 };
 
 export default ChevronLink;
