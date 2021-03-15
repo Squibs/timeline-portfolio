@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { navigate } from 'gatsby';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { useScrollHook } from '../hooks';
@@ -419,7 +420,6 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
   const [timelineArray, setTimelineArray] = useState<JSX.Element[]>([]);
   const [timelineProjectCount, setTimelineProjectCount] = useState<number>();
   const handleScroll = useScrollHook(timelineOuterContainerRef);
-  // const [previousSelectedProjectButton, setPreviousSelectedProjectButton] = useState<Element>();
   const { selectedProject } = useSelector(({ timeline: { timeline } }: AppState) => ({
     selectedProject: timeline.selectedProject,
   }));
@@ -433,6 +433,17 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
       // store project link; controls if element gets the .selected-project css class, as well as the button inner text
       // used in createTimeline()
       dispatch(timelineOperations.projectSelect(projectLink));
+
+      // if mobile timeout for animations to play out
+      if (
+        /Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent,
+        )
+      ) {
+        setTimeout(() => navigate(projectLink), 250);
+      } else {
+        navigate(projectLink);
+      }
     },
     [dispatch],
   );
@@ -559,6 +570,13 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
     createTimeline();
   }, [createTimeline]);
 
+  /* ------------------- get amount of projects in timeline ------------------- */
+
+  // set timeline-line width based on number of children of inner container
+  useEffect(() => {
+    setTimelineProjectCount(timelineInnerContainerRef.current.children.length - 1);
+  }, [timelineProjectCount]);
+
   /* ---------------------------- handle mousewheel --------------------------- */
 
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
@@ -578,13 +596,6 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
       current.removeEventListener('wheel', cancelWheel);
     };
   }, []);
-
-  /* ------------------- get amount of projects in timeline ------------------- */
-
-  // set timeline-line width based on number of children of inner container
-  useEffect(() => {
-    setTimelineProjectCount(timelineInnerContainerRef.current.children.length - 1);
-  }, [timelineProjectCount]);
 
   /* ----------------------- handle mouse drag to scroll ---------------------- */
 
