@@ -1,8 +1,7 @@
 - adjust scroll to nearest project for mobile ~ 0.5-0.75 sec delay if in-between - on timeline
-  - center scroll on currently selected project
-  - add "SELECTED" css class to currently selected project button
-  - change text of selected project button to 'selected' or something else
-  - auto navigate to selected project after an amount of time ~0.5 - 1 sec (could come with the following TODO)
+- auto navigate to selected project after an amount of time ~0.5 - 1 sec (could come with the following TODO)
+- animate button when hovered/focused then selected
+- smoothscroll for ios https://github.com/iamdustan/smoothscroll https://stackoverflow.com/questions/51731754/window-scroll-smooth-not-working-on-safari
 - page transitions (left/right swipe) & min length of 0.5s for navigation css transitions to show
 - scrollbar fade-in fade-out
 - remove unnecessary gatsby plugins or other npm packages
