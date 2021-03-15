@@ -632,16 +632,29 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
   /* ------------------------ scroll element into view ------------------------ */
 
   useEffect(() => {
-    for (let i = 0; i < timelineInnerContainerRef.current.children.length; i += 1) {
-      if (timelineInnerContainerRef.current.children[i].children[2]) {
-        if (
-          timelineInnerContainerRef.current.children[i].children[2].classList.contains(
-            'selected-project',
-          )
-        ) {
-          timelineInnerContainerRef.current.children[i].children[2].scrollIntoView({
+    const { current } = timelineOuterContainerRef;
+
+    // loops through the outer container children
+    for (let i = 0; i < current.children[0].children.length; i += 1) {
+      // if child contains a button (anything but the timeline line)
+      if (current.children[0].children[i].children[2]) {
+        // if the button contains the .selected-project css class
+        if (current.children[0].children[i].children[2].classList.contains('selected-project')) {
+          // calculate container width that is set in css (100% or 65%), then assign suitable equation to scroll element into view
+          const containerOffset =
+            (current.children[0].getBoundingClientRect().width /
+              current.getBoundingClientRect().width) *
+              100 ===
+            100
+              ? current.children[0].getBoundingClientRect().width * i
+              : current.children[0].getBoundingClientRect().width * 0.4 * i -
+                current.children[0].getBoundingClientRect().width * 0.25;
+
+          // scroll element into view smoothly
+          current.scrollTo({
             behavior: 'smooth',
-            inline: 'center',
+            top: 0,
+            left: containerOffset,
           });
         }
       }
