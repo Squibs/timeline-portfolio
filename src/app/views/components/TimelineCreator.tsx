@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { useScrollHook } from '../hooks';
@@ -15,7 +15,7 @@ type TimelineColor = {
   timelineColor: string;
 };
 
-type UpperOrLowerContainerProps = TimelineColor;
+type UpperOrLowerContainerProps = TimelineColor & { timelineFontColor: string };
 
 type TitleDescriptionContainerProps = TimelineColor;
 
@@ -165,6 +165,20 @@ const UpperOrLowerContainer = styled.div<UpperOrLowerContainerProps>`
   flex: 0 0 100%;
   flex-direction: column;
   position: relative;
+
+  .selected-project {
+    outline: none;
+    border-width: 0px;
+    transition: border-width 1s;
+    cursor: pointer;
+
+    & > div {
+      background-color: ${(props) => props.timelineColor};
+      color: ${(props) => props.timelineFontColor};
+      height: 76px;
+      flex: 0 0 76px;
+    }
+  }
 
   @media screen and (min-width: 900px) and (min-height: 650px) {
     flex-direction: row;
@@ -401,12 +415,27 @@ type Props = TimelineCreatorProps;
 const TimelineCreator = ({ projects }: Props): JSX.Element => {
   const timelineOuterContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const timelineInnerContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const timelineSquaresContainerRefs = React.useRef([]);
   const [timelineArray, setTimelineArray] = useState<JSX.Element[]>([]);
   const [timelineProjectCount, setTimelineProjectCount] = useState<number>();
   const handleScroll = useScrollHook(timelineOuterContainerRef);
+  // const [previousSelectedProjectButton, setPreviousSelectedProjectButton] = useState<Element>();
+  const { selectedProject } = useSelector(({ timeline: { timeline } }: AppState) => ({
+    selectedProject: timeline.selectedProject,
+  }));
   const dispatch = useDispatch();
 
   /* ------------------------- create timeline helpers ------------------------ */
+
+  // project link handling
+  const handleProjectViewButton = useCallback(
+    (projectLink: string) => {
+      // store project link; controls if element gets the .selected-project css class, as well as the button inner text
+      // used in createTimeline()
+      dispatch(timelineOperations.projectSelect(projectLink));
+    },
+    [dispatch],
+  );
 
   // create timeline callback
   const createTimeline = useCallback(() => {
@@ -453,6 +482,7 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
           key={id}
           className={upperOrLower}
           timelineColor={roygbiv}
+          timelineFontColor={lightOrDarkFont}
           css={`
             ${upperOrLower === 'UpperContainer' &&
             `
@@ -496,9 +526,13 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
           <TimelineSquaresContainer
             timelineColor={roygbiv}
             timelineFontColor={lightOrDarkFont}
-            onClick={() => dispatch(timelineOperations.projectSelect(projectLink))}
+            onClick={() => handleProjectViewButton(projectLink)}
+            ref={timelineSquaresContainerRefs.current[i]}
+            className={`${projectLink === selectedProject ? 'selected-project' : ' '}`}
           >
-            <TimelineSquare>View</TimelineSquare>
+            <TimelineSquare>
+              {`${projectLink === selectedProject ? 'Selected' : 'View'}`}
+            </TimelineSquare>
           </TimelineSquaresContainer>
         </UpperOrLowerContainer>
       );
@@ -509,7 +543,7 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
     }
 
     setTimelineArray(tArray);
-  }, [dispatch, projects]);
+  }, [handleProjectViewButton, projects, selectedProject]);
 
   // update createTimeline on window resize, if too small, only upper timeline points
   useEffect(() => {
@@ -594,6 +628,25 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
     document.addEventListener('mousemove', mouseMoveHandler);
     document.addEventListener('mouseup', mouseUpHandler);
   };
+
+  /* ------------------------ scroll element into view ------------------------ */
+
+  useEffect(() => {
+    for (let i = 0; i < timelineInnerContainerRef.current.children.length; i += 1) {
+      if (timelineInnerContainerRef.current.children[i].children[2]) {
+        if (
+          timelineInnerContainerRef.current.children[i].children[2].classList.contains(
+            'selected-project',
+          )
+        ) {
+          timelineInnerContainerRef.current.children[i].children[2].scrollIntoView({
+            behavior: 'smooth',
+            inline: 'center',
+          });
+        }
+      }
+    }
+  }, [timelineArray]);
 
   /* ---------------------------- component return ---------------------------- */
 
