@@ -27,7 +27,7 @@ export const ChevronLink = React.forwardRef<HTMLDivElement, ChevronLinkProps>(
         <AniLink
           swipe
           direction={direction}
-          duration={2}
+          duration={1.5}
           entryOffset={100}
           className="chevron-link"
           to={link || ' '}
