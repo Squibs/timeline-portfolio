@@ -170,15 +170,30 @@ const ButtonContainer = styled.div`
   bottom: 5px;
   right: 5px;
 
+  & > div {
+    flex: 1;
+    display: flex;
+
+    &:nth-child(2) > .project-buttons {
+      margin: 0 auto;
+    }
+
+    &:last-child > .project-buttons {
+      margin: 0;
+      margin-left: auto;
+    }
+  }
+
   ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
-    & button { display: none;}
+    & > div:last-child { display: none; }
+    & > div:nth-child(2) > .project-buttons { margin-left: auto; margin-right: 5px; }
     left: 25%;
     width: calc(100% - 25%);
   `}
 
   @media screen and (min-width: 2560px) {
-    & > a {
-      margin-left: 640px;
+    & > div:first-child > .project-buttons {
+      margin-left: auto;
     }
 
     width: 1920px;
@@ -342,37 +357,43 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
 
       <ButtonContainer>
         {frontmatter.url && (
-          <a className="project-buttons" href={frontmatter.url} style={{ maxHeight: '15px' }}>
-            Site
-            <ExternalLink
-              css={`
-                height: 15px;
-                vertical-align: -6%;
-              `}
-            />
-          </a>
+          <div>
+            <a href={frontmatter.url} className="project-buttons" style={{ maxHeight: '15px' }}>
+              Site
+              <ExternalLink
+                css={`
+                  height: 15px;
+                  vertical-align: -6%;
+                `}
+              />
+            </a>
+          </div>
         )}
 
         {frontmatter.github && (
-          <a className="project-buttons" href={frontmatter.github} style={{ maxHeight: '15px' }}>
-            Github
-            <GitHub
+          <div>
+            <a href={frontmatter.github} className="project-buttons" style={{ maxHeight: '15px' }}>
+              Github
+              <GitHub
+                css={`
+                  height: 15px;
+                  vertical-align: -8%;
+                `}
+              />
+            </a>
+          </div>
+        )}
+
+        <div>
+          <button type="button" className="project-buttons" onClick={handleFullscreenButton}>
+            <Maximize2
               css={`
-                height: 15px;
+                height: 20px;
                 vertical-align: -8%;
               `}
             />
-          </a>
-        )}
-
-        <button className="project-buttons" type="button" onClick={handleFullscreenButton}>
-          <Maximize2
-            css={`
-              height: 20px;
-              vertical-align: -8%;
-            `}
-          />
-        </button>
+          </button>
+        </div>
       </ButtonContainer>
     </PageContainer>
   );
