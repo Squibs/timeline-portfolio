@@ -3,7 +3,7 @@ import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import IFrameResizer from 'iframe-resizer-react';
 import { ExternalLink, GitHub, Maximize2 } from 'react-feather';
-import { ChevronLink } from '../components';
+import { BorderContainer, ChevronLink } from '../components';
 import { Colors } from '../shared';
 import { useScrollHook } from '../hooks';
 
@@ -120,7 +120,7 @@ const BlobContainer = styled.div`
   position: absolute;
   right: 0;
   top: 5px;
-  z-index: -1;
+  z-index: -1; // send behind everything else, but background
   max-width: 125px;
 
   & > img {
@@ -155,9 +155,8 @@ const ProjectDisplay = styled.div`
   justify-content: center;
   align-items: center;
 
-  // fixes iOS safari overflowing with border radius and overflow: hidden;
   // https://gist.github.com/ayamflow/b602ab436ac9f05660d9c15190f4fd7b#gistcomment-2911047
-  z-index: 1;
+  z-index: 1; // fixes iOS safari overflowing with border radius and overflow: hidden;
 `;
 
 /* BUTTONS */
@@ -166,7 +165,7 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  z-index: 6;
+  z-index: 3; // buttons below the iframe go above border
   position: absolute;
   bottom: 5px;
   right: 5px;
@@ -306,6 +305,7 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
 
   return (
     <PageContainer className="page-container-styles">
+      <BorderContainer />
       <ContentContainer className="page-content-styles" ref={ContentContainerRef}>
         <ProjectInformationContainer
           className="project-information-container"

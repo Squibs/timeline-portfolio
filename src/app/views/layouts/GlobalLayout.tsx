@@ -1,26 +1,6 @@
 import React from 'react';
-import styled, { ThemeProvider, DefaultTheme } from 'styled-components';
+import { ThemeProvider, DefaultTheme } from 'styled-components';
 import { Breakpoints, Colors, TimelineColors } from '../shared';
-
-const BorderContainer = styled.div`
-  width: calc(100% - 40px);
-  height: calc(100% - 40px);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border: 10px solid #bda453;
-  border-radius: 5px;
-  /* causes lag/scrolling issues on some devices, while box-shadow does not
-     this could be something to keep in mind on further projects, so I'm leaving this note
-     here, that I will probably end up forgetting about. */
-  /* filter: drop-shadow(0 4px 4px black); */
-  box-shadow: inset 1px 2px 6px black, 0px 4px 6px black;
-  pointer-events: none;
-  min-width: 230px;
-  z-index: 5;
-  will-change: transform; // potential performance aid (https://medium.com/@kulor/one-small-css-hack-to-improve-scrolling-performance-c5238029e518)
-`;
 
 const mediaQuery = (size: keyof typeof Breakpoints) => {
   if (size === 'for0PhoneOnly') {
@@ -81,7 +61,22 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   return (
     <>
-      <BorderContainer />
+      {/* https://css-tricks.com/heres-how-i-solved-a-weird-bug-using-tried-and-true-debugging-strategies/ */}
+      <svg xmlns="http://www.w3.org/2000/svg" style={{ height: 0, width: 0, position: 'absolute' }}>
+        <defs>
+          <filter id="inset-shadow">
+            <feOffset dx="12" dy="2" />
+            <feGaussianBlur stdDeviation="10" result="offset-blur" />
+            <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse" />
+            <feFlood floodColor="black" floodOpacity="1" result="color" />
+            <feComposite operator="in" in="color" in2="inverse" result="shadow" />
+            <feComponentTransfer in="shadow" result="shadow">
+              <feFuncA type="linear" slope=".75" />
+            </feComponentTransfer>
+            <feComposite operator="over" in="shadow" in2="SourceGraphic" />
+          </filter>
+        </defs>
+      </svg>
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </>
   );

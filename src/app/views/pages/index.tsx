@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { ChevronLink, PortraitWithBackground } from '../components';
+import { BorderContainer, ChevronLink, PortraitWithBackground } from '../components';
 import { Colors } from '../shared';
 import { useScrollHook } from '../hooks';
 
@@ -45,6 +45,7 @@ const IndexPage: React.FC = () => {
 
   return (
     <PageContainer className="page-container-styles">
+      <BorderContainer />
       <ChevronLink
         fill={Colors.primaryDark}
         hover={Colors.primaryLight}

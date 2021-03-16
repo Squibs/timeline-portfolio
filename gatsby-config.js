@@ -46,14 +46,16 @@ module.exports = {
       // styled-components
       resolve: 'gatsby-plugin-styled-components',
     },
-    'gatsby-transformer-sharp',
-    'gatsby-plugin-sharp',
+    'gatsby-plugin-sharp', // image processing functions from the sharp image processing library
+    'gatsby-transformer-sharp', // creates image-sharp nodes from image types supported by the sharp image processing library
     {
+      // used to put local files into the gatsby application/graphql (images in this case)
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'images',
         path: 'src/app/images',
       },
     },
+    'gatsby-plugin-transition-link',
   ],
 };

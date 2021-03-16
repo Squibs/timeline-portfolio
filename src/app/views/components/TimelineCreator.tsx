@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { navigate } from 'gatsby';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { useScrollHook } from '../hooks';
@@ -376,7 +375,7 @@ const TimelineLine = styled.div`
   position: absolute;
   bottom: 38px;
   left: 10px;
-  z-index: -1;
+  z-index: -1; // send behind everything in timeline
   // width set programmatically similar to the following; to adjust go to jsx element
   /* width: calc((100% * (INNER-CONTAINER-NUMBER-OF-CHILDREN - 1)) - 20px); */
 
@@ -405,6 +404,7 @@ type Project = {
 
 type TimelineCreatorProps = {
   projects: Project[];
+  chevronRef: React.RefObject<HTMLDivElement>;
 };
 
 type Props = TimelineCreatorProps;
@@ -413,7 +413,7 @@ type Props = TimelineCreatorProps;
 /*                                  component                                 */
 /* -------------------------------------------------------------------------- */
 
-const TimelineCreator = ({ projects }: Props): JSX.Element => {
+const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
   const timelineOuterContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const timelineInnerContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const timelineSquaresContainerRefs = React.useRef([]);
@@ -434,18 +434,21 @@ const TimelineCreator = ({ projects }: Props): JSX.Element => {
       // used in createTimeline()
       dispatch(timelineOperations.projectSelect(projectLink));
 
-      // if mobile timeout for animations to play out
-      if (
-        /Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent,
-        )
-      ) {
-        setTimeout(() => navigate(projectLink), 250);
-      } else {
-        navigate(projectLink);
-      }
+      // reference to the anchor link inside of the custom gatsbylink/chevron navigation
+      const button = chevronRef.current?.children[0] as HTMLElement;
+
+      // outer setTimeout is there because the nav link click wasn't working
+      // the ref and everything was correct and there (not null/undefined)
+      // but the click wouldn't work without the setTimeout
+      // setTimeout(() => {
+      //   button.focus();
+      //   setTimeout(() => button.click(), 250);
+      // }, 1);
+
+      button.focus();
+      setTimeout(() => button.click(), 250);
     },
-    [dispatch],
+    [chevronRef, dispatch],
   );
 
   // create timeline callback

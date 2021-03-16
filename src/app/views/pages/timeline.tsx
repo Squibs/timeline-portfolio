@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
-import { ChevronLink, TimelineCreator } from '../components';
+import { BorderContainer, ChevronLink, TimelineCreator } from '../components';
 import { Colors } from '../shared';
 import { AppState } from '../../state/store';
 
@@ -53,7 +53,7 @@ const TimelineContainer = styled.div`
   overflow: hidden;
   border-radius: 25px;
   border: 6px solid ${({ theme }) => theme.colors.accentOne};
-  z-index: 1;
+  z-index: 1; // iOS fix
   margin-bottom: 10px;
   max-height: 1200px;
   position: relative;
@@ -94,6 +94,7 @@ type Query = {
 /* -------------------------------- component ------------------------------- */
 
 const TimelinePage: React.FC = () => {
+  const chevronLinkRef = useRef<HTMLDivElement>(null);
   const { selectedProject } = useSelector(
     ({ timeline: { timeline } }: AppState) => ({
       selectedProject: timeline.selectedProject,
@@ -114,6 +115,7 @@ const TimelinePage: React.FC = () => {
           }
         }
       }
+
       background: file(relativePath: { eq: "timelinePage/diagonal-striped-brick-pattern.png" }) {
         childImageSharp {
           id
@@ -129,16 +131,21 @@ const TimelinePage: React.FC = () => {
     return data.images.nodes.filter((node: Node) => node.base === imgName)[0];
   };
 
+  const getChevronElement = () => {
+    return chevronLinkRef;
+  };
+
   return (
     <PageContainer className="page-container-styles">
+      <BorderContainer />
       <ChevronLink fill={Colors.whiteTint} hover={Colors.primaryDark} position="left" link="/" />
       <ChevronLink
         fill={Colors.whiteTint}
         hover={Colors.primaryNeutral}
         position="right"
         link={selectedProject}
+        ref={chevronLinkRef}
       />
-
       <ContentContainer className="page-content-styles">
         <h1>My Timeline</h1>
         <TimelineContainer
@@ -147,6 +154,7 @@ const TimelinePage: React.FC = () => {
           }}
         >
           <TimelineCreator
+            chevronRef={getChevronElement()}
             projects={[
               {
                 title: 'Learning To Necro',

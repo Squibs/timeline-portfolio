@@ -15,10 +15,17 @@ const GlobalStyle = createGlobalStyle`
     position: relative;
   }
 
-  // set overflow auto for fist child of gatsby wrappers, otherwise gaps. Could be an issue.
-  body > div > div > div {
-    overflow: auto;
+  //.tl-wrapper and .tel-edges are from gatsby-plugin-transition-link
+   .tl-edges, .tl-wrapper {
+    height: 100%;
+    min-width: 280px;
+    position: relative;
   }
+
+  // set overflow auto for fist child of gatsby wrappers, otherwise gaps. Could be an issue.
+  /* body > div > div > div {
+    overflow: auto;
+  } */
 
   // anchor styles
   .page-content-styles a {

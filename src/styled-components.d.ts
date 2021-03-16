@@ -1,8 +1,6 @@
 import 'styled-components';
 import type {} from 'styled-components/cssprop';
 
-declare module 'gatsby-plugin-transition-link/AniLink';
-
 declare module 'styled-components' {
   export interface DefaultTheme {
     colors: {
