@@ -5,20 +5,19 @@
 - 404 page
 - loading symbol for iframe
 - react helmet
-- add go back to timeline button in all project descriptions/pages
-- scrollbar fade-in fade-out
+- add navigational anchor links at bottom of project descriptions on iframe page (back to timeline/back to homepage)
 - remove unnecessary gatsby plugins or other npm packages
 - favicon
 - add blobs to timeline, maybe sprinkle throughout
 - accessibility elements/tags (image alt tags) - use firefox accessibility in console
 - contact me form / section / page
-- timeline page initially no navigation on right, appears when you select something on the timeline
 - have each md page pass some kind of default scale at a specific width for better scaling
   - maybe add zoom in / zoom out buttons
+- ? better 2K-4K styles
+- ? scrollbar fade-in fade-out
 - ? add note for each md page that styles might be off inside of the iframe
-- ? have buttons grayed out on page rather than gone. expand will always disappear on larger devices
-- ? make buttons larger on larger screens
-- ? click on square to select project for navigation
+- ? have buttons below iframe grayed out on page rather than gone. expand will always disappear on larger devices
+- ? make buttons below iframe larger on larger screens
 - ? add ability to drag every element with mouse on other pages.
 
 - X replace iframe scrollbar (probably not possible) - not really possible
