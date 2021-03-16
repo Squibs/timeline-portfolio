@@ -3,6 +3,9 @@
 - animate button when hovered/focused then selected
 - smoothscroll for ios https://github.com/iamdustan/smoothscroll https://stackoverflow.com/questions/51731754/window-scroll-smooth-not-working-on-safari
 - arrow keys to scroll timeline
+- 404 page
+- react helmet
+- add go back to timeline button in all project descriptions/pages
 - page transitions (left/right swipe) & min length of 0.5s for navigation css transitions to show
 - scrollbar fade-in fade-out
 - remove unnecessary gatsby plugins or other npm packages
