@@ -1,0 +1,47 @@
+diff --git a/node_modules/gatsby-plugin-transition-link/AniLink/Swipe.js b/node_modules/gatsby-plugin-transition-link/AniLink/Swipe.js
+index 3323c4f..e73aa78 100644
+--- a/node_modules/gatsby-plugin-transition-link/AniLink/Swipe.js
++++ b/node_modules/gatsby-plugin-transition-link/AniLink/Swipe.js
+@@ -92,12 +92,12 @@ const swipe = ({
+     return _gsap.default.timeline().set(node, {
+       boxShadow: boxShadow,
+       overflowY: 'hidden',
+-      height: '100vh',
++      height: '100%',
+       scrollTop: scrollTop
+     }).from(node, { ...swipeTopDirection(direction, true),
+       duration: exit.length
+     }).set(node, {
+-      overflowY: 'initial'
++      overflowY: 'hidden'
+     });
+   } else if (triggerName === 'entry') {
+     return _gsap.default.timeline().from(node, { ...swipeBottomDirection(direction, false, entryOffset),
+@@ -107,23 +107,23 @@ const swipe = ({
+     return _gsap.default.timeline().set(node, {
+       boxShadow: boxShadow,
+       overflowY: 'hidden',
+-      height: '100vh',
++      height: '100%',
+       scrollTop: scrollTop
+     }).to(node, { ...swipeTopDirection(direction),
+       duration: exit.length
+     }).set(node, {
+-      overflowY: 'initial'
++      overflowY: 'hidden'
+     });
+   } else {
+     return _gsap.default.timeline().set(node, {
+       boxShadow: boxShadow,
+       overflowY: 'hidden',
+-      height: '100vh',
++      height: '100%',
+       scrollTop: scrollTop
+     }).to(node, { ...swipeBottomDirection(direction, true, entryOffset),
+       duration: exit.length
+     }).set(node, {
+-      overflowY: 'initial'
++      overflowY: 'hidden'
+     });
+   }
+ };

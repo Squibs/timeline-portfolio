@@ -8,6 +8,7 @@ type ChevronLinkProps = {
   position: string;
   link?: string;
   hover: string;
+  direction: string;
 };
 
 /* -------------------------- ChevronLink component ------------------------- */
@@ -19,12 +20,15 @@ type ChevronLinkProps = {
  * @param hover Color chevron and glow will be when link is hovered.
  */
 export const ChevronLink = React.forwardRef<HTMLDivElement, ChevronLinkProps>(
-  ({ fill, position, link, hover }: ChevronLinkProps, ref): JSX.Element => {
+  ({ fill, position, link, hover, direction }: ChevronLinkProps, ref): JSX.Element => {
     return (
       <div ref={ref}>
         {/* link/button for page navigation */}
         <AniLink
-          paintDrip
+          swipe
+          direction={direction}
+          duration={2}
+          entryOffset={100}
           className="chevron-link"
           to={link || ' '}
           css={`

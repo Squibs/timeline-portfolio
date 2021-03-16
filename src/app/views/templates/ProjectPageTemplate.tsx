@@ -306,6 +306,13 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
   return (
     <PageContainer className="page-container-styles">
       <BorderContainer />
+      <ChevronLink
+        fill={Colors.primaryNeutral}
+        hover={Colors.primaryLight}
+        position="left"
+        link="/timeline"
+        direction="right"
+      />
       <ContentContainer className="page-content-styles" ref={ContentContainerRef}>
         <ProjectInformationContainer
           className="project-information-container"
@@ -332,13 +339,6 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
           </ProjectDisplay>
         </ProjectDisplayContainer>
       </ContentContainer>
-
-      <ChevronLink
-        fill={Colors.primaryNeutral}
-        hover={Colors.primaryLight}
-        position="left"
-        link="/timeline"
-      />
 
       <ButtonContainer>
         {frontmatter.url && (

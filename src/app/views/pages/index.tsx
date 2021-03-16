@@ -51,6 +51,7 @@ const IndexPage: React.FC = () => {
         hover={Colors.primaryLight}
         position="right"
         link="/timeline"
+        direction="left"
       />
 
       <ContentContainer
