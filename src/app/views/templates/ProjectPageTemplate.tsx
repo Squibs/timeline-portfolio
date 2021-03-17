@@ -270,6 +270,10 @@ const SpinnerContainer = styled.div`
   align-items: center;
   align-content: center;
   flex-wrap: wrap;
+
+  & > div:first-child {
+    margin-left: -25px;
+  }
 `;
 
 const LoadingText = styled.div`
