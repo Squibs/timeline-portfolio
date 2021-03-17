@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import IFrameResizer from 'iframe-resizer-react';
+import Loader from 'react-loader-spinner';
 import { ExternalLink, GitHub, Maximize2 } from 'react-feather';
 import { BorderContainer, ChevronLink } from '../components';
 import { Colors } from '../shared';
@@ -154,6 +155,7 @@ const ProjectDisplay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 
   // https://gist.github.com/ayamflow/b602ab436ac9f05660d9c15190f4fd7b#gistcomment-2911047
   z-index: 1; // fixes iOS safari overflowing with border radius and overflow: hidden;
@@ -258,6 +260,35 @@ const IFrame = styled(IFrameResizer)`
   `}
 `;
 
+/* IFRAME SPINNER */
+const SpinnerContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
+`;
+
+const LoadingText = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    margin: 0;
+    margin-right: 3px;
+    margin-left: -5px;
+  }
+
+  & > div {
+    height: min-content;
+    margin-top: 13%;
+  }
+`;
+
 /* ---------------------------------- types --------------------------------- */
 
 export interface ProjectPageTemplateProps {
@@ -294,8 +325,11 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
 }: ProjectPageTemplateProps) => {
   const ProjectDescriptionRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const ContentContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+  // you can type the ref either way below (as React.Muta...<HTML...> or useRec<HTML...>(null))
   const ProjectInformationContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const iFrameRef = useRef<HTMLIFrameElement>(null);
   const handleInformationScroll = useScrollHook(ProjectDescriptionRef);
+  const [videoLoading, setVideoLoading] = useState(true);
 
   // auto focus inner div so keyboard controls can be instantly used
   useEffect(() => {
@@ -318,6 +352,10 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
     }
   };
 
+  const handleIframeLoad = () => {
+    setVideoLoading(false);
+  };
+
   return (
     <PageContainer className="page-container-styles">
       <BorderContainer />
@@ -328,6 +366,7 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
         link="/timeline"
         direction="right"
       />
+
       <ContentContainer className="page-content-styles" ref={ContentContainerRef}>
         <ProjectInformationContainer
           className="project-information-container"
@@ -348,9 +387,25 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
             />
           </ProjectInformation>
         </ProjectInformationContainer>
+
         <ProjectDisplayContainer className="project-display-container">
           <ProjectDisplay>
-            <IFrame src={frontmatter.url} scrolling />
+            {videoLoading && (
+              <SpinnerContainer>
+                <Loader
+                  type="MutatingDots"
+                  width={100}
+                  height={100}
+                  color={`${Colors.accentOne}`}
+                  secondaryColor={`${Colors.accentTwo}`}
+                />
+                <LoadingText>
+                  <h1>Loading</h1>
+                  <Loader type="ThreeDots" color={`${Colors.whiteTint}`} width={45} />
+                </LoadingText>
+              </SpinnerContainer>
+            )}
+            <IFrame src={frontmatter.url} scrolling ref={iFrameRef} onLoad={handleIframeLoad} />
           </ProjectDisplay>
         </ProjectDisplayContainer>
       </ContentContainer>

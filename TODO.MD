@@ -3,7 +3,6 @@
 - smoothscroll for ios https://github.com/iamdustan/smoothscroll https://stackoverflow.com/questions/51731754/window-scroll-smooth-not-working-on-safari
 - arrow keys to scroll timeline
 - 404 page
-- loading symbol for iframe
 - react helmet
 - add navigational anchor links at bottom of project descriptions on iframe page (back to timeline/back to homepage)
 - remove unnecessary gatsby plugins or other npm packages
