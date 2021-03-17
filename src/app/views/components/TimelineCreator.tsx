@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
@@ -45,6 +45,7 @@ const TimelineOuterContainer = styled.div`
   overflow-y: auto;
   overflow-x: auto;
   cursor: grab;
+  outline: none;
 
   h2 {
     width: 85%;
@@ -420,6 +421,7 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
   const [timelineArray, setTimelineArray] = useState<JSX.Element[]>([]);
   const [timelineProjectCount, setTimelineProjectCount] = useState<number>();
   const handleScroll = useScrollHook(timelineOuterContainerRef);
+  const [scrollAmount, setScrollAmount] = useState<number>(0);
   const { selectedProject } = useSelector(({ timeline: { timeline } }: AppState) => ({
     selectedProject: timeline.selectedProject,
   }));
@@ -434,17 +436,10 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
       // used in createTimeline()
       dispatch(timelineOperations.projectSelect(projectLink));
 
-      // reference to the anchor link inside of the custom gatsbylink/chevron navigation
+      // reference to the anchor link inside of the custom GatsbyLink/chevron navigation
       const button = chevronRef.current?.children[0] as HTMLElement;
 
-      // outer setTimeout is there because the nav link click wasn't working
-      // the ref and everything was correct and there (not null/undefined)
-      // but the click wouldn't work without the setTimeout
-      // setTimeout(() => {
-      //   button.focus();
-      //   setTimeout(() => button.click(), 250);
-      // }, 1);
-
+      // focus right side navigation/chevron and then click it after 250ms
       button.focus();
       setTimeout(() => button.click(), 250);
     },
@@ -580,6 +575,42 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
     setTimelineProjectCount(timelineInnerContainerRef.current.children.length - 1);
   }, [timelineProjectCount]);
 
+  /* ------------------------ scroll element into view ------------------------ */
+
+  useEffect(() => {
+    const {
+      current: { children },
+    } = timelineOuterContainerRef;
+
+    // loops through the outer container children
+    for (let i = 0; i < children[0].children.length; i += 1) {
+      // if child contains a button (anything but the timeline line)
+      if (children[0].children[i].children[2]) {
+        // if the button contains the .selected-project css class
+        if (children[0].children[i].children[2].classList.contains('selected-project')) {
+          // calculate container width that is set in css (100% or 65%), then assign suitable equation to scroll element into view
+          let containerOffset;
+          if (
+            timelineOuterContainerRef.current.clientWidth === children[0].children[i].clientWidth
+          ) {
+            containerOffset = children[0].getBoundingClientRect().width * i;
+          } else {
+            containerOffset =
+              children[0].getBoundingClientRect().width * 0.4 * i -
+              children[0].getBoundingClientRect().width * 0.25;
+          }
+
+          // scroll element into view smoothly
+          timelineOuterContainerRef.current.scrollTo({
+            behavior: 'smooth',
+            top: 0,
+            left: containerOffset,
+          });
+        }
+      }
+    }
+  }, [timelineArray]);
+
   /* ---------------------------- handle mousewheel --------------------------- */
 
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
@@ -643,41 +674,69 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
     document.addEventListener('mouseup', mouseUpHandler);
   };
 
-  /* ------------------------ scroll element into view ------------------------ */
+  /* ------------------------- allow keyboard controls ------------------------ */
 
+  // focus the timeline outer container for immediate use of keyboard navigation
+  useLayoutEffect(() => {
+    timelineOuterContainerRef.current.tabIndex = -1;
+    timelineOuterContainerRef.current.autofocus = true;
+    timelineOuterContainerRef.current.focus();
+  }, []);
+
+  // width of a single project on the timeline
+  const projectWidth =
+    timelineOuterContainerRef.current &&
+    timelineOuterContainerRef.current.children[0].children[0].scrollWidth;
+
+  // width percentage of a single project on the timeline rounded to 2 decimal places
+  // mobile: 100%/1, everything else: 65%/0.65
+  const projectWidthPercentage =
+    timelineOuterContainerRef.current &&
+    Math.round(
+      (projectWidth / timelineOuterContainerRef.current.children[0].getBoundingClientRect().width) *
+        1e2,
+    ) / 1e2;
+
+  // number of total projects on the timeline (-1 due to timeline line [dotted line])
+  const numProjects =
+    timelineOuterContainerRef.current &&
+    timelineOuterContainerRef.current.children[0].childElementCount - 1;
+
+  // width of the entire timeline that scrolls (innerContainerRef.current.scrollWidth is incorrect)
+  const timelineWidth =
+    projectWidthPercentage === 1
+      ? projectWidth * numProjects - projectWidth
+      : projectWidth * numProjects * 0.65 * 0.75 + projectWidth * 0.75 + 40;
+
+  // width of the container/view of the timeline
+  const timelineContainerWidth =
+    timelineOuterContainerRef.current &&
+    timelineOuterContainerRef.current.getBoundingClientRect().width;
+
+  // keys that needed reworking for horizontal scrolling
+  const onKeyDownKeys: { [key: string]: () => void } = {
+    ' ': () => setScrollAmount((prevValue) => prevValue + timelineContainerWidth),
+    PageUp: () => setScrollAmount((prevValue) => prevValue - timelineContainerWidth),
+    PageDown: () => setScrollAmount((prevValue) => prevValue + timelineContainerWidth),
+    Home: () => setScrollAmount(0),
+    End: () => setScrollAmount(timelineWidth),
+  };
+
+  // don't allow control scroll variable (scrollAmount [as local state]) to go below 0 or higher than timelineWidth
+  useLayoutEffect(() => {
+    if (timelineOuterContainerRef.current)
+      if (scrollAmount > timelineWidth) setScrollAmount(timelineWidth);
+      else if (scrollAmount < 0) setScrollAmount(0);
+  }, [scrollAmount, timelineWidth]);
+
+  // scrolls when scrollAmount (state variable) updates, which is updated off of onKeyDown(s) on TimelineOuterContainer
   useEffect(() => {
-    const {
-      current: { children },
-    } = timelineOuterContainerRef;
-
-    // loops through the outer container children
-    for (let i = 0; i < children[0].children.length; i += 1) {
-      // if child contains a button (anything but the timeline line)
-      if (children[0].children[i].children[2]) {
-        // if the button contains the .selected-project css class
-        if (children[0].children[i].children[2].classList.contains('selected-project')) {
-          // calculate container width that is set in css (100% or 65%), then assign suitable equation to scroll element into view
-          let containerOffset;
-          if (
-            timelineOuterContainerRef.current.clientWidth === children[0].children[i].clientWidth
-          ) {
-            containerOffset = children[0].getBoundingClientRect().width * i;
-          } else {
-            containerOffset =
-              children[0].getBoundingClientRect().width * 0.4 * i -
-              children[0].getBoundingClientRect().width * 0.25;
-          }
-
-          // scroll element into view smoothly
-          timelineOuterContainerRef.current.scrollTo({
-            behavior: 'smooth',
-            top: 0,
-            left: containerOffset,
-          });
-        }
-      }
-    }
-  }, [timelineArray]);
+    if (timelineOuterContainerRef)
+      timelineOuterContainerRef.current.scrollTo({
+        behavior: 'smooth',
+        left: scrollAmount,
+      });
+  }, [scrollAmount]);
 
   /* ---------------------------- component return ---------------------------- */
 
@@ -688,6 +747,9 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
       onMouseDown={mouseDownHandler}
       onScroll={() => handleScroll()}
       className="page-content-styles"
+      onKeyDown={({ key }) => {
+        return onKeyDownKeys[key] && onKeyDownKeys[key]();
+      }}
     >
       <TimelineInnerContainer ref={timelineInnerContainerRef}>
         {timelineArray}
