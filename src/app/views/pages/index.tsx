@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { BorderContainer, ChevronLink, PortraitWithBackground } from '../components';
 import { Colors } from '../shared';
@@ -37,7 +37,7 @@ const IndexPage: React.FC = () => {
   const handleScroll = useScrollHook(contentContainerRef);
 
   // auto focus inner div so keyboard controls can be instantly used
-  useEffect(() => {
+  useLayoutEffect(() => {
     contentContainerRef.current.tabIndex = -1;
     contentContainerRef.current.autofocus = true;
     contentContainerRef.current.focus();

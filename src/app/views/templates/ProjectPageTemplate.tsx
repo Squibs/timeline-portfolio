@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import IFrameResizer from 'iframe-resizer-react';
@@ -336,7 +336,7 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
   const [videoLoading, setVideoLoading] = useState(true);
 
   // auto focus inner div so keyboard controls can be instantly used
-  useEffect(() => {
+  useLayoutEffect(() => {
     ProjectDescriptionRef.current.tabIndex = -1;
     ProjectDescriptionRef.current.autofocus = true;
     ProjectDescriptionRef.current.focus();
