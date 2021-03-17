@@ -34,6 +34,7 @@ const GlobalStyle = createGlobalStyle`
       outline: none;
     }
 
+    font-family: 'Bitter', sans-serif;
     color: ${Colors.accentOne};
     font-style: italic;
     font-weight: 400;
@@ -44,11 +45,11 @@ const GlobalStyle = createGlobalStyle`
   /* @@@@@@@@@@@ FONTS @@@@@@@@@@@ */
 
   h1 { font-family: 'Montserrat', sans-serif; }
-  h2 {
+  h2, h3 {
     font-family: 'Puritan', sans-serif;
     font-weight: normal;
   }
-  p { font-family: 'Bitter', sans-serif;}
+  p { font-family: 'Bitter', sans-serif; }
 
   // for tablet portrait and up
   @media screen and (min-width: 768px) {

@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { graphql } from 'gatsby';
+import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import styled from 'styled-components';
 import IFrameResizer from 'iframe-resizer-react';
 import Loader from 'react-loader-spinner';
@@ -98,10 +99,12 @@ const ProjectInformation = styled.div`
 `;
 
 const ProjectDescription = styled.div`
-  & > p:first-child {
+  & > div > p:first-child {
     margin-top: 0;
   }
 
+  display: flex;
+  flex-direction: column;
   outline: none;
   overflow-y: scroll;
   width: calc(100% - 45px);
@@ -385,10 +388,69 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
             <h2>{frontmatter.date}</h2>
             <ProjectDescription
               className="page-content-styles"
-              dangerouslySetInnerHTML={{ __html: html }}
               ref={ProjectDescriptionRef}
               onScroll={() => handleInformationScroll()}
-            />
+            >
+              <div dangerouslySetInnerHTML={{ __html: html }} />
+
+              <h3>Notice</h3>
+              <p style={{ fontSize: 14 }}>
+                <i>
+                  Styles might be off in the iFrame on this page. If you are on a mobile device and
+                  you want to be able to read everything, just that much better, then please visit
+                  the project site itself. You can do this by clicking on the
+                  <span style={{ whiteSpace: 'nowrap' }}>
+                    <b>
+                      &nbsp;&lt; red Site
+                      <ExternalLink
+                        css={`
+                          height: 12px;
+                          vertical-align: -6%;
+                        `}
+                      />
+                      button &gt;&nbsp;
+                    </b>
+                  </span>
+                  below the iFrame, or by visiting the project site link below.
+                </i>
+              </p>
+              <p style={{ fontSize: 14 }}>
+                <i>Check out any of the other buttons while you are there as well.</i>
+              </p>
+
+              <h3>Nav Links</h3>
+              <a href={frontmatter.url} target="_blank" rel="noreferrer">
+                Project Site
+              </a>
+              <a
+                style={{ marginTop: 3 }}
+                href={frontmatter.github}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Project GitHub
+              </a>
+              <AniLink
+                swipe
+                direction="right"
+                duration={1.5}
+                entryOffset={100}
+                to="/timeline/"
+                style={{ marginTop: 3 }}
+              >
+                Back to Timeline
+              </AniLink>
+              <AniLink
+                swipe
+                direction="right"
+                duration={1.5}
+                entryOffset={100}
+                to="/"
+                style={{ paddingBottom: 10, marginTop: 3 }}
+              >
+                Back to Homepage
+              </AniLink>
+            </ProjectDescription>
           </ProjectInformation>
         </ProjectInformationContainer>
 
@@ -417,7 +479,13 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
       <ButtonContainer>
         {frontmatter.url && (
           <div>
-            <a href={frontmatter.url} className="project-buttons" style={{ maxHeight: '15px' }}>
+            <a
+              href={frontmatter.url}
+              className="project-buttons"
+              style={{ maxHeight: '15px' }}
+              target="_blank"
+              rel="noreferrer"
+            >
               Site
               <ExternalLink
                 css={`
@@ -431,7 +499,13 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
 
         {frontmatter.github && (
           <div>
-            <a href={frontmatter.github} className="project-buttons" style={{ maxHeight: '15px' }}>
+            <a
+              href={frontmatter.github}
+              className="project-buttons"
+              style={{ maxHeight: '15px' }}
+              target="_blank"
+              rel="noreferrer"
+            >
               Github
               <GitHub
                 css={`

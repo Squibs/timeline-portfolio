@@ -56,6 +56,7 @@ module.exports = {
         path: 'src/app/images',
       },
     },
+    // page transitions when navigating
     'gatsby-plugin-transition-link',
   ],
 };

@@ -7,6 +7,7 @@
 - add blobs to timeline, maybe sprinkle throughout
 - accessibility elements/tags (image alt tags) - use firefox accessibility in console
 - contact me form / section / page
+- ? rework /timeline/ to include a url for pre-selected project
 - ? split things off of TimelineCreator.tsx to make it more readable
   - make TimelineCreator folder and have it's helper components in there.
 - ? better 2K-4K styles
@@ -16,11 +17,9 @@
 
 # md pages
 
-- add navigational anchor links at bottom of project descriptions on iframe page (back to timeline/back to homepage)
-- add note for each md page that styles might be off inside of the iframe
 - have each md page pass some kind of default scale at a specific width for better scaling
   - maybe add zoom in / zoom out buttons
-- ? add link to freecodecamp repo on each of the freecodecamp project pages, but that would be most, if not, all of them
+- ? add link/button to freecodecamp repo on each of the freecodecamp project pages, but that would be most, if not, all of them
 - ? have buttons below iframe grayed out on page rather than gone. expand will always disappear on larger devices
 - ? make buttons below iframe larger on larger screens
 
