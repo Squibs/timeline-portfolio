@@ -422,14 +422,16 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
               <a href={frontmatter.url} target="_blank" rel="noreferrer">
                 Project Site
               </a>
-              <a
-                style={{ marginTop: 3 }}
-                href={frontmatter.github}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Project GitHub
-              </a>
+              {frontmatter.github && (
+                <a
+                  style={{ marginTop: 3 }}
+                  href={frontmatter.github}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Project GitHub
+                </a>
+              )}
               <AniLink
                 swipe
                 direction="right"
