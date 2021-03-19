@@ -49,7 +49,10 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Puritan', sans-serif;
     font-weight: normal;
   }
-  p { font-family: 'Bitter', sans-serif; }
+  p, li {
+    font-family: 'Bitter', sans-serif;
+    font-weight: 300;
+  }
 
   // for tablet portrait and up
   @media screen and (min-width: 768px) {

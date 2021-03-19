@@ -5,18 +5,16 @@ title: 'Learning to Necro'
 url: 'https://learning-to-necro.netlify.app/'
 ---
 
-Notes about the project- Incididunt mollit ad nostrud est mollit enim sit pariatur. Enim officia ex laborum ad consectetur incididunt adipisicing commodo amet fugiat deserunt. Sunt enim minim Lorem velit sit voluptate non nisi dolor Lorem. Id in magna laboris dolore dolore ut officia occaecat proident non esse occaecat et. Eiusmod fugiat aliqua consectetur dolor laborum sint exercitation occaecat eiusmod. Eu incididunt esse sit ut velit consectetur fugiat enim.
+### Project Information
 
-Anim ipsum ad qui fugiat duis. Pariatur ad sint cupidatat et adipisicing irure amet ex nisi Lorem consequat in. Laborum et Lorem occaecat eu minim magna aliquip cupidatat amet Lorem dolore minim. Excepteur aute est duis eiusmod est.
+One of my first web development projects. Around the release of <a href="https://www.guildwars2.com/en/" target="_blank" rel="noreferrer">Guild Wars 2</a>, I built this website as a way to learn more about html. While it may not have served a real purpose for players in the game, at the time or even today, I can look back at this being a first stepping stone into learning more about web development.
 
-Officia culpa eiusmod veniam ex excepteur velit voluptate duis. Pariatur laborum qui mollit ex velit in qui minim nisi duis commodo sunt eiusmod. Do eu dolor sint amet amet irure tempor elit nisi ut voluptate aliqua quis. Cillum in laboris do aliqua ut ipsum sint laborum voluptate occaecat cillum est. Veniam esse exercitation qui occaecat proident aliquip reprehenderit commodo tempor eiusmod aliquip. Eu in est aute aute veniam eu fugiat commodo aliquip pariatur culpa esse magna.
+The site was originally hosted with it's own domain name: LearningToNecro.com, however there was no real point in keeping the domain name or paying to host the site. I have since re-hosted the site on Netlify.
 
-Est excepteur dolore eu mollit cillum ad et ut ullamco laboris tempor. Dolore incididunt fugiat nulla ea in culpa. Anim eu aliqua consequat mollit voluptate deserunt aute magna pariatur consectetur exercitation cupidatat. Dolore tempor proident Lorem consectetur. Incididunt veniam laboris fugiat minim velit nostrud laborum. Proident adipisicing veniam consequat laborum sunt adipisicing adipisicing minim do culpa incididunt aliqua pariatur.
+Some of the features I put into the site are no longer operational:
 
-Notes about the project- Incididunt mollit ad nostrud est mollit enim sit pariatur. Enim officia ex laborum ad consectetur incididunt adipisicing commodo amet fugiat deserunt. Sunt enim minim Lorem velit sit voluptate non nisi dolor Lorem. Id in magna laboris dolore dolore ut officia occaecat proident non esse occaecat et. Eiusmod fugiat aliqua consectetur dolor laborum sint exercitation occaecat eiusmod. Eu incididunt esse sit ut velit consectetur fugiat enim.
+- The RSS feed on the sidebar I've remade using a similar method to how I originally implemented it, this time using [RSS 2 HTML](https://rss.bloople.net/). Previously I had used RSSInclude.com, which no longer exists.
 
-Anim ipsum ad qui fugiat duis. Pariatur ad sint cupidatat et adipisicing irure amet ex nisi Lorem consequat in. Laborum et Lorem occaecat eu minim magna aliquip cupidatat amet Lorem dolore minim. Excepteur aute est duis eiusmod est.
+- The <b>Give Website Feedback</b> link in the sidebar also no longer works. This was done using PHP, and netlify does not support the use of PHP at runtime. I'm not worried about this not working as I have no plans to alter this site further.
 
-Officia culpa eiusmod veniam ex excepteur velit voluptate duis. Pariatur laborum qui mollit ex velit in qui minim nisi duis commodo sunt eiusmod. Do eu dolor sint amet amet irure tempor elit nisi ut voluptate aliqua quis. Cillum in laboris do aliqua ut ipsum sint laborum voluptate occaecat cillum est. Veniam esse exercitation qui occaecat proident aliquip reprehenderit commodo tempor eiusmod aliquip. Eu in est aute aute veniam eu fugiat commodo aliquip pariatur culpa esse magna.
-
-Est excepteur dolore eu mollit cillum ad et ut ullamco laboris tempor. Dolore incididunt fugiat nulla ea in culpa. Anim eu aliqua consequat mollit voluptate deserunt aute magna pariatur consectetur exercitation cupidatat. Dolore tempor proident Lorem consectetur. Incididunt veniam laboris fugiat minim velit nostrud laborum. Proident adipisicing veniam consequat laborum sunt adipisicing adipisicing minim do culpa incididunt aliqua pariatur.
+- I originally had some Unity projects, mostly tutorials I had followed, hidden on the site that were playable via the Unity webplayer. You can find these Unity projects by going to the Resources tab, scrolling to the very bottom, and clicking on the very small pink dot beneath the Trading Post Calculator. The webplayer is no longer supported by most browsers, and only internet explorer really supports it anymore. [Unity Webplayer installer for Internet Explorer and Safari](https://unity3d.com/webplayer%20).

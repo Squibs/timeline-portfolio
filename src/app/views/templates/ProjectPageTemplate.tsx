@@ -109,6 +109,11 @@ const ProjectDescription = styled.div`
   overflow-y: scroll;
   width: calc(100% - 45px);
   padding: 0 20px;
+  text-align: left;
+
+  & h3 {
+    text-align: center;
+  }
 
   ${({ theme }) => theme.breakpoints.for3TabletPortraitUp()`
     padding: 0 30px;
@@ -394,37 +399,42 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
               <div dangerouslySetInnerHTML={{ __html: html }} />
 
               <h3>Notice</h3>
-              <p style={{ fontSize: 14 }}>
+              <p style={{ fontSize: 14, marginTop: 0, textAlign: 'center' }}>
                 <i>
                   Styles might be off in the iFrame on this page. If you are on a mobile device and
-                  you want to be able to read everything, just that much better, then please visit
-                  the project site itself. You can do this by clicking on the
+                  everything is looking a bit small, then please visit the project site itself. You
+                  can do this by clicking on the
                   <span style={{ whiteSpace: 'nowrap' }}>
                     <b>
-                      &nbsp;&lt; red Site
+                      &nbsp; &#91; red Site
                       <ExternalLink
                         css={`
                           height: 12px;
                           vertical-align: -6%;
                         `}
                       />
-                      button &gt;&nbsp;
+                      button &#93; &nbsp;
                     </b>
                   </span>
-                  below the iFrame, or by visiting the project site link below.
+                  underneath the iFrame, or by visiting the project site link below.
                 </i>
               </p>
-              <p style={{ fontSize: 14 }}>
+              <p style={{ fontSize: 14, textAlign: 'center' }}>
                 <i>Check out any of the other buttons while you are there as well.</i>
               </p>
 
               <h3>Nav Links</h3>
-              <a href={frontmatter.url} target="_blank" rel="noreferrer">
+              <a
+                href={frontmatter.url}
+                style={{ textAlign: 'center' }}
+                target="_blank"
+                rel="noreferrer"
+              >
                 Project Site
               </a>
               {frontmatter.github && (
                 <a
-                  style={{ marginTop: 3 }}
+                  style={{ marginTop: 3, textAlign: 'center' }}
                   href={frontmatter.github}
                   target="_blank"
                   rel="noreferrer"
@@ -438,7 +448,7 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
                 duration={1.5}
                 entryOffset={100}
                 to="/timeline/"
-                style={{ marginTop: 3 }}
+                style={{ marginTop: 3, textAlign: 'center' }}
               >
                 Back to Timeline
               </AniLink>
@@ -448,7 +458,7 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
                 duration={1.5}
                 entryOffset={100}
                 to="/"
-                style={{ paddingBottom: 10, marginTop: 3 }}
+                style={{ paddingBottom: 10, marginTop: 3, textAlign: 'center' }}
               >
                 Back to Homepage
               </AniLink>
