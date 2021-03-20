@@ -611,10 +611,106 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
     }
   }, [timelineArray]);
 
+  /* ----------------------- handle mouse drag to scroll ---------------------- */
+
+  // https://stackoverflow.com/a/60218693/15020999
+
+  let mouseIsDown = false;
+  const pos = { top: 0, left: 0, x: 0, y: 0, velX: 0, velY: 0 };
+  let momentumID = 0;
+
+  const momentumLoop = () => {
+    // apply velocity to the current scroll position
+    timelineOuterContainerRef.current.scrollLeft += pos.velX;
+    timelineOuterContainerRef.current.scrollTop += pos.velY;
+
+    // slow the velocity
+    pos.velX *= 0.95;
+    pos.velY *= 0.95;
+
+    // if the scrollbar is still moving, reiterate over this function
+    if (Math.abs(pos.velX) > 0.75) {
+      momentumID = requestAnimationFrame(momentumLoop);
+    }
+  };
+
+  const cancelMomentumTracking = () => {
+    cancelAnimationFrame(momentumID);
+  };
+
+  const beginMomentumTracking = () => {
+    cancelMomentumTracking();
+    momentumID = requestAnimationFrame(momentumLoop);
+  };
+
+  const mouseDownHandler = (e: React.MouseEvent) => {
+    mouseIsDown = true;
+
+    // cancel any momentum
+    pos.velX = 0;
+    pos.velY = 0;
+
+    // change the cursor and prevent user from selecting the text
+    timelineOuterContainerRef.current.style.cursor = 'grabbing';
+    timelineOuterContainerRef.current.style.userSelect = 'none';
+
+    // store x values / scrollLeft
+    pos.x = e.pageX - timelineOuterContainerRef.current.offsetLeft; // startX
+    pos.left = timelineOuterContainerRef.current.scrollLeft; // scrollLeft
+
+    // store y values / scrollTop
+    pos.y = e.pageY - timelineOuterContainerRef.current.offsetTop;
+    pos.top = timelineOuterContainerRef.current.scrollTop;
+
+    cancelMomentumTracking();
+  };
+
+  const mouseUpOrLeaveHandler = (e: React.MouseEvent) => {
+    mouseIsDown = false;
+
+    // switch back to default grab cursor
+    timelineOuterContainerRef.current.style.cursor = 'grab';
+    timelineOuterContainerRef.current.style.removeProperty('user-select');
+
+    // start momentum when mouse is released, but not when mouse leaves timeline container
+    if (e.type === 'mouseup') {
+      beginMomentumTracking();
+    }
+  };
+
+  const mouseMoveHandler = (e: React.MouseEvent) => {
+    if (!mouseIsDown) return;
+    e.preventDefault();
+
+    // handle scrolling on x axis / scrollLeft
+    const tempX = e.pageX - timelineOuterContainerRef.current.offsetLeft;
+    const walkX = (tempX - pos.x) * 2; // scroll speed with cursor x axis / scrollLeft
+    const prevScrollLeft = timelineOuterContainerRef.current.scrollLeft;
+    timelineOuterContainerRef.current.scrollLeft = pos.left - walkX;
+
+    // handle scrolling on y axis / scrollTop
+    const tempY = e.pageY - timelineOuterContainerRef.current.offsetTop;
+    const walkY = (tempY - pos.y) * 2; // scroll speed with cursor y axis / scrollTop
+    const prevScrollTop = timelineOuterContainerRef.current.scrollTop;
+    timelineOuterContainerRef.current.scrollTop = pos.top - walkY;
+
+    // compare change in position to figure out drag speed
+    pos.velX = timelineOuterContainerRef.current.scrollLeft - prevScrollLeft;
+    pos.velY = timelineOuterContainerRef.current.scrollTop - prevScrollTop;
+
+    // adjust drag speed / initial momentum (was low with default values)
+    if (Math.sign(pos.velX) > 0) pos.velX += 25;
+    else if (Math.sign(pos.velY) > 0) pos.velY += 25;
+    else if (Math.sign(pos.velX) < 0) pos.velX -= 25;
+    else if (Math.sign(pos.velY) < 0) pos.velY -= 25;
+  };
+
   /* ---------------------------- handle mousewheel --------------------------- */
 
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
-    // timelineOuterContainerRef.current.scrollLeft += timelineOuterContainerRef.current.clientWidth;
+    // cancel momentum from mouse dragging
+    cancelMomentumTracking();
+
     if (e.deltaY > 0) timelineOuterContainerRef.current.scrollLeft += 25;
     else timelineOuterContainerRef.current.scrollLeft -= 25;
   };
@@ -630,49 +726,6 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
       current.removeEventListener('wheel', cancelWheel);
     };
   }, []);
-
-  /* ----------------------- handle mouse drag to scroll ---------------------- */
-
-  // cursor able to drag timeline
-  // https://htmldom.dev/drag-to-scroll/
-
-  let pos = { top: 0, left: 0, x: 0, y: 0 };
-
-  const mouseMoveHandler = (e: MouseEvent) => {
-    // how far the mouse has been moved
-    const dx = e.clientX - pos.x;
-    const dy = e.clientY - pos.y;
-
-    // scroll the element
-    timelineOuterContainerRef.current.scrollTop = pos.top - dy;
-    timelineOuterContainerRef.current.scrollLeft = pos.left - dx;
-  };
-
-  const mouseUpHandler = () => {
-    timelineOuterContainerRef.current.style.cursor = 'grab';
-    timelineOuterContainerRef.current.style.removeProperty('user-select');
-
-    document.removeEventListener('mousemove', mouseMoveHandler);
-    document.removeEventListener('mouseup', mouseUpHandler);
-  };
-
-  const mouseDownHandler = (e: React.MouseEvent) => {
-    // change the cursor and prevent user from selecting the text
-    timelineOuterContainerRef.current.style.cursor = 'grabbing';
-    timelineOuterContainerRef.current.style.userSelect = 'none';
-
-    pos = {
-      // the current scroll
-      left: timelineOuterContainerRef.current.scrollLeft,
-      top: timelineOuterContainerRef.current.scrollTop,
-      // get the current mouse position
-      x: e.clientX,
-      y: e.clientY,
-    };
-
-    document.addEventListener('mousemove', mouseMoveHandler);
-    document.addEventListener('mouseup', mouseUpHandler);
-  };
 
   /* ------------------------- allow keyboard controls ------------------------ */
 
@@ -745,6 +798,9 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
       onWheel={handleWheel}
       ref={timelineOuterContainerRef}
       onMouseDown={mouseDownHandler}
+      onMouseLeave={mouseUpOrLeaveHandler}
+      onMouseUp={mouseUpOrLeaveHandler}
+      onMouseMove={mouseMoveHandler}
       onScroll={() => handleScroll()}
       className="page-content-styles"
       onKeyDown={({ key }) => {
