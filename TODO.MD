@@ -1,7 +1,7 @@
 - not related to this project completely, but update freecodecamp https://github.com/Squibs/freeCodeCamp/blob/master/3.%20Front%20End%20Libraries/7.%20Front%20End%20Libraries%20Projects.md#build-a-javascript-calculator projects, missing pomodoro clock and javascript calculator
 
-- momentum on timeline drag
-- add link below timeline that lists all projects in a list format for quicker navigation
+- check timeline on all device sizes with the varying title lengths now
+- add link below timeline that lists all projects in a list format for quicker navigation (animate swipe up)
 - adjust scroll to nearest project for mobile ~ 0.5-0.75 sec delay if in-between - on timeline
 - animate button when hovered/focused then selected
 - 404 page
