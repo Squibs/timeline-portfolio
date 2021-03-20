@@ -3,7 +3,7 @@ slug: '/project/quote-machine'
 date: '2021-02-08'
 title: 'Quote Machine'
 url: 'https://squibs.github.io/quote-machine/'
-github: 'https://github.com/Squibs/quote-machine'
+github: 'https://github.com/Squibs/quote-machine#quote-machine'
 ---
 
 ### Project Information

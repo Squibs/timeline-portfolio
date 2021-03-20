@@ -3,7 +3,7 @@ slug: '/project/pomodoro-clock'
 date: '2017-08-03'
 title: 'Pomodoro Clock'
 url: 'https://squibs.github.io/pomodoro-clock'
-github: 'https://github.com/Squibs/pomodoro-clock'
+github: 'https://github.com/Squibs/pomodoro-clock#pomodoro-clock'
 ---
 
 ### Project Information

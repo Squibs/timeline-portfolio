@@ -18,6 +18,7 @@
 
 # md pages
 
+- md pages for javascript projects, maybe just one for all of these https://github.com/Squibs/freeCodeCamp/blob/master/2.%20JavaScript%20Algorithms%20and%20Data%20Structures/10.%20JavaScript%20Algorithms%20and%20Data%20Structures%20Projects.md#javascript-algorithms-and-data-structures-projects
 - have each md page pass some kind of default scale at a specific width for better scaling
   - maybe add zoom in / zoom out buttons
 - ? add link/button to freecodecamp repo on each of the freecodecamp project pages, but that would be most, if not, all of them
