@@ -8,6 +8,7 @@
 - accessibility elements/tags (image alt tags) - use firefox accessibility in console
 - contact me form / section / page
 - ? rework /timeline/ to include a url for pre-selected project
+  - returning from a project will always select that project
 - ? split things off of TimelineCreator.tsx to make it more readable
   - make TimelineCreator folder and have it's helper components in there.
 - ? better 2K-4K styles
