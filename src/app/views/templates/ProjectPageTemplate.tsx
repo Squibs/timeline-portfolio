@@ -1,4 +1,5 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { graphql } from 'gatsby';
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import styled from 'styled-components';
@@ -8,6 +9,7 @@ import { ExternalLink, GitHub, Maximize2 } from 'react-feather';
 import { BorderContainer, ChevronLink } from '../components';
 import { Colors } from '../shared';
 import { useScrollHook } from '../hooks';
+import { timelineOperations } from '../../state/ducks/timeline';
 
 /* --------------------------------- styles --------------------------------- */
 
@@ -339,9 +341,14 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
   const ContentContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   // you can type the ref either way below (as React.Muta...<HTML...> or useRec<HTML...>(null))
   const ProjectInformationContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
-  const iFrameRef = useRef<HTMLIFrameElement>(null);
   const handleInformationScroll = useScrollHook(ProjectDescriptionRef);
   const [videoLoading, setVideoLoading] = useState(true);
+  const dispatch = useDispatch();
+
+  // get selected project from url query
+  useEffect(() => {
+    dispatch(timelineOperations.projectSelect(frontmatter.slug.replace(/\/project\//, '')));
+  }, [dispatch, frontmatter.slug]);
 
   // auto focus inner div so keyboard controls can be instantly used
   useLayoutEffect(() => {
@@ -375,7 +382,7 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
         fill={Colors.primaryNeutral}
         hover={Colors.primaryLight}
         position="left"
-        link="/timeline"
+        link={`/timeline?project=${frontmatter.slug.replace(/\/project\//, '')}`}
         direction="right"
       />
 
@@ -483,7 +490,7 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
                 </LoadingText>
               </SpinnerContainer>
             )}
-            <IFrame src={frontmatter.url} scrolling ref={iFrameRef} onLoad={handleIframeLoad} />
+            <IFrame src={frontmatter.url} scrolling onLoad={handleIframeLoad} />
           </ProjectDisplay>
         </ProjectDisplayContainer>
       </ContentContainer>

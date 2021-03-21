@@ -58,5 +58,7 @@ module.exports = {
     },
     // page transitions when navigating
     'gatsby-plugin-transition-link',
+    // use params in url query
+    'gatsby-plugin-use-query-params',
   ],
 };

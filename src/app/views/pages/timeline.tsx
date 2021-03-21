@@ -1,10 +1,12 @@
-import React, { useRef } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
+import React, { useEffect, useRef } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
+import { useQueryParam, StringParam } from 'use-query-params';
 import { BorderContainer, ChevronLink, TimelineCreator } from '../components';
 import { Colors } from '../shared';
 import { AppState } from '../../state/store';
+import { timelineOperations } from '../../state/ducks/timeline';
 
 /* --------------------------------- styles --------------------------------- */
 
@@ -89,6 +91,7 @@ type Query = {
     nodes: Node[];
   };
   background: BackgroundImage;
+  projectList: { edges: { node: { frontmatter: { slug: string } } }[] };
 };
 
 /* -------------------------------- component ------------------------------- */
@@ -101,6 +104,13 @@ const TimelinePage: React.FC = () => {
     }),
     shallowEqual,
   );
+  const [queryProject, setQueryProject] = useQueryParam('project', StringParam);
+  const dispatch = useDispatch();
+
+  // get selected project from url query
+  useEffect(() => {
+    if (queryProject) dispatch(timelineOperations.projectSelect(queryProject));
+  }, [dispatch, queryProject, setQueryProject]);
 
   const data: Query = useStaticQuery(graphql`
     query TimelineImages {
@@ -124,6 +134,16 @@ const TimelinePage: React.FC = () => {
           }
         }
       }
+
+      projectList: allMarkdownRemark {
+        edges {
+          node {
+            frontmatter {
+              slug
+            }
+          }
+        }
+      }
     }
   `);
 
@@ -135,21 +155,40 @@ const TimelinePage: React.FC = () => {
     return chevronLinkRef;
   };
 
+  // check if currently selected project is an actual project with a page, before showing chevron (by passing correct/non-empty link)
+  const handleLink = () => {
+    if (selectedProject) {
+      const projectList = [
+        ...data.projectList.edges.map((project) => project.node.frontmatter.slug.slice(9)),
+      ];
+
+      for (let i = 0; i < projectList.length; i += 1) {
+        if (selectedProject === projectList[i]) {
+          return `/project/${selectedProject}`;
+        }
+      }
+    }
+
+    return '';
+  };
+
   return (
     <PageContainer className="page-container-styles">
       <BorderContainer />
+      {/* left chevron */}
       <ChevronLink
         fill={Colors.whiteTint}
         hover={Colors.primaryDark}
         position="left"
-        link="/"
+        link={`/?project=${selectedProject}`}
         direction="right"
       />
+      {/* right chevron */}
       <ChevronLink
         fill={Colors.whiteTint}
         hover={Colors.primaryNeutral}
         position="right"
-        link={selectedProject}
+        link={handleLink()}
         ref={chevronLinkRef}
         direction="left"
       />
@@ -169,7 +208,7 @@ const TimelinePage: React.FC = () => {
                   'Aliquip aliquip ad nisi sunt. Ipsum ipsum laborum et labore pariatur adipisicing.',
                 image: imageSelector('screenshot-learning-to-necro.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-learning-to-necro.png').id,
-                projectLink: '/project/learning-to-necro',
+                projectLink: 'learning-to-necro',
               },
               {
                 title: 'Tribute Page',
@@ -177,7 +216,7 @@ const TimelinePage: React.FC = () => {
                   'Voluptate cupidatat cillum quis do commodo duis fugiat Lorem veniam eu fugiat labore officia. Lorem excepteur eu veniam adipisicing consequat non eiusmod aliqua. Ullamco veniam cillum nostrud consectetur labore proident veniam enim. Minim excepteur consequat eu consequat irure eiusmod. Sint non dolore nisi fugiat. Cillum consectetur Lorem pariatur do veniam fugiat veniam nostrud proident labore voluptate dolore magna esse. Aute sunt quis ullamco sint occaecat cillum dolor proident irure.',
                 image: imageSelector('screenshot-tribute-page.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-tribute-page.png').id,
-                projectLink: '/project/tribute-page',
+                projectLink: 'tribute-page',
               },
               {
                 title: 'freeCodeCamp Repository',
@@ -185,7 +224,7 @@ const TimelinePage: React.FC = () => {
                   'Enim irure incididunt quis duis pariatur Lorem aliquip elit id quis ex fugiat commodo sit. Proident in in minim non deserunt est fugiat fugiat ea est irure elit excepteur. Deserunt fugiat dolore dolore commodo nulla consectetur. Est officia amet irure deserunt elit. Magna in culpa eu aliqua exercitation elit irure quis sint et veniam. Reprehenderit anim aliqua quis anim sunt voluptate dolor aute laboris aliquip pariatur. Officia sint incididunt tempor proident non incididunt reprehenderit pariatur.',
                 image: imageSelector('screenshot-free-code-camp.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-free-code-camp.png').id,
-                projectLink: '/project/free-code-camp',
+                projectLink: 'free-code-camp',
               },
               {
                 title: 'Personal Portfolio',
@@ -193,7 +232,7 @@ const TimelinePage: React.FC = () => {
                   'Exercitation mollit et labore deserunt aute aute. Nostrud laboris aliquip cupidatat et laborum ex officia labore sit eiusmod. Aute exercitation sint officia irure id nostrud enim eu ad dolore amet. Ex proident laboris duis anim commodo dolor id.',
                 image: imageSelector('screenshot-personal-portfolio.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-personal-portfolio.png').id,
-                projectLink: '/project/personal-portfolio',
+                projectLink: 'personal-portfolio',
               },
               {
                 title: 'Old Quote Machine',
@@ -201,7 +240,7 @@ const TimelinePage: React.FC = () => {
                   'Amet excepteur Lorem ullamco do dolor qui. Labore consequat amet elit id enim quis in voluptate excepteur aute occaecat labore. Dolore eu sunt aute amet sit. Sit quis anim cillum tempor cupidatat quis quis minim. Excepteur commodo culpa nulla voluptate reprehenderit ex.',
                 image: imageSelector('screenshot-quote-machine-old.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-quote-machine-old.png').id,
-                projectLink: '/project/quote-machine-old',
+                projectLink: 'quote-machine-old',
               },
               {
                 title: 'Local Weather',
@@ -209,7 +248,7 @@ const TimelinePage: React.FC = () => {
                   'Dolor ex proident enim duis. Sint exercitation do do commodo deserunt aliqua esse ullamco ex consectetur laboris eu qui. Dolore magna fugiat dolor sit velit minim aute pariatur officia ad mollit in enim. Nulla in occaecat reprehenderit aute consequat proident do et sint sunt. Minim ipsum amet nulla sit. Aute reprehenderit exercitation ipsum adipisicing cillum fugiat incididunt.',
                 image: imageSelector('screenshot-local-weather.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-local-weather.png').id,
-                projectLink: '/project/local-weather',
+                projectLink: 'local-weather',
               },
               {
                 title: 'Wikipedia Viewer',
@@ -217,7 +256,7 @@ const TimelinePage: React.FC = () => {
                   'Eu consectetur exercitation reprehenderit aute ea. Consectetur ea nostrud irure Lorem enim nostrud esse veniam incididunt cupidatat adipisicing elit. Excepteur laboris ullamco consequat eiusmod labore qui ullamco commodo. Irure ex minim nostrud nulla voluptate qui ut velit.',
                 image: imageSelector('screenshot-wikipedia-viewer.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-wikipedia-viewer.png').id,
-                projectLink: '/project/wikipedia-viewer',
+                projectLink: 'wikipedia-viewer',
               },
               {
                 title: 'Technical Documentation',
@@ -226,7 +265,7 @@ const TimelinePage: React.FC = () => {
                 image: imageSelector('screenshot-technical-documentation.png').childImageSharp
                   .fluid,
                 id: imageSelector('screenshot-technical-documentation.png').id,
-                projectLink: '/project/technical-documentation',
+                projectLink: 'technical-documentation',
               },
               {
                 title: 'Twitch Streamers',
@@ -234,7 +273,7 @@ const TimelinePage: React.FC = () => {
                   'Id dolore minim fugiat culpa. Nisi minim labore aliqua ullamco sint. Non reprehenderit sit consectetur laboris eiusmod. Fugiat elit do et in mollit reprehenderit adipisicing laboris sit ipsum reprehenderit quis pariatur. Magna sunt ea proident quis ex ipsum sint sunt et in. Esse veniam excepteur commodo labore qui in nostrud ad adipisicing Lorem. Eiusmod nisi anim dolor anim.',
                 image: imageSelector('screenshot-twitch-streamers.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-twitch-streamers.png').id,
-                projectLink: '/project/twitch-streamers',
+                projectLink: 'twitch-streamers',
               },
               {
                 title: 'JavaScript Calculator',
@@ -242,7 +281,7 @@ const TimelinePage: React.FC = () => {
                   'Mollit est irure eu elit do commodo enim dolor do sit sint est velit mollit. Voluptate ea fugiat officia est sunt tempor. Cillum cupidatat ea reprehenderit consequat tempor sunt officia sint magna enim ex eu.',
                 image: imageSelector('screenshot-js-calculator.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-js-calculator.png').id,
-                projectLink: '/project/js-calculator',
+                projectLink: 'js-calculator',
               },
               {
                 title: 'Pomodoro Clock',
@@ -250,7 +289,7 @@ const TimelinePage: React.FC = () => {
                   'Esse dolor sit elit sunt nostrud incididunt incididunt ex ex incididunt adipisicing fugiat eiusmod deserunt adipisicing incididunt adipisicing adipisicing cupidatat enim do. Ipsum pariatur reprehenderit irure ullamco. Non exercitation deserunt adipisicing adipisicing cupidatat enim do mollit velit consequat non aliqua fugiat.',
                 image: imageSelector('screenshot-pomodoro-clock.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-pomodoro-clock.png').id,
-                projectLink: '/project/pomodoro-clock',
+                projectLink: 'pomodoro-clock',
               },
               {
                 title: 'Simon Game',
@@ -258,7 +297,7 @@ const TimelinePage: React.FC = () => {
                   'Consequat qui culpa adipisicing ut exercitation mollit sunt do. Quis sunt mollit dolore laborum enim eu eu ipsum. Lorem eiusmod excepteur sit commodo pariatur culpa minim aliquip magna. Fugiat Lorem officia esse Lorem. Minim labore aliqua voluptate dolore sunt cillum nulla et commodo. Eu minim velit voluptate minim ullamco magna amet nisi cillum occaecat reprehenderit excepteur.',
                 image: imageSelector('screenshot-simon-game.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-simon-game.png').id,
-                projectLink: '/project/simon-game',
+                projectLink: 'simon-game',
               },
               {
                 title: 'Tic Tac Toe',
@@ -266,7 +305,7 @@ const TimelinePage: React.FC = () => {
                   'Id ea veniam eu aliquip enim amet dolore adipisicing sunt labore tempor id voluptate. Sunt qui in cupidatat nisi magna. Est exercitation sunt mollit minim ullamco irure nulla.',
                 image: imageSelector('screenshot-tic-tac-toe.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-tic-tac-toe.png').id,
-                projectLink: '/project/tic-tac-toe',
+                projectLink: 'tic-tac-toe',
               },
               {
                 title: 'NMC Janitorial Services',
@@ -274,7 +313,7 @@ const TimelinePage: React.FC = () => {
                   'Duis nostrud ad duis officia ad tempor dolore laboris laboris dolor eu consectetur. Pariatur laborum voluptate aliquip consectetur ut commodo qui est et. Ad ipsum officia deserunt pariatur ea occaecat aliquip ipsum irure est et dolor. Deserunt ea excepteur anim duis aliquip nisi. Officia amet magna aliqua nostrud laborum occaecat irure aliquip. Exercitation anim sit in sunt dolore est excepteur qui sunt qui.',
                 image: imageSelector('screenshot-nmc-janitorial.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-nmc-janitorial.png').id,
-                projectLink: '/project/nmc-janitorial',
+                projectLink: 'nmc-janitorial',
               },
               {
                 title: 'Static Site Boilerplate',
@@ -283,7 +322,7 @@ const TimelinePage: React.FC = () => {
                 image: imageSelector('screenshot-static-site-boilerplate.png').childImageSharp
                   .fluid,
                 id: imageSelector('screenshot-static-site-boilerplate.png').id,
-                projectLink: '/project/static-site-boilerplate',
+                projectLink: 'static-site-boilerplate',
               },
               {
                 title: 'Markdown Previewer',
@@ -291,7 +330,7 @@ const TimelinePage: React.FC = () => {
                   'Fugiat dolor velit nostrud commodo ut qui veniam enim nulla proident quis aliquip. Dolore ullamco velit laboris enim quis ut ex qui eiusmod nostrud fugiat eu consequat dolor. Amet voluptate adipisicing Lorem pariatur culpa sint laboris in.',
                 image: imageSelector('screenshot-markdown-previewer.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-markdown-previewer.png').id,
-                projectLink: '/project/markdown-previewer',
+                projectLink: 'markdown-previewer',
               },
               {
                 title: 'React Redux Boilerplate',
@@ -300,7 +339,7 @@ const TimelinePage: React.FC = () => {
                 image: imageSelector('screenshot-react-redux-boilerplate.png').childImageSharp
                   .fluid,
                 id: imageSelector('screenshot-react-redux-boilerplate.png').id,
-                projectLink: '/project/react-redux-boilerplate',
+                projectLink: 'react-redux-boilerplate',
               },
               {
                 title: 'Wind Home Appliance Repair',
@@ -308,7 +347,7 @@ const TimelinePage: React.FC = () => {
                   'Proident labore laborum aute et eu laboris non quis consequat commodo velit amet sit. Qui non enim do enim ullamco pariatur ea aute quis. Occaecat aute pariatur ullamco non elit. Eiusmod occaecat aliqua occaecat sunt qui. Aliqua dolore excepteur reprehenderit minim cillum dolore sit exercitation Lorem anim dolor. Ea duis duis nostrud sint mollit ex qui laboris quis.',
                 image: imageSelector('screenshot-wind-home.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-wind-home.png').id,
-                projectLink: '/project/wind-home',
+                projectLink: 'wind-home',
               },
               {
                 title: 'Porter Tech',
@@ -316,7 +355,7 @@ const TimelinePage: React.FC = () => {
                   'Consectetur enim qui fugiat culpa commodo. Incididunt occaecat aliqua sint nisi duis deserunt nulla exercitation quis ipsum id sint. Ad enim anim dolor ipsum elit. Anim deserunt irure qui officia cupidatat duis ea elit pariatur nulla voluptate nostrud.',
                 image: imageSelector('screenshot-porter-tech.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-porter-tech.png').id,
-                projectLink: '/project/porter-tech',
+                projectLink: 'porter-tech',
               },
               {
                 title: 'Modern React with Redux',
@@ -324,7 +363,7 @@ const TimelinePage: React.FC = () => {
                   'Exercitation nostrud quis ad incididunt qui velit minim qui aliquip deserunt. Sint sunt minim ad proident deserunt aliqua non exercitation laborum minim culpa pariatur. Pariatur nulla magna irure occaecat fugiat sit culpa pariatur quis eiusmod adipisicing labore laboris. Pariatur nisi enim dolor aliqua elit amet duis tempor est ipsum eiusmod culpa culpa voluptate. Mollit fugiat ea eiusmod enim. Laborum consequat qui tempor duis. Ad aliqua adipisicing id irure cillum irure laboris nostrud nostrud.',
                 image: imageSelector('screenshot-modern-react-redux.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-modern-react-redux.png').id,
-                projectLink: '/project/modern-react-redux',
+                projectLink: 'modern-react-redux',
               },
               {
                 title: 'Quote Machine',
@@ -332,7 +371,7 @@ const TimelinePage: React.FC = () => {
                   'Eiusmod reprehenderit consectetur nulla laborum tempor. Excepteur deserunt tempor culpa deserunt consequat. Incididunt enim voluptate ad enim esse adipisicing esse ullamco dolore nostrud est magna. Officia do esse dolor amet ipsum sint et. Veniam culpa eu ea do id est laboris proident.',
                 image: imageSelector('screenshot-quote-machine.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-quote-machine.png').id,
-                projectLink: '/project/quote-machine',
+                projectLink: 'quote-machine',
               },
               {
                 title: 'Squibs Scripts',
@@ -340,7 +379,7 @@ const TimelinePage: React.FC = () => {
                   'Reprehenderit voluptate cillum nisi nostrud eiusmod nostrud consequat nulla cupidatat id esse. Quis Lorem ea aliquip eu nisi fugiat proident qui velit duis incididunt duis deserunt consectetur. Pariatur excepteur voluptate eiusmod nulla incididunt labore fugiat qui proident sint duis anim ex.',
                 image: imageSelector('screenshot-squibs-scripts.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-squibs-scripts.png').id,
-                projectLink: '/project/squibs-scripts',
+                projectLink: 'squibs-scripts',
               },
               {
                 title: 'Timeline Portfolio',
@@ -348,7 +387,7 @@ const TimelinePage: React.FC = () => {
                   'Deserunt duis officia occaecat commodo Lorem amet dolore. Anim velit pariatur do laboris est nisi duis Lorem aliquip aliquip ut do pariatur veniam. Do mollit excepteur occaecat esse nulla id ut. Amet reprehenderit voluptate veniam eu reprehenderit cillum veniam. Tempor id labore labore excepteur ea nisi quis.',
                 image: imageSelector('screenshot-timeline-portfolio.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-timeline-portfolio.png').id,
-                projectLink: '/project/timeline-portfolio',
+                projectLink: 'timeline-portfolio',
               },
             ]}
           />

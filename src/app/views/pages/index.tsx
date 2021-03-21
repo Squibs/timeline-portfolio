@@ -1,8 +1,12 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { useQueryParam, StringParam } from 'use-query-params';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { BorderContainer, ChevronLink, PortraitWithBackground } from '../components';
 import { Colors } from '../shared';
 import { useScrollHook } from '../hooks';
+import { AppState } from '../../state/store';
+import { timelineOperations } from '../../state/ducks/timeline';
 
 /* --------------------------------- styles --------------------------------- */
 
@@ -35,6 +39,19 @@ const ContentContainer = styled.main`
 const IndexPage: React.FC = () => {
   const contentContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const handleScroll = useScrollHook(contentContainerRef);
+  const { selectedProject } = useSelector(
+    ({ timeline: { timeline } }: AppState) => ({
+      selectedProject: timeline.selectedProject,
+    }),
+    shallowEqual,
+  );
+  const [queryProject, setQueryProject] = useQueryParam('project', StringParam);
+  const dispatch = useDispatch();
+
+  // get selected project from url query
+  useEffect(() => {
+    if (queryProject) dispatch(timelineOperations.projectSelect(queryProject));
+  }, [dispatch, queryProject, setQueryProject]);
 
   // auto focus inner div so keyboard controls can be instantly used
   useLayoutEffect(() => {
@@ -50,7 +67,7 @@ const IndexPage: React.FC = () => {
         fill={Colors.primaryDark}
         hover={Colors.primaryLight}
         position="right"
-        link="/timeline"
+        link={`/timeline?project=${selectedProject}`}
         direction="left"
       />
 
