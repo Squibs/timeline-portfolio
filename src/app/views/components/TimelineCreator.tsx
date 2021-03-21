@@ -629,7 +629,7 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
     pos.velY *= 0.95;
 
     // if the scrollbar is still moving, reiterate over this function
-    if (Math.abs(pos.velX) > 0.75) {
+    if (Math.abs(pos.velX) > 2) {
       momentumID = requestAnimationFrame(momentumLoop);
     }
   };
@@ -699,10 +699,10 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
     pos.velY = timelineOuterContainerRef.current.scrollTop - prevScrollTop;
 
     // adjust drag speed / initial momentum (was low with default values)
-    if (Math.sign(pos.velX) > 0) pos.velX += 25;
-    else if (Math.sign(pos.velY) > 0) pos.velY += 25;
-    else if (Math.sign(pos.velX) < 0) pos.velX -= 25;
-    else if (Math.sign(pos.velY) < 0) pos.velY -= 25;
+    if (Math.sign(pos.velX) > 0 && pos.velX > 2) pos.velX += 25;
+    else if (Math.sign(pos.velY) > 0 && pos.velY > 2) pos.velY += 25;
+    else if (Math.sign(pos.velX) < 0 && pos.velX < -2) pos.velX -= 25;
+    else if (Math.sign(pos.velY) < 0 && pos.velY < -2) pos.velY -= 25;
   };
 
   /* ---------------------------- handle mousewheel --------------------------- */
