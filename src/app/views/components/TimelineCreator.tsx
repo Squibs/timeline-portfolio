@@ -706,8 +706,10 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
     pos.velY = timelineOuterContainerRef.current.scrollTop - prevScrollTop;
 
     // adjust drag speed / initial momentum (was low with default values)
-    const velocityAdjustment =
-      timelineOuterContainerRef.current.getBoundingClientRect().width * 0.05;
+    const velocityAdjustment = Math.min(
+      timelineOuterContainerRef.current.getBoundingClientRect().width * 0.03,
+      30,
+    );
 
     if (Math.sign(pos.velX) > 0 && pos.velX > 5) pos.velX += velocityAdjustment;
     else if (Math.sign(pos.velY) > 0 && pos.velY > 5) pos.velY += velocityAdjustment;
