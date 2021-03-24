@@ -60,7 +60,7 @@ const TimelineOuterContainer = styled.div`
 
     ${({ theme }) => theme.breakpoints.for1SmallPhonesOnly()`
       width: 70%;
-      font-size: 22px;
+      font-size: 18px;
     `}
 
     @media screen and (min-width: 900px) and (min-height: 650px) {
@@ -276,11 +276,11 @@ const TitleContainer = styled.div<TitleContainerProps>`
     width: 80%;
     border-right: 3px solid ${(props) => props.timelineColor};
     border-bottom: 3px solid ${(props) => props.timelineColor};
-    height: 100px;
+    height: 120px;
     border-radius: 0 0 25px 0;
     align-self: flex-end;
     margin-bottom: -3px;
-    margin-top: -100px;
+    margin-top: -120px;
     margin-right: -3px;
 
     @media screen and (min-width: 900px) and (min-height: 650px) {
@@ -323,6 +323,7 @@ const TimelineSquaresContainer = styled.button<TimelineSquaresContainerProps>`
   order: 3;
   width: 76px;
   height: 76px;
+  min-height: 76px;
   align-self: center;
   margin-bottom: 5px;
   display: flex;
