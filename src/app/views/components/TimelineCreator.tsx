@@ -426,6 +426,7 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
     selectedProject: timeline.selectedProject,
   }));
   const dispatch = useDispatch();
+  const [pageIsTransitioningFlag, setPageIsTransitioningFlag] = useState(false);
 
   /* ------------------------- create timeline helpers ------------------------ */
 
@@ -439,9 +440,10 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
       // reference to the anchor link inside of the custom GatsbyLink/chevron navigation
       const button = chevronRef.current?.children[0] as HTMLElement;
 
-      // focus right side navigation/chevron and then click it after 250ms
-      button.focus();
-      setTimeout(() => button.click(), 250);
+      // slight delay, incase of scrolling
+      setTimeout(() => {
+        button.click();
+      }, 500);
     },
     [chevronRef, dispatch],
   );
@@ -602,14 +604,19 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
 
           // scroll element into view smoothly
           timelineOuterContainerRef.current.scrollTo({
-            behavior: 'smooth',
+            behavior: `${pageIsTransitioningFlag ? 'smooth' : 'auto'}` as ScrollBehavior,
             top: 0,
             left: containerOffset,
           });
         }
       }
     }
-  }, [timelineArray]);
+  }, [pageIsTransitioningFlag, timelineArray]);
+
+  // delay smooth scroll on page load
+  useLayoutEffect(() => {
+    setTimeout(() => setPageIsTransitioningFlag(true), 1000);
+  }, []);
 
   /* ----------------------- handle mouse drag to scroll ---------------------- */
 
@@ -699,10 +706,13 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
     pos.velY = timelineOuterContainerRef.current.scrollTop - prevScrollTop;
 
     // adjust drag speed / initial momentum (was low with default values)
-    if (Math.sign(pos.velX) > 0 && pos.velX > 2) pos.velX += 25;
-    else if (Math.sign(pos.velY) > 0 && pos.velY > 2) pos.velY += 25;
-    else if (Math.sign(pos.velX) < 0 && pos.velX < -2) pos.velX -= 25;
-    else if (Math.sign(pos.velY) < 0 && pos.velY < -2) pos.velY -= 25;
+    const velocityAdjustment =
+      timelineOuterContainerRef.current.getBoundingClientRect().width * 0.05;
+
+    if (Math.sign(pos.velX) > 0 && pos.velX > 5) pos.velX += velocityAdjustment;
+    else if (Math.sign(pos.velY) > 0 && pos.velY > 5) pos.velY += velocityAdjustment;
+    else if (Math.sign(pos.velX) < 0 && pos.velX < -5) pos.velX -= velocityAdjustment;
+    else if (Math.sign(pos.velY) < 0 && pos.velY < -5) pos.velY -= velocityAdjustment;
   };
 
   /* ---------------------------- handle mousewheel --------------------------- */
