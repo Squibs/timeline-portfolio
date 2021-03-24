@@ -12,6 +12,7 @@
 - add blobs to timeline, maybe sprinkle throughout
 - accessibility elements/tags (image alt tags) - use firefox accessibility in console
 - contact me form / section / page
+- ? ability to deselect project, is it confusing if it says "selected"?
 - ? split things off of TimelineCreator.tsx to make it more readable
   - make TimelineCreator folder and have it's helper components in there.
 - ? better 2K-4K styles

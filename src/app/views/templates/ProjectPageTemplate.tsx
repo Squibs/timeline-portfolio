@@ -345,7 +345,7 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
   const [videoLoading, setVideoLoading] = useState(true);
   const dispatch = useDispatch();
 
-  // get selected project from url query
+  // set selected project in redux based on current project page
   useEffect(() => {
     dispatch(timelineOperations.projectSelect(frontmatter.slug.replace(/\/project\//, '')));
   }, [dispatch, frontmatter.slug]);

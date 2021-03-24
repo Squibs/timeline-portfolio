@@ -1,12 +1,10 @@
-import React, { useEffect, useLayoutEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { useQueryParam, StringParam } from 'use-query-params';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import { BorderContainer, ChevronLink, PortraitWithBackground } from '../components';
 import { Colors } from '../shared';
-import { useScrollHook } from '../hooks';
+import { useScrollHook, useSelectedProjectHook } from '../hooks';
 import { AppState } from '../../state/store';
-import { timelineOperations } from '../../state/ducks/timeline';
 
 /* --------------------------------- styles --------------------------------- */
 
@@ -45,13 +43,8 @@ const IndexPage: React.FC = () => {
     }),
     shallowEqual,
   );
-  const [queryProject, setQueryProject] = useQueryParam('project', StringParam);
-  const dispatch = useDispatch();
-
-  // get selected project from url query
-  useEffect(() => {
-    if (queryProject) dispatch(timelineOperations.projectSelect(queryProject));
-  }, [dispatch, queryProject, setQueryProject]);
+  // not sure if this should really be a hook, if I don't need it to return anything
+  useSelectedProjectHook();
 
   // auto focus inner div so keyboard controls can be instantly used
   useLayoutEffect(() => {
@@ -67,7 +60,7 @@ const IndexPage: React.FC = () => {
         fill={Colors.primaryDark}
         hover={Colors.primaryLight}
         position="right"
-        link={`/timeline?project=${selectedProject}`}
+        link={`${selectedProject ? `/timeline?project=${selectedProject}` : '/timeline'}`}
         direction="left"
       />
 

@@ -1,12 +1,11 @@
-import React, { useEffect, useRef } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import React, { useRef } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
-import { useQueryParam, StringParam } from 'use-query-params';
 import { BorderContainer, ChevronLink, TimelineCreator } from '../components';
 import { Colors } from '../shared';
 import { AppState } from '../../state/store';
-import { timelineOperations } from '../../state/ducks/timeline';
+import { useSelectedProjectHook } from '../hooks';
 
 /* --------------------------------- styles --------------------------------- */
 
@@ -104,13 +103,8 @@ const TimelinePage: React.FC = () => {
     }),
     shallowEqual,
   );
-  const [queryProject, setQueryProject] = useQueryParam('project', StringParam);
-  const dispatch = useDispatch();
-
-  // get selected project from url query
-  useEffect(() => {
-    if (queryProject) dispatch(timelineOperations.projectSelect(queryProject));
-  }, [dispatch, queryProject, setQueryProject]);
+  // not sure if this should really be a hook, if I don't need it to return anything
+  useSelectedProjectHook();
 
   const data: Query = useStaticQuery(graphql`
     query TimelineImages {
@@ -180,7 +174,7 @@ const TimelinePage: React.FC = () => {
         fill={Colors.whiteTint}
         hover={Colors.primaryDark}
         position="left"
-        link={`/?project=${selectedProject}`}
+        link={`${selectedProject ? `/?project=${selectedProject}` : '/'}`}
         direction="right"
       />
       {/* right chevron */}
