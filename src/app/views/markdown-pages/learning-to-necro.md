@@ -7,7 +7,7 @@ url: 'https://learning-to-necro.netlify.app/'
 
 ### Project Information
 
-One of my first web development projects. Around the release of <a href="https://www.guildwars2.com/en/" target="_blank" rel="noreferrer">Guild Wars 2</a>, I built this website as a way to learn more about html. While it may not have served a real purpose for players in the game, at the time or even today, I can look back at this being a first stepping stone into learning more about web development.
+One of my first web development projects. Around the release of <a href="https://www.guildwars2.com/en/" target="_blank" rel="noreferrer">Guild Wars 2</a>, I built this website as a way to learn more about html. While it may not have served a real purpose for players of the game at the time, or even today, I can look back at this being a first stepping stone into learning more about web development.
 
 The site was originally hosted with it's own domain name: LearningToNecro.com, however there was no real point in keeping the domain name or paying to host the site. I have since re-hosted the site on Netlify.
 
