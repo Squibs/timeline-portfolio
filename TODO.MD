@@ -12,6 +12,7 @@
 - add blobs to timeline, maybe sprinkle throughout
 - accessibility elements/tags (image alt tags) - use firefox accessibility in console
 - contact me form / section / page
+- add timeline portfolio url to netlify.toml on wind home appliance and connor's site to allow x-frame (https://content-security-policy.com/frame-ancestors/)
 - ? ability to deselect project, is it confusing if it says "selected"?
 - ? split things off of TimelineCreator.tsx to make it more readable
   - make TimelineCreator folder and have it's helper components in there.
