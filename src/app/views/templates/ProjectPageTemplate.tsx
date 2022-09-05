@@ -1,6 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { graphql } from 'gatsby';
+import Img from 'gatsby-image';
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import styled from 'styled-components';
 import IFrameResizer from 'iframe-resizer-react';
@@ -315,6 +316,17 @@ export interface ProjectPageTemplateProps {
         title: string;
         url: string;
         github: string;
+        image: {
+          childImageSharp: {
+            fluid: {
+              base64: string;
+              aspectRatio: number;
+              src: string;
+              srcSet: string;
+              sizes: string;
+            };
+          };
+        };
       };
     };
 
@@ -423,6 +435,7 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
                       button &#93; &nbsp;
                     </b>
                   </span>
+                  <br />
                   underneath the iFrame, or by visiting the project site link below.
                 </i>
               </p>
@@ -475,22 +488,42 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
 
         <ProjectDisplayContainer className="project-display-container">
           <ProjectDisplay>
-            {videoLoading && (
-              <SpinnerContainer>
-                <Loader
-                  type="MutatingDots"
-                  width={100}
-                  height={100}
-                  color={`${Colors.accentOne}`}
-                  secondaryColor={`${Colors.accentTwo}`}
-                />
-                <LoadingText>
-                  <h1>Loading</h1>
-                  <Loader type="ThreeDots" color={`${Colors.whiteTint}`} width={45} />
-                </LoadingText>
-              </SpinnerContainer>
+            {/* if an image exists don't load an iframe, instead show the image */}
+            {/* this is for projects that don't have a page, or the page is not working correctly atm */}
+            {frontmatter.image ? (
+              <div style={{ width: '100%', height: '100%', overflowY: 'scroll' }}>
+                <p
+                  style={{
+                    position: 'sticky',
+                    top: 0,
+                    zIndex: 1,
+                    background: '#2b549c',
+                  }}
+                >
+                  Image of Website:
+                </p>
+                <Img fluid={frontmatter.image.childImageSharp.fluid} style={{ width: '100%' }} />
+              </div>
+            ) : (
+              videoLoading && (
+                <SpinnerContainer>
+                  <Loader
+                    type="MutatingDots"
+                    width={100}
+                    height={100}
+                    color={`${Colors.accentOne}`}
+                    secondaryColor={`${Colors.accentTwo}`}
+                  />
+                  <LoadingText>
+                    <h1>Loading</h1>
+                    <Loader type="ThreeDots" color={`${Colors.whiteTint}`} width={45} />
+                  </LoadingText>
+                </SpinnerContainer>
+              )
             )}
-            <IFrame src={frontmatter.url} scrolling onLoad={handleIframeLoad} />
+            {!frontmatter.image && (
+              <IFrame src={frontmatter.url} scrolling onLoad={handleIframeLoad} />
+            )}
           </ProjectDisplay>
         </ProjectDisplayContainer>
       </ContentContainer>
@@ -554,7 +587,7 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
 export default ProjectPageTemplate;
 
 export const pageQuery = graphql`
-  query($slug: String!) {
+  query($slug: String) {
     markdownRemark(frontmatter: { slug: { eq: $slug } }) {
       html
       frontmatter {
@@ -563,6 +596,13 @@ export const pageQuery = graphql`
         title
         url
         github
+        image {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
       }
     }
 
