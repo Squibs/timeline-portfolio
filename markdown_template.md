@@ -5,6 +5,7 @@ title: 'Twitch Streamer Status'
 url: 'https://squibs.github.io/twitch-streamers/'
 github: 'https://github.com/Squibs/twitch-streamers#twitch-streamer-status'
 image: '../../images/timelinePage/screenshot-twitch-streamers.png'
+imageAlt: 'Image of Website:'
 broken: true
 ---
 
@@ -16,6 +17,7 @@ title: name of the project
 url: link to functional site of the project
 github: link to the github page of the project
 image: replace the iframe with an image of site
+imageAlt: text to go above the displayed image; text is sticky so when you scroll it stays
 broken: true to include 'deprecated' in front of site link
 
 Everything is pretty optional to include. Mostly just need slug, date, and title.
