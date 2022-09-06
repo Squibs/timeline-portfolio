@@ -4,15 +4,15 @@ date: '2017-06-23'
 title: 'Twitch Streamer Status'
 url: 'https://squibs.github.io/twitch-streamers/'
 github: 'https://github.com/Squibs/twitch-streamers#twitch-streamer-status'
-image: '../../images/timelinePage/screenshot-twitch-streamers.png'
+broken: false # leave here on this file, one of them has to have it
 ---
 
 ### Project Information
 
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-TEMPORARY DELETE THIS AND REWRITE
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+<p style="text-align: center;"><strong>**None of the information provided in this application is accurate. Site is using mock-data to render channel information and live status.**</strong></p>
 
-Note about how the Twitch API has changed since the creation of this project. I am now using a freeCodeCamp replacement pass-through for the API requests, which can be cached and show outdated information. Sometimes the pass-through also isn't quite working correctly and will show every channel as missing or not live.
+A Twitch streamer live-status site I created while going through the intermediate front end development project challenges at freeCodeCamp. This project later got removed from the curriculum, and placed into their later _Coding Interview Prep_ section as a _Take Home Project_.
 
-I would have to revisit this project in the future to update to the new Twitch API and adjust all the JavaScript logic I am using in order to display the information I am already showing.
+I've gone back and updated this site several times as Twitch changed their API. Every time they completely changed how information is given out, requiring a lot of rewriting or restructuring of the code I had previously restructured or rewritten. Finally freeCodeCamp provided their own API pass-through, which I then again reworked this project to use. This pass-through was changed to work only with only certain channels and went back or changed to different API URIs.
+
+What you see now for this project is the eight specific channels that this pass-through is providing pseudo / mock-data for. I'm retrieving this information via an XMLHttpRequest (XHR) and storing the retrieved information as a collection of promises to later be used to display channel information and display if a channel is _"live"_ or not.
