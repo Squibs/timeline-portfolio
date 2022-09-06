@@ -27,6 +27,12 @@ const GlobalStyle = createGlobalStyle`
     overflow: auto;
   } */
 
+  // bold / strong text
+  strong {
+    color: ${Colors.accentOne};
+    font-weight: 800;
+  }
+
   // anchor styles
   .page-content-styles a {
     &:hover, &:focus {
