@@ -12,7 +12,9 @@ import { Colors } from '../shared';
 import { useScrollHook } from '../hooks';
 import { timelineOperations } from '../../state/ducks/timeline';
 
-/* --------------------------------- styles --------------------------------- */
+/* -------------------------------------------------------------------------- */
+/*                           styled components types                          */
+/* -------------------------------------------------------------------------- */
 
 const PageContainer = styled.div`
   .project-buttons {
@@ -308,7 +310,9 @@ const LoadingText = styled.div`
   }
 `;
 
-/* ---------------------------------- types --------------------------------- */
+/* -------------------------------------------------------------------------- */
+/*                               component types                              */
+/* -------------------------------------------------------------------------- */
 
 export interface ProjectPageTemplateProps {
   data: {
@@ -347,7 +351,9 @@ export interface ProjectPageTemplateProps {
   };
 }
 
-/* -------------------------------- component ------------------------------- */
+/* -------------------------------------------------------------------------- */
+/*                                  component                                 */
+/* -------------------------------------------------------------------------- */
 
 const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
   data: {
