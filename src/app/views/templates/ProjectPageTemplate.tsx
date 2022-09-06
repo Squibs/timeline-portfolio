@@ -321,6 +321,7 @@ export interface ProjectPageTemplateProps {
         url: string;
         github: string;
         broken: boolean;
+        imageAlt: string;
         image: {
           childImageSharp: {
             fluid: {
@@ -505,9 +506,10 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
                     top: 0,
                     zIndex: 1,
                     background: '#2b549c',
+                    padding: '15px 0px',
                   }}
                 >
-                  Image of Website:
+                  {frontmatter.imageAlt}
                 </p>
                 <Img fluid={frontmatter.image.childImageSharp.fluid} style={{ width: '100%' }} />
               </div>
@@ -607,6 +609,7 @@ export const pageQuery = graphql`
         url
         github
         broken
+        imageAlt
         image {
           childImageSharp {
             fluid {
