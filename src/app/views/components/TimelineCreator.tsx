@@ -578,7 +578,7 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
     setTimelineProjectCount(timelineInnerContainerRef.current.children.length - 1);
   }, [timelineProjectCount]);
 
-  /* ------------------------ scroll element into view ------------------------ */
+  /* ------------------------ scroll selected element into view ------------------------ */
 
   useEffect(() => {
     const {
