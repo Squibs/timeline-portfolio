@@ -110,6 +110,8 @@ const ProjectDescription = styled.div`
   flex-direction: column;
   outline: none;
   overflow-y: scroll;
+  overflow-x: hidden;
+  overflow-wrap: break-word;
   width: calc(100% - 45px);
   padding: 0 20px;
   text-align: left;
@@ -184,7 +186,6 @@ const ButtonContainer = styled.div`
   right: 5px;
 
   & > div {
-    flex: 1;
     display: flex;
 
     &:nth-child(2) > .project-buttons {
@@ -199,7 +200,10 @@ const ButtonContainer = styled.div`
 
   ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
     & > div:last-child { display: none; }
-    & > div:nth-child(2) > .project-buttons { margin-left: auto; margin-right: 5px; }
+    & > div:nth-child(2) > .project-buttons {
+      margin-left: auto;
+      margin-right: 5px;
+    }
     left: 25%;
     width: calc(100% - 25%);
   `}
@@ -316,6 +320,7 @@ export interface ProjectPageTemplateProps {
         title: string;
         url: string;
         github: string;
+        functional: boolean;
         image: {
           childImageSharp: {
             fluid: {
@@ -538,7 +543,8 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
               target="_blank"
               rel="noreferrer"
             >
-              Site
+              {!frontmatter.functional && 'Deprecated'}
+              &nbsp;Site
               <ExternalLink
                 css={`
                   height: 15px;
@@ -596,6 +602,7 @@ export const pageQuery = graphql`
         title
         url
         github
+        functional
         image {
           childImageSharp {
             fluid {
