@@ -320,7 +320,7 @@ export interface ProjectPageTemplateProps {
         title: string;
         url: string;
         github: string;
-        functional: boolean;
+        broken: boolean;
         image: {
           childImageSharp: {
             fluid: {
@@ -449,14 +449,16 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
               </p>
 
               <h3>Nav Links</h3>
-              <a
-                href={frontmatter.url}
-                style={{ textAlign: 'center' }}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Project Site
-              </a>
+              {frontmatter.url && (
+                <a
+                  href={frontmatter.url}
+                  style={{ textAlign: 'center' }}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Project Site
+                </a>
+              )}
               {frontmatter.github && (
                 <a
                   style={{ marginTop: 3, textAlign: 'center' }}
@@ -543,12 +545,14 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
               target="_blank"
               rel="noreferrer"
             >
-              {!frontmatter.functional && 'Deprecated'}
+              {frontmatter.broken && 'Deprecated'}
+              {/* could add deprecated to the above '' for less-functional sites */}
               &nbsp;Site
               <ExternalLink
                 css={`
                   height: 15px;
-                  vertical-align: -6%;
+                  vertical-align: -6%;3
+
                 `}
               />
             </a>
@@ -602,7 +606,7 @@ export const pageQuery = graphql`
         title
         url
         github
-        functional
+        broken
         image {
           childImageSharp {
             fluid {
