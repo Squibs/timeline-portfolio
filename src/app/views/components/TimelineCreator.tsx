@@ -21,6 +21,8 @@ type TitleDescriptionContainerProps = TimelineColor;
 
 type TitleContainerProps = TimelineColor & { timelineFontColor: string };
 
+type DescriptionContainerProps = TimelineColor;
+
 type ProjectImageContainerProps = TimelineColor;
 
 type TimelineSquaresContainerProps = TimelineColor & { timelineFontColor: string };
@@ -227,36 +229,6 @@ const TitleDescriptionContainer = styled.div<TitleDescriptionContainerProps>`
     margin: 5px 0;
     align-self: flex-end;
   }
-
-  & > p {
-    border-left: 3px solid ${(props) => props.timelineColor};
-    border-radius: 25px 0 0 0;
-    margin: 0 10px 0 -3px;
-    flex: 1;
-    min-height: 25px;
-    display: flex;
-    flex-direction: column;
-
-    @media screen and (min-width: 900px) and (min-height: 650px) {
-      margin: unset;
-      margin-left: 5px;
-      margin-bottom: -5px;
-    }
-
-    &:before {
-      content: '';
-      height: 30px;
-      border-top: 3px solid ${(props) => props.timelineColor};
-      border-left: 3px solid ${(props) => props.timelineColor};
-      width: 100%;
-      border-radius: 25px 0 0 0;
-      margin: -5px 0 -27px -8px;
-
-      @media screen and (min-width: 900px) and (min-height: 650px) {
-        display: none;
-      }
-    }
-  }
 `;
 
 const TitleContainer = styled.div<TitleContainerProps>`
@@ -282,6 +254,37 @@ const TitleContainer = styled.div<TitleContainerProps>`
     margin-bottom: -3px;
     margin-top: -120px;
     margin-right: -3px;
+
+    @media screen and (min-width: 900px) and (min-height: 650px) {
+      display: none;
+    }
+  }
+`;
+
+const DescriptionContainer = styled.div<DescriptionContainerProps>`
+  border-left: 3px solid ${(props) => props.timelineColor};
+  border-radius: 25px 0 0 0;
+  margin: 0 10px 0 -3px;
+  flex: 1;
+  min-height: 25px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+
+  @media screen and (min-width: 900px) and (min-height: 650px) {
+    margin: unset;
+    margin-left: 5px;
+    margin-bottom: -5px;
+  }
+
+  &:before {
+    content: '';
+    height: 30px;
+    border-top: 3px solid ${(props) => props.timelineColor};
+    border-left: 3px solid ${(props) => props.timelineColor};
+    width: 100%;
+    border-radius: 25px 0 0 0;
+    margin: -5px 0 -27px -8px;
 
     @media screen and (min-width: 900px) and (min-height: 650px) {
       display: none;
@@ -499,7 +502,7 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
             ${upperOrLower === 'UpperContainer' &&
             `
               @media screen and (min-width: 900px) and (min-height: 650px) {
-                & > div:first-child > p {
+                & > div:first-child > div:last-child {
                   border-top: 3px solid ${roygbiv};
                 }
               }
@@ -513,9 +516,13 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
                     border-left: 3px solid ${roygbiv};
                   }
 
-                  & > div {
+                  & > div:first-child {
                     border-bottom: 3px solid ${roygbiv};
                     border-left: 3px solid ${roygbiv};
+                  }
+
+                  & > div:last-child {
+                    border-left: 0;
                   }
                 }
               }
@@ -526,9 +533,9 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
             <TitleContainer timelineColor={roygbiv} timelineFontColor={lightOrDarkFont}>
               <h2>{title}</h2>
             </TitleContainer>
-            <p>
+            <DescriptionContainer timelineColor={roygbiv}>
               <p dangerouslySetInnerHTML={{ __html: description }} />
-            </p>
+            </DescriptionContainer>
           </TitleDescriptionContainer>
           <ProjectImageContainer timelineColor={roygbiv}>
             <Img
