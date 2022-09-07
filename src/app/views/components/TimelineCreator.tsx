@@ -526,7 +526,9 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
             <TitleContainer timelineColor={roygbiv} timelineFontColor={lightOrDarkFont}>
               <h2>{title}</h2>
             </TitleContainer>
-            <p>{description}</p>
+            <p>
+              <p dangerouslySetInnerHTML={{ __html: description }} />
+            </p>
           </TitleDescriptionContainer>
           <ProjectImageContainer timelineColor={roygbiv}>
             <Img
