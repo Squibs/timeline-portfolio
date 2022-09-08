@@ -376,11 +376,17 @@ const TimelineSquare = styled.div`
 `;
 
 const TimelineLine = styled.div`
-  border-top: 10px dotted #c4c4c4;
+  border-image-slice: 100 0 0 0;
+  border-image-width: 20px 0px 0px 0px;
+  border-image-outset: 0px 0px 0px 0px;
+  border-image-repeat: repeat stretch;
+  border-image-source: url('data:image/png;base64,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');
+  border-top: 10px dotted #c4c4c4; // backup incase border-image fails
+
   position: absolute;
-  bottom: 38px;
   left: 10px;
-  z-index: -1; // send behind everything in timeline
+  bottom: 38px;
+  z-index: -1; // send behind everything else in the timeline
   // width set programmatically similar to the following; to adjust go to jsx element
   /* width: calc((100% * (INNER-CONTAINER-NUMBER-OF-CHILDREN - 1)) - 20px); */
 
@@ -833,11 +839,10 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
         {timelineArray}
         <TimelineLine
           css={`
-            width: calc(100% * ${timelineProjectCount} - 20px);
-
+            width: calc(100% * ${timelineProjectCount});
             @media screen and (min-width: 900px) and (min-height: 650px) {
               // close enough to the correct equation
-              width: calc(((100% * 0.4) * ${timelineProjectCount}) + (25% - 20px));
+              width: calc(((100% * 0.4) * ${timelineProjectCount}) + (25%));
             }
           `}
         />
