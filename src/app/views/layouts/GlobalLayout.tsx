@@ -17,6 +17,8 @@ const mediaQuery = (size: keyof typeof Breakpoints) => {
     `@media screen and (min-width: ${Breakpoints[size]}) { ${cssStyles} }`;
 };
 
+// TypeScript typings are from styled-components.d.ts in app root
+
 const theme: DefaultTheme = {
   colors: {
     primaryLight: Colors.primaryLight,
@@ -51,6 +53,10 @@ const theme: DefaultTheme = {
     for4TabletLandscapeUp: () => mediaQuery('for4TabletLandscapeUp'),
     for5DesktopUp: () => mediaQuery('for5DesktopUp'),
     for6BigDesktopUp: () => mediaQuery('for6BigDesktopUp'),
+  },
+
+  reusedCSS: {
+    boxShadow: 'inset 1px 2px 6px black, 0px 4px 6px black',
   },
 };
 

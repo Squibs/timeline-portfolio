@@ -171,6 +171,7 @@ const ProjectDisplay = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+  box-shadow: ${({ theme }) => theme.reusedCSS.boxShadow};
 
   // https://gist.github.com/ayamflow/b602ab436ac9f05660d9c15190f4fd7b#gistcomment-2911047
   z-index: 1; // fixes iOS safari overflowing with border radius and overflow: hidden;

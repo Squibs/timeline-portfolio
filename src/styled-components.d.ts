@@ -63,5 +63,10 @@ declare module 'styled-components' {
       /** 1800px + */
       for6BigDesktopUp: () => (cssStyles: TemplateStringsArray) => string;
     };
+
+    reusedCSS: {
+      /** inset box shadow, and lower-right wrapped shadow */
+      boxShadow: string;
+    };
   }
 }

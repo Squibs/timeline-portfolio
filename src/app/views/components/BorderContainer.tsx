@@ -13,7 +13,7 @@ const BorderContainer = styled.div`
      this could be something to keep in mind on further projects, so I'm leaving this note
      here, that I will probably end up forgetting about. */
   /* filter: drop-shadow(0 4px 4px black); */
-  box-shadow: inset 1px 2px 6px black, 0px 4px 6px black;
+  box-shadow: ${({ theme }) => theme.reusedCSS.boxShadow};
   pointer-events: none;
   min-width: 230px;
   z-index: 2;

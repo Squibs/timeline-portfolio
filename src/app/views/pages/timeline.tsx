@@ -58,6 +58,7 @@ const TimelineContainer = styled.div`
   margin-bottom: 10px;
   max-height: 1200px;
   position: relative;
+  box-shadow: ${({ theme }) => theme.reusedCSS.boxShadow};
 `;
 
 /* ---------------------------------- types --------------------------------- */
