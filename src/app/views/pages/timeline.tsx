@@ -58,6 +58,21 @@ const TimelineContainer = styled.div`
   margin-bottom: 10px;
   max-height: 1200px;
   position: relative;
+  box-shadow: 0px 4px 6px black;
+`;
+
+// mask over entire TimelineContainer so that box shadow will cast on scrolling elements instead of just background
+const ShadowMask = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+
+  pointer-events: none; /* allow clicks to pass through */
+
+  box-shadow: 0 0 10px black inset;
   box-shadow: ${({ theme }) => theme.reusedCSS.boxShadow};
 `;
 
@@ -370,6 +385,7 @@ const TimelinePage: React.FC = () => {
               },
             ]}
           />
+          <ShadowMask />
         </TimelineContainer>
       </ContentContainer>
     </PageContainer>
