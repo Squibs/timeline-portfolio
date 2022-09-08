@@ -384,7 +384,7 @@ const TimelineLine = styled.div`
   border-top: 10px dotted #c4c4c4; // backup incase border-image fails
 
   position: absolute;
-  left: 10px;
+  left: 0;
   bottom: 38px;
   z-index: -1; // send behind everything else in the timeline
   // width set programmatically similar to the following; to adjust go to jsx element
