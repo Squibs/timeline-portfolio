@@ -71,8 +71,8 @@ const ContentContainer = styled.main`
 /* PROJECT INFORMATION */
 const ProjectInformationContainer = styled.div`
   height: 50%;
-  overflow: hidden;
   transition: height 1s;
+  position: relative;
 
   ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
     height: 100%;
@@ -134,7 +134,7 @@ const BlobContainer = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
-  right: 0;
+  right: -35px;
   top: 5px;
   z-index: -1; // send behind everything else, but background
   max-width: 125px;
@@ -142,6 +142,10 @@ const BlobContainer = styled.div`
   & > img {
     transform: rotate(-60deg);
   }
+
+  ${({ theme }) => theme.breakpoints.for0PhoneOnly()`
+    right: -20px;
+  `}
 `;
 
 /* PROJECT DISPLAY */
@@ -416,11 +420,10 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
           className="project-information-container"
           ref={ProjectInformationContainerRef}
         >
+          <BlobContainer>
+            <img src={images.nodes[0].publicURL} alt="" />
+          </BlobContainer>
           <ProjectInformation>
-            <BlobContainer>
-              <img src={images.nodes[0].publicURL} alt="" />
-            </BlobContainer>
-
             <h1>{frontmatter.title}</h1>
             <h2>{frontmatter.date}</h2>
             <ProjectDescription
