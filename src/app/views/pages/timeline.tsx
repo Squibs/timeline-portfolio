@@ -342,7 +342,7 @@ const TimelinePage: React.FC = () => {
               },
               {
                 title: 'Quote Machine',
-                description: `There's no mistake you saw this project earlier in my timeline. I've revisited this project numerous times and have now created version four of this project, using React and Redux.`,
+                description: `There's no mistake you saw this project earlier in my timeline. I've revisited this project numerous times and have now created version four of this project, using React, Redux, and TypeScript.`,
                 image: imageSelector('screenshot-quote-machine.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-quote-machine.png').id,
                 projectLink: 'quote-machine',
