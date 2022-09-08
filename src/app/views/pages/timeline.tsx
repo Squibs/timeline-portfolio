@@ -228,7 +228,7 @@ const TimelinePage: React.FC = () => {
               },
               {
                 title: 'Product Landing Page',
-                description: `Eiusmod qui aliquip officia deserunt esse proident sit do officia. Nostrud aliqua commodo ex irure exercitation ea tempor. Ex ea sunt esse deserunt fugiat aliqua eu proident anim laboris. Proident enim ullamco non eu non aute. Cupidatat minim officia culpa anim incididunt eiusmod elit irure nostrud ut. Consectetur sunt consequat est sit irure id mollit ex Lorem magna sunt incididunt commodo.`,
+                description: `A page that is meant to accent as well as show off a new product. This was one of the first few freeCodeCamp projects I completed. While the site itself is fairly basic, I just wanted to focus on using various elements such as a video player and an image carousel.`,
                 image: imageSelector('screenshot-product-landing-page.png').childImageSharp.fluid,
                 id: imageSelector('screenshot-product-landing-page.png').id,
                 projectLink: 'product-landing-page',
