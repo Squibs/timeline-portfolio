@@ -212,6 +212,13 @@ const TimelinePage: React.FC = () => {
                 projectLink: 'tribute-page',
               },
               {
+                title: 'Product Landing Page',
+                description: `Eiusmod qui aliquip officia deserunt esse proident sit do officia. Nostrud aliqua commodo ex irure exercitation ea tempor. Ex ea sunt esse deserunt fugiat aliqua eu proident anim laboris. Proident enim ullamco non eu non aute. Cupidatat minim officia culpa anim incididunt eiusmod elit irure nostrud ut. Consectetur sunt consequat est sit irure id mollit ex Lorem magna sunt incididunt commodo.`,
+                image: imageSelector('screenshot-product-landing-page.png').childImageSharp.fluid,
+                id: imageSelector('screenshot-product-landing-page.png').id,
+                projectLink: 'product-landing-page',
+              },
+              {
                 title: 'freeCodeCamp Repository',
                 description: `The first GitHub repository that I created. This repository is dedicated to everything I have done while going through the freeCodeCamp curriculum. I have loads of notes to myself, as well as my own solutions to the various challenges freeCodeCamp provides to help you learn various aspects of web development, in this repository.`,
                 image: imageSelector('screenshot-free-code-camp.png').childImageSharp.fluid,
