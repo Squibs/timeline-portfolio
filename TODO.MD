@@ -2,6 +2,7 @@
 
 # non-deploy
 
+- ? Add dates to actual timeline
 - host codepen sites on domain or github
 - check timeline on all device sizes with the varying title lengths once all descriptions are written
 - add link below timeline that lists all projects in a list format for quicker navigation (animate swipe up)
