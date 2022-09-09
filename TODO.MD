@@ -2,6 +2,7 @@
 
 # non-deploy
 
+- fix shadows on project pages iframe, view an image one to see it more clearly with the 'img alt text'
 - ? Add dates to actual timeline
 - host codepen sites on domain or github
 - check timeline on all device sizes with the varying title lengths once all descriptions are written
