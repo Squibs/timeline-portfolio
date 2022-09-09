@@ -1,5 +1,6 @@
 # non-deploy
 
+- link mock-ups for client projects, or nest image.
 - fix shadows on project pages iframe, view an image one to see it more clearly with the 'img alt text'
 - ? Add dates to actual timeline
 - host codepen sites on domain or github
