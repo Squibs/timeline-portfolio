@@ -14,6 +14,7 @@ const PageContainer = styled.div`
 
 const ContentContainer = styled.main`
   outline: none;
+  overflow-y: scroll;
   color: ${({ theme }) => theme.colors.whiteTint};
   p {
     font-weight: 300;
