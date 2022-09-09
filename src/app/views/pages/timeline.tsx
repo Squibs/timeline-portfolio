@@ -21,11 +21,14 @@ const ContentContainer = styled.main`
     font-weight: 400;
   }
 
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   max-width: 1800px;
   width: calc(100% - 85px);
+
+  ${({ theme }) => theme.breakpoints.for6BigDesktopUp()`
+    justify-content: center;
+  `}
 
   @media screen and (min-height: 750px) {
     width: calc(100% - 100px);
@@ -36,7 +39,6 @@ const ContentContainer = styled.main`
   }
 
   h1 {
-    margin: 0px;
     margin: 10px 0;
     height: 8%;
     display: flex;
@@ -50,7 +52,7 @@ const ContentContainer = styled.main`
 `;
 
 const TimelineContainer = styled.div`
-  height: 85%;
+  height: 80%;
   overflow: hidden;
   border-radius: 25px;
   border: 6px solid ${({ theme }) => theme.colors.accentOne};
@@ -59,6 +61,15 @@ const TimelineContainer = styled.div`
   max-height: 1200px;
   position: relative;
   box-shadow: 0px 4px 6px black;
+
+  ${({ theme }) => theme.breakpoints.for6BigDesktopUp()`
+    width: 90vw;
+    align-self: center;
+  `}
+
+  @media screen and (min-height: 1800px) {
+    margin-bottom: 5vh;
+  }
 `;
 
 // mask over entire TimelineContainer so that box shadow will cast on scrolling elements instead of just background
@@ -76,42 +87,80 @@ const ShadowMask = styled.div`
   box-shadow: ${({ theme }) => theme.reusedCSS.boxShadow};
 `;
 
+const BlobContainer = styled.div`
+  height: 80%;
+  z-index: -1;
+  margin-bottom: 10px;
+  max-height: 1200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  align-self: center;
+
+  & > img {
+    transform: rotate(-15deg);
+    transform: scale(0.5);
+    position: absolute;
+    bottom: -160px;
+    right: -80px;
+
+    ${({ theme }) => theme.breakpoints.for2SlightlyBiggerPhoneUp()`
+      transform: scale(0.7);
+    `}
+
+    ${({ theme }) => theme.breakpoints.for5DesktopUp()`
+      transform: scale(1);
+      bottom: -140px;
+      right: -90px;
+    `}
+
+    ${({ theme }) => theme.breakpoints.for6BigDesktopUp()`
+      right: -110px;
+    `}
+  }
+`;
+
 /* ---------------------------------- types --------------------------------- */
 
-type Node = {
-  id: string;
-  base: string;
-  childImageSharp: {
-    fluid: {
-      base64: string;
-      aspectRatio: number;
-      src: string;
-      srcSet: string;
-      sizes: string;
+export interface TimelineProps {
+  data: {
+    images: {
+      nodes: [
+        {
+          id: string;
+          base: string;
+          publicURL: string;
+          childImageSharp: {
+            fluid: {
+              base64: string;
+              aspectRatio: number;
+              src: string;
+              srcSet: string;
+              sizes: string;
+            };
+          };
+        },
+      ];
     };
-  };
-};
 
-type BackgroundImage = {
-  childImageSharp: {
-    id: string;
-    fixed: {
-      src: string;
+    background: {
+      childImageSharp: {
+        id: string;
+        fixed: {
+          src: string;
+        };
+      };
     };
-  };
-};
 
-type Query = {
-  images: {
-    nodes: Node[];
+    projectList: { edges: { node: { frontmatter: { slug: string } } }[] };
   };
-  background: BackgroundImage;
-  projectList: { edges: { node: { frontmatter: { slug: string } } }[] };
-};
+}
 
 /* -------------------------------- component ------------------------------- */
 
-const TimelinePage: React.FC = () => {
+const TimelinePage: React.FC<TimelineProps> = ({ data }: TimelineProps) => {
   const chevronLinkRef = useRef<HTMLDivElement>(null);
   const { selectedProject } = useSelector(
     ({ timeline: { timeline } }: AppState) => ({
@@ -122,43 +171,8 @@ const TimelinePage: React.FC = () => {
   // not sure if this should really be a hook, if I don't need it to return anything
   useSelectedProjectHook();
 
-  const data: Query = useStaticQuery(graphql`
-    query TimelineImages {
-      images: allFile(filter: { relativeDirectory: { eq: "timelinePage" } }) {
-        nodes {
-          id
-          base
-          childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid
-            }
-          }
-        }
-      }
-
-      background: file(relativePath: { eq: "timelinePage/diagonal-striped-brick-pattern.png" }) {
-        childImageSharp {
-          id
-          fixed(width: 1920) {
-            src
-          }
-        }
-      }
-
-      projectList: allMarkdownRemark {
-        edges {
-          node {
-            frontmatter {
-              slug
-            }
-          }
-        }
-      }
-    }
-  `);
-
   const imageSelector = (imgName: string) => {
-    return data.images.nodes.filter((node: Node) => node.base === imgName)[0];
+    return data.images.nodes.filter((node) => node.base === imgName)[0];
   };
 
   const getChevronElement = () => {
@@ -387,9 +401,48 @@ const TimelinePage: React.FC = () => {
           />
           <ShadowMask />
         </TimelineContainer>
+        <BlobContainer>
+          <img src={data.images.nodes[0].publicURL} alt="" />
+        </BlobContainer>
       </ContentContainer>
     </PageContainer>
   );
 };
 
 export default TimelinePage;
+
+export const data = graphql`
+  query TimelineImages {
+    images: allFile(filter: { relativeDirectory: { eq: "timelinePage" } }) {
+      nodes {
+        id
+        base
+        publicURL
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+    }
+
+    background: file(relativePath: { eq: "timelinePage/diagonal-striped-brick-pattern.png" }) {
+      childImageSharp {
+        id
+        fixed(width: 1920) {
+          src
+        }
+      }
+    }
+
+    projectList: allMarkdownRemark {
+      edges {
+        node {
+          frontmatter {
+            slug
+          }
+        }
+      }
+    }
+  }
+`;

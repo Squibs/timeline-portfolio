@@ -189,11 +189,12 @@ const UpperOrLowerContainer = styled.div<UpperOrLowerContainerProps>`
     flex: 0 0 65%;
   }
 
-  @media screen and (max-width: 1200px) and (min-height: 1200px) {
+  // I believe this was potentially tablets in portrait mode, but this has been causing layout issues
+  /* @media screen and (max-width: 1200px) and (min-height: 1200px) {
     flex-direction: row;
     height: 50%;
     flex: 0 0 85%;
-  }
+  } */
 
   &:after {
     order: 2;
@@ -471,7 +472,7 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
       // 900 x 650 viewport equivalent (have media queries that shrink )
       if (
         timelineOuterContainerRef.current.offsetWidth >= 748 &&
-        timelineOuterContainerRef.current.offsetHeight >= 518.5
+        timelineOuterContainerRef.current.offsetHeight >= 480
       ) {
         if (i % 2 === 0) upperOrLower = 'UpperContainer';
         else upperOrLower = 'LowerContainer';

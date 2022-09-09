@@ -62,8 +62,8 @@ const GlobalStyle = createGlobalStyle`
 
   // for tablet portrait and up
   @media screen and (min-width: 768px) {
-    h1 { font-size: 72px; }
-    h2 { font-size: 48px; }
+    h1 { font-size: 44px; }
+    h2 { font-size: 32px; }
   }
 
   /* @@@@@@@@@@@ Custom Classes @@@@@@@@@@@ */
@@ -79,7 +79,6 @@ const GlobalStyle = createGlobalStyle`
     text-align: center;
     width: calc(100% - 80px);
     height: calc(100% - 40px);
-    overflow-y: auto;
     padding: 0 18px;
     max-width: 900px;
     will-change: transform; // potential performance aid (https://medium.com/@kulor/one-small-css-hack-to-improve-scrolling-performance-c5238029e518)
