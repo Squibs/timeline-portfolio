@@ -1,5 +1,3 @@
-- not related to this project completely, but update freecodecamp https://github.com/Squibs/freeCodeCamp/blob/master/3.%20Front%20End%20Libraries/7.%20Front%20End%20Libraries%20Projects.md#build-a-javascript-calculator projects, missing pomodoro clock and javascript calculator
-
 # non-deploy
 
 - fix shadows on project pages iframe, view an image one to see it more clearly with the 'img alt text'
