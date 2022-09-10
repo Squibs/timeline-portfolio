@@ -250,9 +250,10 @@ const TimelinePage: React.FC<TimelineProps> = ({ data }: TimelineProps) => {
               {
                 title: 'freeCodeCamp Repository',
                 description: `The first GitHub repository that I created. This repository is dedicated to everything I have done while going through the freeCodeCamp curriculum. I have loads of notes to myself, as well as my own solutions to the various challenges freeCodeCamp provides to help you learn various aspects of web development, in this repository.`,
-                image: imageSelector('screenshot-free-code-camp.png').childImageSharp.fluid,
-                id: imageSelector('screenshot-free-code-camp.png').id,
-                projectLink: 'free-code-camp',
+                image: imageSelector('screenshot-freecodecamp-repository.png').childImageSharp
+                  .fluid,
+                id: imageSelector('screenshot-freecodecamp-repository.png').id,
+                projectLink: 'freecodecamp-repository',
               },
               {
                 title: 'Personal Portfolio',
