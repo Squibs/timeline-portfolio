@@ -33,6 +33,16 @@ module.exports = {
     {
       // used to help convert markdown to html
       resolve: 'gatsby-transformer-remark',
+      options: {
+        plugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 500,
+            },
+          },
+        ],
+      },
     },
     {
       // google fonts
