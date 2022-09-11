@@ -4,6 +4,6 @@ import * as actions from './actions';
 
 /* ----------------------------- simple actions ----------------------------- */
 
-const { projectSelect } = actions;
+const { projectSelect, storeProjectList } = actions;
 
-export { projectSelect };
+export { projectSelect, storeProjectList };

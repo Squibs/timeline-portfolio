@@ -6,6 +6,7 @@ import { useScrollHook } from '../hooks';
 import { Breakpoints, TimelineColors, Colors } from '../shared';
 import { AppState } from '../../state/store';
 import { timelineOperations } from '../../state/ducks/timeline';
+import { Project } from '../../state/ducks/timeline/types';
 
 /* -------------------------------------------------------------------------- */
 /*                           styled components types                          */
@@ -400,22 +401,7 @@ const TimelineLine = styled.div`
 /*                               component types                              */
 /* -------------------------------------------------------------------------- */
 
-type Project = {
-  id: string;
-  title: string;
-  description: string;
-  projectLink: string;
-  image: {
-    aspectRatio: number;
-    base64: string;
-    sizes: string;
-    src: string;
-    srcSet: string;
-  };
-};
-
 type TimelineCreatorProps = {
-  projects: Project[];
   chevronRef: React.RefObject<HTMLDivElement>;
 };
 
@@ -425,7 +411,7 @@ type Props = TimelineCreatorProps;
 /*                                  component                                 */
 /* -------------------------------------------------------------------------- */
 
-const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
+const TimelineCreator = ({ chevronRef }: Props): JSX.Element => {
   const timelineOuterContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const timelineInnerContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const timelineSquaresContainerRefs = React.useRef([]);
@@ -433,9 +419,12 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
   const [timelineProjectCount, setTimelineProjectCount] = useState<number>();
   const handleScroll = useScrollHook(timelineOuterContainerRef);
   const [scrollAmount, setScrollAmount] = useState<number>(0);
-  const { selectedProject } = useSelector(({ timeline: { timeline } }: AppState) => ({
-    selectedProject: timeline.selectedProject,
-  }));
+  const { selectedProject, projectsToDisplay } = useSelector(
+    ({ timeline: { timeline } }: AppState) => ({
+      selectedProject: timeline.selectedProject,
+      projectsToDisplay: timeline.projectsToDisplay,
+    }),
+  );
   const dispatch = useDispatch();
   const [pageIsTransitioningFlag, setPageIsTransitioningFlag] = useState(false);
 
@@ -566,12 +555,12 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
       );
     };
 
-    for (let i = 0; i < projects.length; i += 1) {
-      tArray.push(createUpperOrLowerContainers(projects[i], i));
+    for (let i = 0; i < projectsToDisplay.length; i += 1) {
+      tArray.push(createUpperOrLowerContainers(projectsToDisplay[i], i));
     }
 
     setTimelineArray(tArray);
-  }, [handleProjectViewButton, projects, selectedProject]);
+  }, [handleProjectViewButton, projectsToDisplay, selectedProject]);
 
   // update createTimeline on window resize, if too small, only upper timeline points
   useEffect(() => {
@@ -580,7 +569,7 @@ const TimelineCreator = ({ projects, chevronRef }: Props): JSX.Element => {
     return () => {
       window.removeEventListener('resize', createTimeline);
     };
-  }, [createTimeline, projects, timelineArray]);
+  }, [createTimeline, projectsToDisplay, timelineArray]);
 
   // call createTimeline on mount
   useEffect(() => {

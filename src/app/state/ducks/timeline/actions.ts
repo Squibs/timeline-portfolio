@@ -5,4 +5,11 @@ const projectSelect = (selectedProject: TimelineState['selectedProject']): Timel
   payload: selectedProject,
 });
 
-export { projectSelect };
+const storeProjectList = (
+  projectsToDisplay: TimelineState['projectsToDisplay'],
+): TimelineActionTypes => ({
+  type: TimelineActions.STORE_PROJECT_LIST,
+  payload: projectsToDisplay,
+});
+
+export { projectSelect, storeProjectList };
