@@ -17,7 +17,7 @@
     "serve": "gatsby serve -H 0.0.0.0",
     "start": "npm run clean && npm run develop",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
-    "postinstall": "patch-package"
+    "preinstall": "npx npm-force-resolutions"
   },
   "prettier": "@squibs/prettier-config",
   "eslintConfig": {
@@ -84,5 +84,8 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.2.1"
+  },
+  "resolutions": {
+    "remark-mdx": "1.6.22"
   }
 }
