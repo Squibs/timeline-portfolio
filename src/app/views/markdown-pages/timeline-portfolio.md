@@ -15,9 +15,14 @@ I wanted to make a site using _React_ and _Redux_. After doing some digging I de
 
 _Gatsby_ has many features and plugins to expand what on what it is capable of doing. For this project I tried to keep it fairly basic. I'm including some _Gatsby_ plugins that render markdown into generated HTML pages. That's how I have created all of these project pages on this timeline. _Gatsby_ uses _GraphiQL_ in the background for many things and learning it has been a bit of a challenge for me. Linking images took a while to figure out, as there you have to query _GraphiQL_ for the images to be able to use them. This is so _Gatsby_ can optimize and lazy-load images appropriately to hopefully provide a smoother and faster experience for the user.
 
-I continued what I have learned from doing my previous client based projects and started with some style tiles, I then moved on to make some mockups:
+I continued what I have learned from doing my previous client based projects and started with some style tiles, I then moved on to make some mockups.
+
+First draft mockup:
 
 ![](../../images/projectPages/timeline-mockup-1.png)
+
+Secondary mockup:
+
 ![](../../images/projectPages/timeline-mockup-2.png)
 
 I created many more mockups and visual aids other than these, but these would be the main ones.

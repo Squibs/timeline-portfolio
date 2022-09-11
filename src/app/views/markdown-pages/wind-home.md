@@ -11,8 +11,8 @@ This project was my second project I did for a client. I was not comfortable yet
 
 I started by creating several mockups of the website, these are some of them:
 
-![Hand written mockup for learning center page](../../images/projectPages/wind-home-learning-center.jpg)
-![Hand written mockup for faq page](../../images/projectPages/wind-home-faq.jpg)
+Mockup:
+
 ![Photoshop mockup for entire landing page](../../images/projectPages/wind-home-mockup.png)
 
 After a few mockup changes, I began creating the website. I used a lot of what I learned on the [NMC project](/project/nmc-janitorial) in order to finish this project. A lot of my time was spent on getting a unique design in place and making sure everything was fluid and was scaling properly for different screen sizes. I decided to include a _Learning Center_ section on the website to include more content for search engines to pick up on. This section goes over various simple frequently asked questions one might have when it comes to various appliances.

@@ -15,6 +15,9 @@ Style Tiles:
 
 ![](../../images/projectPages/porter-tech-style-tile.png)
 ![](../../images/projectPages/porter-tech-style-tile-2.jpg)
+
+Mockup:
+
 ![](../../images/projectPages/porter-tech-mockup.jpg)
 
 I again used [Netlify](https://www.netlify.com/) to host this website, and used much of what I learned from my previous two client projects, [Wind Home Appliance Repair](/projects/wind-home) and [NMC Janitorial Services](/projects/nmc-janitorial), to assist in the creation.
