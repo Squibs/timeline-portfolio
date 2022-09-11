@@ -72,13 +72,7 @@ const IndexPage: React.FC = () => {
       >
         <PortraitWithBackground style={{ marginTop: 'max(calc(10% - 2vh), 0%)' }} />
         <h1>Bunch of Text</h1>
-        <h2
-          css={`
-            padding: 0 20px;
-          `}
-        >
-          Some more text as a sub-header
-        </h2>
+        <h2 style={{ padding: '0 20px' }}>Some more text as a sub-header</h2>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
           fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
