@@ -6,6 +6,8 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { timelineOperations } from './app/state/ducks/timeline';
 import configureStore from './app/state/store';
 
+// https://github.com/gatsbyjs/gatsby/issues/7747#issuecomment-423770786
+
 const reduxStore = configureStore();
 
 export const wrapPageElement = ({ element }) => {
