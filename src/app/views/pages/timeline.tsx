@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
+import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import { BorderContainer, ChevronLink, TimelineCreator } from '../components';
 import { Colors } from '../shared';
 import { AppState } from '../../state/store';
@@ -122,13 +123,14 @@ const BlobContainer = styled.div`
   }
 `;
 
-const StyledLink = styled(Link)`
+const StyledAniLink = styled(AniLink)`
   width: fit-content;
   align-self: center;
   color: ${({ theme }) => theme.colors.primaryDark} !important;
+  text-decoration-color: ${({ theme }) => theme.colors.accentOne};
 
   &:hover {
-    color: ${({ theme }) => theme.colors.accentTwo} !important;
+    text-decoration-color: ${({ theme }) => theme.colors.accentTwo} !important;
   }
 `;
 
@@ -238,7 +240,9 @@ const TimelinePage: React.FC<TimelineProps> = ({ data }: TimelineProps) => {
         <BlobContainer>
           <img src={data.images.nodes[0].publicURL} alt="" />
         </BlobContainer>
-        <StyledLink to="/timeline-list">Click for List of all Projects</StyledLink>
+        <StyledAniLink swipe direction="up" to="/timeline-list" duration="1.5" entryOffset="100">
+          Click for List of all Projects
+        </StyledAniLink>
       </ContentContainer>
     </PageContainer>
   );

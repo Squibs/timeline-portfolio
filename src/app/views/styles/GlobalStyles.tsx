@@ -20,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     min-width: 280px;
     position: relative;
+    overflow: hidden;
   }
 
   // set overflow auto for fist child of gatsby wrappers, otherwise gaps. Could be an issue.

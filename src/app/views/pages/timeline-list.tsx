@@ -10,6 +10,7 @@ import { BorderContainer } from '../components';
 
 const PageContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.primaryLight};
+  overflow: hidden;
 
   & h1 {
     color: ${({ theme }) => theme.colors.primaryDark};
