@@ -100,7 +100,7 @@ const TimelineList = (): JSX.Element => {
           <br />I won&apos;t judge you.
           <br />
           Maybe a little.
-          <br />I worked hard on making it.
+          <br />I worked hard on it though.
         </p>
         {/* eslint-enable */}
         {generateAniLink('down', '/timeline/', 'Back to Timeline')}
