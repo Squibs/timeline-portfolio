@@ -1,5 +1,7 @@
 # non-deploy
 
+- have chevron on landing page / index pulse
+  - store first time click in cookies so it won't flash on return
 - ? contact form (link to contact me on landing page, and each project page)
 - Update github profile with readme (https://github.com/abhisheknaiidu/awesome-github-profile-readme)
 - change anilink animation from project list page going to landing/index page (something other than a swipe/wipe)
