@@ -1,5 +1,7 @@
 # non-deploy
 
+- contact form (link to contact me on landing page, and each project page)
+- change anilink animation from project list page going to landing/index page (something other than a swipe/wipe)
 - fix shadows on project pages iframe, view an image one to see it more clearly with the 'img alt text'
 - check timeline on all device sizes with the varying title lengths once all descriptions are written
 - accessibility elements/tags (image alt tags) - use firefox accessibility in console
