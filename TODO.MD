@@ -1,7 +1,9 @@
 # non-deploy
 
-- contact form (link to contact me on landing page, and each project page)
+- ? contact form (link to contact me on landing page, and each project page)
+- Update github profile with readme (https://github.com/abhisheknaiidu/awesome-github-profile-readme)
 - change anilink animation from project list page going to landing/index page (something other than a swipe/wipe)
+  - have each project link swipe down
 - fix shadows on project pages iframe, view an image one to see it more clearly with the 'img alt text'
 - check timeline on all device sizes with the varying title lengths once all descriptions are written
 - accessibility elements/tags (image alt tags) - use firefox accessibility in console
