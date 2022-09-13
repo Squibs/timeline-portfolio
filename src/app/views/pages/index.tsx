@@ -21,19 +21,21 @@ const PageContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.primaryDark};
 `;
 
-const ContentContainer = styled.main`
-  outline: none;
+const ScrollingContainer = styled.div`
   overflow-y: scroll;
+  display: flex;
+`;
+
+const ContentContainer = styled.main`
+  margin: auto;
+  outline: none;
   color: ${({ theme }) => theme.colors.whiteTint};
   display: flex;
   flex-direction: column;
 
-  p {
-    font-weight: 300;
-  }
-
   // https://stackoverflow.com/questions/61979561/fading-scrollbar-when-not-scrolling
-  /* &:after {
+  /*
+    &:after {
     content: '';
     position: absolute;
     background: red;
@@ -43,14 +45,31 @@ const ContentContainer = styled.main`
     right: 20px;
     width: 9px;
   } */
+
+  p {
+    font-weight: 300;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+  }
+
+  ${({ theme }) => theme.breakpoints.for2SlightlyBiggerPhoneUp()`
+    h1 { font-size: 3rem; }
+  `}
+
+  ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
+    h1 { font-size: 4.5rem; }
+  `}
 `;
 
 const LinkContainer = styled.div`
-  margin-top: auto;
   margin-bottom: 30px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  margin-top: 30px;
 
   & > div {
     margin-bottom: 10px;
@@ -60,8 +79,8 @@ const LinkContainer = styled.div`
 /* -------------------------------- component ------------------------------- */
 
 const IndexPage: React.FC = () => {
-  const contentContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
-  const handleScroll = useScrollHook(contentContainerRef);
+  const scrollingContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const handleScroll = useScrollHook(scrollingContainerRef);
   const { selectedProject } = useSelector(
     ({ timeline: { timeline } }: AppState) => ({
       selectedProject: timeline.selectedProject,
@@ -73,9 +92,9 @@ const IndexPage: React.FC = () => {
 
   // auto focus inner div so keyboard controls can be instantly used
   useLayoutEffect(() => {
-    contentContainerRef.current.tabIndex = -1;
-    contentContainerRef.current.autofocus = true;
-    contentContainerRef.current.focus();
+    scrollingContainerRef.current.tabIndex = -1;
+    scrollingContainerRef.current.autofocus = true;
+    scrollingContainerRef.current.focus();
   }, []);
 
   const customThinCircle = () => {
@@ -127,42 +146,48 @@ const IndexPage: React.FC = () => {
         direction="left"
       />
 
-      <ContentContainer
+      <ScrollingContainer
         className="page-content-styles"
-        ref={contentContainerRef}
+        ref={scrollingContainerRef}
         onScroll={() => handleScroll()}
       >
-        <PortraitWithBackground style={{ marginTop: 'max(calc(10% - 2vh), 0%)' }} />
-        <h1>Bunch of Text</h1>
-        <h2 style={{ padding: '0 20px' }}>Some more text as a sub-header</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pellentesque erat ut mauris
-          fringilla imperdiet. Proin quis varius nibh. Vivamus ipsum nibh, consectetur eget elit at,
-          hendrerit viverra neque. Donec non sagittis urna. Duis fringilla sodales libero sit amet
-          tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-          ridiculus mus. Nulla sit amet viverra justo, at ornare erat. Vestibulum ante ipsum primis
-          in faucibus orci luctus et ultrices posuere cubilia curae; Mauris dapibus lectus
-          ultricies, consequat purus non, molestie nunc. Morbi condimentum, velit et accumsan
-          suscipit, neque metus facilisis nunc, in vestibulum urna.
-        </p>
-        <LinkContainer>
-          <div>
-            {makeLink('https://github.com/squibs', faGithub)}
-            {makeLink(
-              'mailto:***REMOVED***?subject=Timeline Portfolio - Contact Request',
-              faEnvelope,
-            )}
-          </div>
-          <div>
-            {makeLink('https://www.freecodecamp.org/squibs', faFreeCodeCamp)}
-            {makeLink('https://codepen.io/Sulph', faCodepen)}
-          </div>
-          <div>
-            {makeLink('https://www.youtube.com/squibsvids', faYoutube)}
-            {makeLink('https://twitter.com/SquibsVids', faTwitter)}
-          </div>
-        </LinkContainer>
-      </ContentContainer>
+        <ContentContainer>
+          <PortraitWithBackground style={{ marginTop: 'max(calc(10% - 2vh), 0%)' }} />
+          <h1>Zachary Holman</h1>
+          <h2 style={{ padding: '0 20px' }}>Seeking & Pursuing Web Development</h2>
+          <p>
+            I will always be taking steps into learning more about web development, and learning
+            more about myself along the way. I was born in California, but have lived almost all of
+            my entire life in Colorado.
+          </p>
+          <p>
+            The way I see it, any type of programming can be treated as a puzzle, which is why I am
+            drawn to it as an interest; it allows for unique, creative, and many different types of
+            solutions. Video games started off my interest in programming; always wanting to create
+            my own one day and wanting to know exactly how they were made.
+          </p>
+          <p>
+            As time has passed, my programming interests have shifted, and web development is now a
+            large interest of mine. I&apos;m excited to learn more and create something that others
+            will enjoy. Please enjoy this timeline portfolio I have put together.
+          </p>
+          <LinkContainer>
+            <div>
+              {makeLink('https://github.com/squibs', faGithub)}
+              {makeLink(
+                'mailto:***REMOVED***?subject=Timeline Portfolio - Contact Request',
+                faEnvelope,
+              )}
+              {makeLink('https://www.freecodecamp.org/squibs', faFreeCodeCamp)}
+            </div>
+            <div>
+              {makeLink('https://codepen.io/Sulph', faCodepen)}
+              {makeLink('https://www.youtube.com/squibsvids', faYoutube)}
+              {makeLink('https://twitter.com/SquibsVids', faTwitter)}
+            </div>
+          </LinkContainer>
+        </ContentContainer>
+      </ScrollingContainer>
     </PageContainer>
   );
 };
