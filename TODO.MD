@@ -3,6 +3,7 @@
 - ? contact form
   - have email icon on index go to contact form page. 'or just email me' button on page.
   - link to contact me on each project page
+  - might as well throw a link back to all projects
 - Update github profile with readme (https://github.com/abhisheknaiidu/awesome-github-profile-readme)
 - fix shadows on project pages iframe, view an image one to see it more clearly with the 'img alt text'
 - check timeline on all device sizes with the varying title lengths once all descriptions are written
