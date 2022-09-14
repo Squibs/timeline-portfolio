@@ -1,8 +1,8 @@
 import React from 'react';
 import { StaticQuery, graphql } from 'gatsby';
+import { Provider as ReduxProvider } from 'react-redux';
 import { GlobalLayout } from './app/views/layouts';
 import { GlobalStyles } from './app/views/styles';
-import { Provider as ReduxProvider } from 'react-redux';
 import { timelineOperations } from './app/state/ducks/timeline';
 import configureStore from './app/state/store';
 

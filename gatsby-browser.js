@@ -6,5 +6,5 @@
 
 // https://github.com/gatsbyjs/gatsby/issues/7747#issuecomment-423770786
 
-var provider = require(`./src/inject-provider`);
+var provider = require(`./src/inject-provider.jsx`);
 exports.wrapPageElement = provider.wrapPageElement;
