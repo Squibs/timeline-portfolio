@@ -5,14 +5,8 @@
   - link to contact me on each project page
   - might as well throw a link back to all projects
 - Update github profile with readme (https://github.com/abhisheknaiidu/awesome-github-profile-readme)
-- fix shadows on project pages iframe, view an image one to see it more clearly with the 'img alt text'
-- check timeline on all device sizes with the varying title lengths once all descriptions are written
 - accessibility elements/tags (image alt tags) - use firefox accessibility in console
-- contact me form / section / page
-- ? split things off of TimelineCreator.tsx to make it more readable
-  - make TimelineCreator folder and have it's helper components in there.
 - ? better 2K-4K screen res. styles
-- ? smoothscroll for ios https://github.com/iamdustan/smoothscroll https://stackoverflow.com/questions/51731754/window-scroll-smooth-not-working-on-safari
 
 # for deploy
 
