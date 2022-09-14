@@ -1,4 +1,3 @@
-import { Link } from 'gatsby';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -36,9 +35,15 @@ const PageContainer = styled.div`
   }
 `;
 
+const ScrollingContainer = styled.div`
+  overflow-y: scroll;
+  display: flex;
+  outline: none;
+`;
+
 const ContentContainer = styled.div`
   outline: none;
-  overflow-y: scroll;
+  margin: auto;
 `;
 
 const StyledLi = styled.li`
@@ -104,34 +109,36 @@ const TimelineList = (): JSX.Element => {
   return (
     <PageContainer className="page-container-styles">
       <BorderContainer />
-      <ContentContainer
+      <ScrollingContainer
         className="page-content-styles"
         ref={scrollingContainerRef}
         onScroll={() => handleScroll()}
       >
-        <h1>List of Projects on Timeline</h1>
-        {/* eslint-disable */}
-        <p>
-          Didn&apos;t want to scroll through my timeline?
-          <br />I won&apos;t judge you.
-          <br />
-          Maybe a little.
-          <br />I worked hard on it though.
-        </p>
-        {/* eslint-enable */}
-        {generateAniLink('down', '/timeline/', 'Back to Timeline')}
-        <AniLink
-          paintDrip
-          hex="#cdd7d9"
-          to="/"
-          duration={1.5}
-          entryOffset={100}
-          style={{ padding: '10px' }}
-        >
-          Back to Homepage
-        </AniLink>
-        <ul>{timelineListArray}</ul>
-      </ContentContainer>
+        <ContentContainer>
+          <h1>List of Projects on Timeline</h1>
+          {/* eslint-disable */}
+          <p>
+            Didn&apos;t want to scroll through my timeline?
+            <br />I won&apos;t judge you.
+            <br />
+            Maybe a little.
+            <br />I worked hard on it though.
+          </p>
+          {/* eslint-enable */}
+          {generateAniLink('down', '/timeline/', 'Back to Timeline')}
+          <AniLink
+            paintDrip
+            hex="#cdd7d9"
+            to="/"
+            duration={1.5}
+            entryOffset={100}
+            style={{ padding: '10px' }}
+          >
+            Back to Homepage
+          </AniLink>
+          <ul>{timelineListArray}</ul>
+        </ContentContainer>
+      </ScrollingContainer>
     </PageContainer>
   );
 };
