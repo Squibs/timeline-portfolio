@@ -1,10 +1,11 @@
 import { Link } from 'gatsby';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import { AppState } from '../../state/store';
 import { BorderContainer } from '../components';
+import { useScrollHook } from '../hooks';
 
 /* --------------------------------- styles --------------------------------- */
 
@@ -29,6 +30,10 @@ const PageContainer = styled.div`
       column-count: 2;
     `}
   }
+
+  & li {
+    margin: 0;
+  }
 `;
 
 const ContentContainer = styled.div`
@@ -48,30 +53,23 @@ const StyledLi = styled.li`
 /* -------------------------------- component ------------------------------- */
 
 const TimelineList = (): JSX.Element => {
+  const scrollingContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const handleScroll = useScrollHook(scrollingContainerRef);
   const { projectsToDisplay } = useSelector(({ timeline: { timeline } }: AppState) => ({
     projectsToDisplay: timeline.projectsToDisplay,
   }));
   const [timelineListArray, setTimelineListArray] = useState<JSX.Element[]>([]);
 
-  // form project list
-  const formProjectList = useCallback(() => {
-    const tArray: React.SetStateAction<JSX.Element[]> = [];
-
-    projectsToDisplay.forEach((project) => {
-      tArray.push(
-        <Link key={project.id} to={`/project/${project.projectLink}`}>
-          <StyledLi>{project.title}</StyledLi>
-        </Link>,
-      );
-    });
-
-    setTimelineListArray(tArray);
-  }, [projectsToDisplay]);
-
   // anilink helper
-  const generateAniLink = (direction: string, to = '', text: string) => {
+  const generateAniLink = (
+    direction: string,
+    to = '',
+    text: string | JSX.Element,
+    key?: string,
+  ) => {
     return (
       <AniLink
+        key={key}
         swipe
         direction={direction}
         to={to}
@@ -84,6 +82,20 @@ const TimelineList = (): JSX.Element => {
     );
   };
 
+  // create project list
+  const formProjectList = useCallback(() => {
+    const tArray: React.SetStateAction<JSX.Element[]> = [];
+
+    projectsToDisplay.forEach((project) => {
+      const innerHTML = <StyledLi>{project.title}</StyledLi>;
+      tArray.push(
+        generateAniLink('down', `/project/${project.projectLink}`, innerHTML, project.id),
+      );
+    });
+
+    setTimelineListArray(tArray);
+  }, [projectsToDisplay]);
+
   // call formProjectList on mount
   useEffect(() => {
     formProjectList();
@@ -92,7 +104,11 @@ const TimelineList = (): JSX.Element => {
   return (
     <PageContainer className="page-container-styles">
       <BorderContainer />
-      <ContentContainer className="page-content-styles">
+      <ContentContainer
+        className="page-content-styles"
+        ref={scrollingContainerRef}
+        onScroll={() => handleScroll()}
+      >
         <h1>List of Projects on Timeline</h1>
         {/* eslint-disable */}
         <p>
@@ -104,7 +120,16 @@ const TimelineList = (): JSX.Element => {
         </p>
         {/* eslint-enable */}
         {generateAniLink('down', '/timeline/', 'Back to Timeline')}
-        {generateAniLink('down', '/', 'Back to Homepage')}
+        <AniLink
+          paintDrip
+          hex="#cdd7d9"
+          to="/"
+          duration={1.5}
+          entryOffset={100}
+          style={{ padding: '10px' }}
+        >
+          Back to Homepage
+        </AniLink>
         <ul>{timelineListArray}</ul>
       </ContentContainer>
     </PageContainer>
