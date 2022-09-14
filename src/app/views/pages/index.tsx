@@ -24,6 +24,7 @@ const PageContainer = styled.div`
 const ScrollingContainer = styled.div`
   overflow-y: scroll;
   display: flex;
+  outline: none;
 `;
 
 const ContentContainer = styled.main`
@@ -53,6 +54,10 @@ const ContentContainer = styled.main`
   h1 {
     font-size: 2.5rem;
     margin-bottom: 5px;
+  }
+
+  h2 {
+    margin: 12px 0;
   }
 
   ${({ theme }) => theme.breakpoints.for2SlightlyBiggerPhoneUp()`
@@ -135,6 +140,16 @@ const IndexPage: React.FC = () => {
     );
   };
 
+  React.useEffect(() => {
+    if (!sessionStorage.getItem('first-visit')) {
+      sessionStorage.setItem('first-visit', 'true');
+    }
+  }, []);
+
+  const handleClick = () => {
+    sessionStorage.setItem('first-visit', 'false');
+  };
+
   return (
     <PageContainer className="page-container-styles">
       <BorderContainer />
@@ -144,6 +159,8 @@ const IndexPage: React.FC = () => {
         position="right"
         link={`${selectedProject ? `/timeline?project=${selectedProject}` : '/timeline'}`}
         direction="left"
+        className={sessionStorage.getItem('first-visit') === 'true' ? 'glow' : undefined}
+        onClick={() => handleClick()}
       />
 
       <ScrollingContainer
@@ -152,7 +169,7 @@ const IndexPage: React.FC = () => {
         onScroll={() => handleScroll()}
       >
         <ContentContainer>
-          <PortraitWithBackground style={{ marginTop: 'max(calc(10% - 2vh), 0%)' }} />
+          <PortraitWithBackground style={{ marginTop: 'max(calc(5% - 2vh), 0%)' }} />
           <h1>Zachary Holman</h1>
           <h2 style={{ padding: '0 20px' }}>Seeking & Pursuing Web Development</h2>
           <p>
