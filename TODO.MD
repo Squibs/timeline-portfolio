@@ -17,18 +17,10 @@
 
 # spicy
 
-- animate button when hovered/focused then selected
-- add blobs to timeline, maybe sprinkle throughout
 - on touchscreen devices / mobile scroll to the nearest project
 - scrollbar fade-in fade-out, currently appears and vanishes instantly
 
 # md pages
 
 - fix buttons on 2k-4k res. screens
-- have each md page pass some kind of default scale at a specific width for better scaling
-  - maybe add zoom in / zoom out buttons
 - ? make buttons below iframe larger on larger screens
-
-# not possible
-
-- X replace iframe scrollbar (probably not possible) - not really possible
