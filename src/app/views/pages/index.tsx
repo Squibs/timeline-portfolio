@@ -128,19 +128,17 @@ const IndexPage: React.FC = () => {
     );
   };
 
-  const checkForStorage = () => {
-    if (sessionStorage.getItem('first-visit')) {
-      return 'glow';
-    }
-
-    return '';
-  };
-
   useEffect(() => {
-    if (sessionStorage.getItem('first-visit')) {
+    // if sessionStorage already exists
+    if (sessionStorage.getItem('first-visit') === 'false') {
       setFirstVisit(false);
     }
-  }, []);
+
+    if (!sessionStorage.getItem('first-visit')) {
+      sessionStorage.setItem('first-visit', 'true');
+      setFirstVisit(true);
+    }
+  }, [firstVisit]);
 
   const handleClick = () => {
     sessionStorage.setItem('first-visit', 'false');
@@ -156,7 +154,7 @@ const IndexPage: React.FC = () => {
         position="right"
         link={`${selectedProject ? `/timeline?project=${selectedProject}` : '/timeline'}`}
         direction="left"
-        className={checkForStorage()}
+        className={firstVisit === true ? 'glow' : ''}
         onClick={() => handleClick()}
       />
 
