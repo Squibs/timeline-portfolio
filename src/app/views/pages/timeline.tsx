@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { graphql } from 'gatsby';
@@ -173,10 +173,8 @@ export interface TimelineProps {
 /* -------------------------------- component ------------------------------- */
 
 const TimelinePage: React.FC<TimelineProps> = ({ data }: TimelineProps) => {
-  const { projectsToDisplay } = useSelector(({ timeline: { timeline } }: AppState) => ({
-    projectsToDisplay: timeline.projectsToDisplay,
-  }));
   const chevronLinkRef = useRef<HTMLDivElement>(null);
+  const [blobImage, setBlobImage] = useState('');
   const { selectedProject } = useSelector(
     ({ timeline: { timeline } }: AppState) => ({
       selectedProject: timeline.selectedProject,
@@ -206,6 +204,20 @@ const TimelinePage: React.FC<TimelineProps> = ({ data }: TimelineProps) => {
 
     return '';
   };
+
+  const findBlob = useCallback(() => {
+    let blobIndexNumber: number;
+    data.images.nodes.forEach((image, index) => {
+      if (image.base === 'Blobs.svg') {
+        blobIndexNumber = index;
+        setBlobImage(data.images.nodes[blobIndexNumber].publicURL);
+      }
+    });
+  }, [data.images.nodes]);
+
+  useEffect(() => {
+    findBlob();
+  }, [blobImage, findBlob]);
 
   return (
     <PageContainer className="page-container-styles">
@@ -238,7 +250,7 @@ const TimelinePage: React.FC<TimelineProps> = ({ data }: TimelineProps) => {
           <ShadowMask />
         </TimelineContainer>
         <BlobContainer>
-          <img src={data.images.nodes[0].publicURL} alt="" />
+          <img src={blobImage} alt="" />
         </BlobContainer>
         <StyledAniLink swipe direction="up" to="/timeline-list" duration="1.5" entryOffset="100">
           Click for List of all Projects
