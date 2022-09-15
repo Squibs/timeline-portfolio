@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { shallowEqual, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -33,19 +33,6 @@ const ContentContainer = styled.main`
   color: ${({ theme }) => theme.colors.whiteTint};
   display: flex;
   flex-direction: column;
-
-  // https://stackoverflow.com/questions/61979561/fading-scrollbar-when-not-scrolling
-  /*
-    &:after {
-    content: '';
-    position: absolute;
-    background: red;
-    pointer-events: none;
-    height: calc(100% - 40px);
-    top: 20px;
-    right: 20px;
-    width: 9px;
-  } */
 
   p {
     font-weight: 300;
@@ -84,6 +71,7 @@ const LinkContainer = styled.div`
 /* -------------------------------- component ------------------------------- */
 
 const IndexPage: React.FC = () => {
+  const [firstVisit, setFirstVisit] = useState(true);
   const scrollingContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const handleScroll = useScrollHook(scrollingContainerRef);
   const { selectedProject } = useSelector(
@@ -140,14 +128,20 @@ const IndexPage: React.FC = () => {
     );
   };
 
-  React.useEffect(() => {
-    if (!sessionStorage.getItem('first-visit')) {
-      sessionStorage.setItem('first-visit', 'true');
+  useEffect(() => {
+    // if (!sessionStorage.getItem('first-visit')) {
+    //   sessionStorage.setItem('first-visit', 'true');
+    // } else {
+    //   sessionStorage.setItem('first-visit', 'false');
+    // }
+    if (sessionStorage.getItem('first-visit')) {
+      setFirstVisit(false);
     }
   }, []);
 
   const handleClick = () => {
     sessionStorage.setItem('first-visit', 'false');
+    setFirstVisit(false);
   };
 
   return (
@@ -159,7 +153,7 @@ const IndexPage: React.FC = () => {
         position="right"
         link={`${selectedProject ? `/timeline?project=${selectedProject}` : '/timeline'}`}
         direction="left"
-        className={sessionStorage.getItem('first-visit') === 'true' ? 'glow' : undefined}
+        // className={sessionStorage.getItem('first-visit') === 'true' ? 'glow' : undefined}
         onClick={() => handleClick()}
       />
 
@@ -192,7 +186,7 @@ const IndexPage: React.FC = () => {
             <div>
               {makeLink('https://github.com/squibs', faGithub)}
               {makeLink(
-                'mailto:myemail@gmail.com?subject=Timeline Portfolio - Contact Request',
+                'mailto:email@email.com?subject=Timeline Portfolio - Contact Request',
                 faEnvelope,
               )}
               {makeLink('https://www.freecodecamp.org/squibs', faFreeCodeCamp)}
