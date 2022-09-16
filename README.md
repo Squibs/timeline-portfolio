@@ -1,5 +1,7 @@
 # Timeline Portfolio
 
+https://zachary-holman.netlify.app/
+
 It was time to update my portfolio. I was happy with my previous portfolio, but it was one of the first few projects in the freeCodeCamp curriculum. I felt I could do better with all that I have learned since then. I decided to throw everything together for for this project: React, Redux, TypeScript, and Gatsby.
 
 I wanted to make something better than my [previous portfolio](/project/personal-portfolio), something that used more of what I have learned while continuing to go through the challenges and lessons on freeCodeCamp.
