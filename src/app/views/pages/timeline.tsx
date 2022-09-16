@@ -134,6 +134,26 @@ const StyledAniLink = styled(AniLink)`
   }
 `;
 
+const SwipeTutorial = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  background-color: ${({ theme }) => theme.colors.primaryDark}F2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  pointer-events: none; /* allow clicks to pass through */
+
+  & h2 {
+    color: ${({ theme }) => theme.colors.primaryLight};
+  }
+`;
+
 /* ---------------------------------- types --------------------------------- */
 
 export interface TimelineProps {
@@ -173,6 +193,7 @@ export interface TimelineProps {
 /* -------------------------------- component ------------------------------- */
 
 const TimelinePage: React.FC<TimelineProps> = ({ data }: TimelineProps) => {
+  const [firstVisitTimeline, setFirstVisitTimeline] = useState(true);
   const chevronLinkRef = useRef<HTMLDivElement>(null);
   const [blobImage, setBlobImage] = useState('');
   const { selectedProject } = useSelector(
@@ -219,6 +240,23 @@ const TimelinePage: React.FC<TimelineProps> = ({ data }: TimelineProps) => {
     findBlob();
   }, [blobImage, findBlob]);
 
+  useEffect(() => {
+    // if sessionStorage already exists
+    if (sessionStorage.getItem('first-visit-timeline') === 'false') {
+      setFirstVisitTimeline(false);
+    }
+
+    if (!sessionStorage.getItem('first-visit-timeline')) {
+      sessionStorage.setItem('first-visit-timeline', 'true');
+      setFirstVisitTimeline(true);
+    }
+  }, [firstVisitTimeline]);
+
+  const handleScrollTutorial = () => {
+    sessionStorage.setItem('first-visit-timeline', 'false');
+    setFirstVisitTimeline(false);
+  };
+
   return (
     <PageContainer className="page-container-styles">
       <BorderContainer />
@@ -246,7 +284,16 @@ const TimelinePage: React.FC<TimelineProps> = ({ data }: TimelineProps) => {
             background: `url('${data.background.childImageSharp.fixed.src}')`,
           }}
         >
-          <TimelineCreator chevronRef={getChevronElement()} />
+          <TimelineCreator
+            chevronRef={getChevronElement()}
+            handleScrollTutorial={handleScrollTutorial}
+          />
+          {firstVisitTimeline && (
+            <SwipeTutorial>
+              <h2>Swipe Left or Scroll</h2>
+              <h2>To Move Timeline</h2>
+            </SwipeTutorial>
+          )}
           <ShadowMask />
         </TimelineContainer>
         <BlobContainer>
