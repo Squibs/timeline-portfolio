@@ -403,6 +403,7 @@ const TimelineLine = styled.div`
 
 type TimelineCreatorProps = {
   chevronRef: React.RefObject<HTMLDivElement>;
+  handleScrollTutorial: () => void;
 };
 
 type Props = TimelineCreatorProps;
@@ -411,7 +412,7 @@ type Props = TimelineCreatorProps;
 /*                                  component                                 */
 /* -------------------------------------------------------------------------- */
 
-const TimelineCreator = ({ chevronRef }: Props): JSX.Element => {
+const TimelineCreator = ({ chevronRef, handleScrollTutorial }: Props): JSX.Element => {
   const timelineOuterContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const timelineInnerContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const timelineSquaresContainerRefs = React.useRef([]);
@@ -819,7 +820,10 @@ const TimelineCreator = ({ chevronRef }: Props): JSX.Element => {
       onMouseLeave={mouseUpOrLeaveHandler}
       onMouseUp={mouseUpOrLeaveHandler}
       onMouseMove={mouseMoveHandler}
-      onScroll={() => handleScroll()}
+      onScroll={() => {
+        handleScroll();
+        handleScrollTutorial();
+      }}
       className="page-content-styles"
       onKeyDown={({ key }) => {
         return onKeyDownKeys[key] && onKeyDownKeys[key]();

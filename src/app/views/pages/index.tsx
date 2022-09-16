@@ -71,7 +71,7 @@ const LinkContainer = styled.div`
 /* -------------------------------- component ------------------------------- */
 
 const IndexPage: React.FC = () => {
-  const [firstVisit, setFirstVisit] = useState(true);
+  const [firstVisitIndex, setFirstVisitIndex] = useState(true);
   const scrollingContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const handleScroll = useScrollHook(scrollingContainerRef);
   const { selectedProject } = useSelector(
@@ -128,23 +128,21 @@ const IndexPage: React.FC = () => {
     );
   };
 
-  const checkForStorage = () => {
-    if (sessionStorage.getItem('first-visit')) {
-      return 'glow';
-    }
-
-    return '';
-  };
-
   useEffect(() => {
-    if (sessionStorage.getItem('first-visit')) {
-      setFirstVisit(false);
+    // if sessionStorage already exists
+    if (sessionStorage.getItem('first-visit-index') === 'false') {
+      setFirstVisitIndex(false);
     }
-  }, []);
+
+    if (!sessionStorage.getItem('first-visit-index')) {
+      sessionStorage.setItem('first-visit-index', 'true');
+      setFirstVisitIndex(true);
+    }
+  }, [firstVisitIndex]);
 
   const handleClick = () => {
-    sessionStorage.setItem('first-visit', 'false');
-    setFirstVisit(false);
+    sessionStorage.setItem('first-visit-index', 'false');
+    setFirstVisitIndex(false);
   };
 
   return (
@@ -156,7 +154,7 @@ const IndexPage: React.FC = () => {
         position="right"
         link={`${selectedProject ? `/timeline?project=${selectedProject}` : '/timeline'}`}
         direction="left"
-        className={checkForStorage()}
+        className={firstVisitIndex === true ? 'glow' : ''}
         onClick={() => handleClick()}
       />
 
