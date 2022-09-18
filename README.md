@@ -1,6 +1,10 @@
 # Timeline Portfolio
 
-https://zachary-holman.netlify.app/
+<img src="./src/app/images/timelinePage/screenshot-timeline-portfolio.png" target="_blank" alt="Screenshot of my timeline portfolio project" width="auto" height="400" />
+
+### [Timeline Portfolio](https://zachary-holman.netlify.app//) (Click to view functional site)
+
+_Completed September 18, 2022_
 
 It was time to update my portfolio. I was happy with my previous portfolio, but it was one of the first few projects in the freeCodeCamp curriculum. I felt I could do better with all that I have learned since then. I decided to throw everything together for for this project: React, Redux, TypeScript, and Gatsby.
 
