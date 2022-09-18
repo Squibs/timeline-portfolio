@@ -125,8 +125,15 @@ const ContactPage = (): JSX.Element => {
           <LinkContainer redirect={false} />
           <FormContainer>
             <h2>Send me a message:</h2>
-            {/* eslint-disable-next-line react/no-unknown-property */}
-            <form method="post" netlify-honeypot="bot-field" data-netlify="true" name="contact">
+            {/* https://www.seancdavis.com/posts/how-to-use-netlify-forms-with-gatsby/ */}
+            <form
+              // eslint-disable-next-line react/no-unknown-property
+              netlify-honeypot="bot-field"
+              method="post"
+              data-netlify="true"
+              name="contact"
+              action={`${selectedProject ? `/thanks?=${selectedProject}` : '/thanks'}`}
+            >
               <input type="hidden" name="bot-field" />
               <input type="hidden" name="form-name" value="contact" />
               <label htmlFor="formNameField">
