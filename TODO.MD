@@ -1,16 +1,13 @@
 # non-deploy
 
-- ? contact form
-  - have email icon on index go to contact form page. 'or just email me' button on page.
-  - link to contact me on each project page
-  - might as well throw a link back to all projects
+- Contact -> thank you page doesn't have correct slug due to netlify redirect inserting '/'
 - Update github profile with readme (https://github.com/abhisheknaiidu/awesome-github-profile-readme)
 - accessibility elements/tags (image alt tags) - use firefox accessibility in console
 - ? better 2K-4K screen res. styles
 
 # for deploy
 
-- react helmet
+- react helmet - page titles for browser tabs, link sharing (meta/og/twitter (opengraph)), ect.
 - remove unnecessary gatsby plugins or other npm packages
 - favicon
 - 404 page
