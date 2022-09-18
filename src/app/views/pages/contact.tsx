@@ -128,6 +128,7 @@ const ContactPage = (): JSX.Element => {
             {/* eslint-disable-next-line react/no-unknown-property */}
             <form method="post" netlify-honeypot="bot-field" data-netlify="true" name="contact">
               <input type="hidden" name="bot-field" />
+              <input type="hidden" name="form-name" value="contact" />
               <label htmlFor="formNameField">
                 Your Name:
                 <input id="formNameField" type="text" name="first-name" required />
