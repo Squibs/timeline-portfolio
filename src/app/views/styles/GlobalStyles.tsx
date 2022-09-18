@@ -56,7 +56,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Puritan', sans-serif;
     font-weight: normal;
   }
-  p, li {
+  p, li, label {
     font-family: 'Bitter', sans-serif;
     font-weight: 300;
   }
