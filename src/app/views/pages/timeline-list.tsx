@@ -128,7 +128,7 @@ const TimelineList = (): JSX.Element => {
           {generateAniLink('down', '/timeline/', 'Back to Timeline')}
           <AniLink
             paintDrip
-            hex="#cdd7d9"
+            hex="#2f343c"
             to="/"
             duration={1.5}
             entryOffset={100}
