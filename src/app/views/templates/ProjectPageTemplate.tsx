@@ -461,6 +461,16 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
               </p>
 
               <h3>Nav Links</h3>
+              <AniLink
+                paintDrip
+                hex="#2f343c"
+                duration={1.5}
+                entryOffset={100}
+                to={`/contact?project=${frontmatter.slug.replace(/\/project\//, '')}`}
+                style={{ marginTop: 3, textAlign: 'center', marginBottom: 15 }}
+              >
+                Contact Me
+              </AniLink>
               {frontmatter.url && (
                 <a
                   href={frontmatter.url}
@@ -486,7 +496,7 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
                 direction="right"
                 duration={1.5}
                 entryOffset={100}
-                to="/timeline/"
+                to={`/timeline?project=${frontmatter.slug.replace(/\/project\//, '')}`}
                 style={{ marginTop: 3, textAlign: 'center' }}
               >
                 Back to Timeline
@@ -496,7 +506,7 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
                 direction="right"
                 duration={1.5}
                 entryOffset={100}
-                to="/"
+                to={`/?project=${frontmatter.slug.replace(/\/project\//, '')}`}
                 style={{ paddingBottom: 10, marginTop: 3, textAlign: 'center' }}
               >
                 Back to Homepage

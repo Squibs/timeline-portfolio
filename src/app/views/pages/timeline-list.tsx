@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import { AppState } from '../../state/store';
@@ -64,6 +64,12 @@ const TimelineList = (): JSX.Element => {
     projectsToDisplay: timeline.projectsToDisplay,
   }));
   const [timelineListArray, setTimelineListArray] = useState<JSX.Element[]>([]);
+  const { selectedProject } = useSelector(
+    ({ timeline: { timeline } }: AppState) => ({
+      selectedProject: timeline.selectedProject,
+    }),
+    shallowEqual,
+  );
 
   // anilink helper
   const generateAniLink = (
@@ -125,11 +131,15 @@ const TimelineList = (): JSX.Element => {
             <br />I worked hard on it though.
           </p>
           {/* eslint-enable */}
-          {generateAniLink('down', '/timeline/', 'Back to Timeline')}
+          {generateAniLink(
+            'down',
+            `${selectedProject ? `/timeline?project=${selectedProject}` : '/timeline'}`,
+            'Back to Timeline',
+          )}
           <AniLink
             paintDrip
             hex="#2f343c"
-            to="/"
+            to={`${selectedProject ? `/?project=${selectedProject}` : '/'}`}
             duration={1.5}
             entryOffset={100}
             style={{ padding: '10px' }}

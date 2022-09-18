@@ -124,7 +124,7 @@ const IndexPage: React.FC = () => {
             large interest of mine. I&apos;m excited to learn more and create something that others
             will enjoy. Please enjoy this timeline portfolio I have put together.
           </p>
-          <LinkContainer />
+          <LinkContainer redirect />
         </ContentContainer>
       </ScrollingContainer>
     </PageContainer>

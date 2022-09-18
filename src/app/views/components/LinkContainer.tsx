@@ -1,4 +1,5 @@
 import React from 'react';
+import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import {
   faCodepen,
@@ -10,6 +11,8 @@ import {
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
+import { shallowEqual, useSelector } from 'react-redux';
+import { AppState } from '../../state/store';
 
 const LinkContainerStyles = styled.div`
   margin-bottom: 30px;
@@ -23,7 +26,14 @@ const LinkContainerStyles = styled.div`
   }
 `;
 
-const LinkContainer = (): JSX.Element => {
+const LinkContainer = ({ redirect }: { redirect: boolean }): JSX.Element => {
+  const { selectedProject } = useSelector(
+    ({ timeline: { timeline } }: AppState) => ({
+      selectedProject: timeline.selectedProject,
+    }),
+    shallowEqual,
+  );
+
   const customThinCircle = () => {
     return (
       <svg
@@ -52,8 +62,38 @@ const LinkContainer = (): JSX.Element => {
   };
 
   const makeLink = (link: string, icon: IconDefinition) => {
+    let linkTo = link;
+
+    const decrypt = (email: string) => {
+      const alpha =
+        'abcdefghijklmnopqrstuvwxyzabcdefghijklmABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLM';
+      return email.replace(/[a-z]/gi, (letter) => alpha[alpha.indexOf(letter) + 13]);
+    };
+
+    if (!redirect && icon === faEnvelope) {
+      linkTo = decrypt(link);
+    }
+
+    if (redirect && icon === faEnvelope) {
+      return (
+        <AniLink
+          paintDrip
+          hex="#cdd7d9"
+          to={`${selectedProject ? `/contact?project=${selectedProject}` : '/contact'}`}
+          duration={1.5}
+          entryOffset={100}
+          style={{ padding: '10px' }}
+        >
+          <span className="fa-stack fa-2x">
+            {customThinCircle()}
+            {fontawesomeHelper(icon)}
+          </span>
+        </AniLink>
+      );
+    }
+
     return (
-      <a href={link}>
+      <a href={linkTo}>
         <span className="fa-stack fa-2x">
           {customThinCircle()}
           {fontawesomeHelper(icon)}
@@ -67,7 +107,7 @@ const LinkContainer = (): JSX.Element => {
       <div>
         {makeLink('https://github.com/squibs', faGithub)}
         {makeLink(
-          'mailto:email@email.com?subject=Timeline Portfolio - Contact Request',
+          'znvygb:mnpunel.e.ubyzna@tznvy.pbz?fhowrpg=Gvzryvar Cbegsbyvb - Pbagnpg Erdhrfg',
           faEnvelope,
         )}
         {makeLink('https://www.freecodecamp.org/squibs', faFreeCodeCamp)}

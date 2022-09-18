@@ -299,7 +299,13 @@ const TimelinePage: React.FC<TimelineProps> = ({ data }: TimelineProps) => {
         <BlobContainer>
           <img src={blobImage} alt="" />
         </BlobContainer>
-        <StyledAniLink swipe direction="up" to="/timeline-list" duration="1.5" entryOffset="100">
+        <StyledAniLink
+          swipe
+          direction="up"
+          to={`${selectedProject ? `/timeline-list?project=${selectedProject}` : '/timeline-list'}`}
+          duration="1.5"
+          entryOffset="100"
+        >
           Click for List of all Projects
         </StyledAniLink>
       </ContentContainer>
