@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useStaticQuery, graphql } from 'gatsby';
+import socialBanner from '../../images/meta-timeline-portfolio.jpg';
 
 /* ----------------------------- component types ---------------------------- */
 type SEOProps = {
@@ -28,6 +29,7 @@ type QueryTypes = {
       title: string;
       description: string;
       author: string;
+      image: string;
     };
   };
 };
@@ -42,6 +44,7 @@ const SEO = ({ description = '', lang = 'en', meta = [], title }: SEOProps): JSX
           title
           description
           author
+          image
         }
       }
     }
@@ -75,6 +78,10 @@ const SEO = ({ description = '', lang = 'en', meta = [], title }: SEOProps): JSX
         {
           property: `og:type`,
           content: `website`,
+        },
+        {
+          property: `og:image`,
+          content: socialBanner,
         },
         {
           name: `twitter:card`,

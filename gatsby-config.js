@@ -5,6 +5,7 @@ module.exports = {
       'My timeline portfolio. This is the web dev portfolio of Zachary Holman. View all the projects I have worked on since I have started web development.',
     author: '@SquibsVids',
     siteUrl: 'https://zachary-holman.netlify.app/',
+    image: './src/app/images/meta-timeline-portfolio.jpg',
   },
   plugins: [
     {

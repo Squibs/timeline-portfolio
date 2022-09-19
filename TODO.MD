@@ -6,9 +6,7 @@
 
 # for deploy
 
-- react helmet images - og:image / twitter:image
 - remove unnecessary gatsby plugins or other npm packages
-- favicon
 - 404 page
 
 # spicy
