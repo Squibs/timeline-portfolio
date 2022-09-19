@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { graphql, useStaticQuery } from 'gatsby';
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import { BorderContainer, SEO } from '../components';
 import { useScrollHook } from '../hooks';
@@ -28,7 +29,36 @@ const ContentContainer = styled.div`
   margin: auto;
 `;
 
+const AniLinkContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+`;
+
+const SVGImageContainer = styled.div``;
+
+const SVGImage = styled.img`
+  z-index: -1;
+  bottom: 0%;
+  right: 0%;
+  width: 50%;
+  height: auto;
+  max-width: 200px;
+`;
+
 /* ---------------------------------- types --------------------------------- */
+
+export interface QueryProps {
+  allFile: {
+    nodes: [
+      {
+        id: string;
+        publicURL: string;
+      },
+    ];
+  };
+}
+
 /* -------------------------------- component ------------------------------- */
 
 const ThanksPage = (): JSX.Element => {
@@ -40,6 +70,23 @@ const ThanksPage = (): JSX.Element => {
     }),
     shallowEqual,
   );
+
+  const data: QueryProps = useStaticQuery(graphql`
+    query {
+      allFile(
+        filter: {
+          relativeDirectory: { eq: "timelinePage" }
+          extension: { eq: "svg" }
+          name: { eq: "Blobs" }
+        }
+      ) {
+        nodes {
+          id
+          publicURL
+        }
+      }
+    }
+  `);
 
   return (
     <PageContainer className="page-container-styles">
@@ -56,36 +103,41 @@ const ThanksPage = (): JSX.Element => {
         <ContentContainer>
           <h1>Thank You!</h1>
           <p>Your form submission was received!</p>
-          <AniLink
-            paintDrip
-            hex="#cdd7d9"
-            to={`${selectedProject ? `/timeline?project=${selectedProject}` : '/timeline'}`}
-            duration={1.5}
-            entryOffset={100}
-            style={{ padding: '10px' }}
-          >
-            Back to Timeline
-          </AniLink>
-          <AniLink
-            paintDrip
-            hex="#cdd7d9"
-            to={`${selectedProject ? `/?project=${selectedProject}` : '/'}`}
-            duration={1.5}
-            entryOffset={100}
-            style={{ padding: '10px' }}
-          >
-            Back to Homepage
-          </AniLink>
-          <AniLink
-            paintDrip
-            hex="#cdd7d9"
-            to={`${selectedProject ? `/contact?project=${selectedProject}` : '/contact'}`}
-            duration={1.5}
-            entryOffset={100}
-            style={{ padding: '10px' }}
-          >
-            Back to Contact Page
-          </AniLink>
+          <AniLinkContainer>
+            <AniLink
+              paintDrip
+              hex="#cdd7d9"
+              to={`${selectedProject ? `/timeline?project=${selectedProject}` : '/timeline'}`}
+              duration={1.5}
+              entryOffset={100}
+              style={{ padding: '10px' }}
+            >
+              Back to Timeline
+            </AniLink>
+            <AniLink
+              paintDrip
+              hex="#2f343c"
+              to={`${selectedProject ? `/?project=${selectedProject}` : '/'}`}
+              duration={1.5}
+              entryOffset={100}
+              style={{ padding: '10px' }}
+            >
+              Back to Homepage
+            </AniLink>
+            <AniLink
+              paintDrip
+              hex="#cdd7d9"
+              to={`${selectedProject ? `/contact?project=${selectedProject}` : '/contact'}`}
+              duration={1.5}
+              entryOffset={100}
+              style={{ padding: '10px' }}
+            >
+              Back to Contact Page
+            </AniLink>
+          </AniLinkContainer>
+          <SVGImageContainer>
+            <SVGImage src={data.allFile.nodes[0].publicURL} />
+          </SVGImageContainer>
         </ContentContainer>
       </ScrollingContainer>
     </PageContainer>

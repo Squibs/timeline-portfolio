@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
+import { graphql, useStaticQuery } from 'gatsby';
 import { AppState } from '../../state/store';
 import { BorderContainer, SEO } from '../components';
 import { useScrollHook } from '../hooks';
@@ -24,9 +25,10 @@ const PageContainer = styled.div`
   & ul {
     padding: 0;
     margin-top: 50px;
+    list-style-type: none;
 
     ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
-      column-count: 2;
+      column-count: 3;
     `}
   }
 
@@ -48,12 +50,39 @@ const ContentContainer = styled.div`
 
 const StyledLi = styled.li`
   font-size: 18px;
-  list-style-type: none;
   margin-bottom: 15px;
   color: ${({ theme }) => theme.colors.primaryDark};
 `;
 
+const AniLinkContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+`;
+
+const SVGImageContainer = styled.div``;
+
+const SVGImage = styled.img`
+  z-index: -1;
+  bottom: 0%;
+  right: 0%;
+  width: 50%;
+  height: auto;
+  max-width: 200px;
+`;
+
 /* ---------------------------------- types --------------------------------- */
+
+export interface QueryProps {
+  allFile: {
+    nodes: [
+      {
+        id: string;
+        publicURL: string;
+      },
+    ];
+  };
+}
 
 /* -------------------------------- component ------------------------------- */
 
@@ -112,6 +141,23 @@ const TimelineList = (): JSX.Element => {
     formProjectList();
   }, [formProjectList]);
 
+  const data: QueryProps = useStaticQuery(graphql`
+    query {
+      allFile(
+        filter: {
+          relativeDirectory: { eq: "timelinePage" }
+          extension: { eq: "svg" }
+          name: { eq: "Blobs" }
+        }
+      ) {
+        nodes {
+          id
+          publicURL
+        }
+      }
+    }
+  `);
+
   return (
     <PageContainer className="page-container-styles">
       <SEO
@@ -135,22 +181,31 @@ const TimelineList = (): JSX.Element => {
             <br />I worked hard on it though.
           </p>
           {/* eslint-enable */}
-          {generateAniLink(
-            'down',
-            `${selectedProject ? `/timeline?project=${selectedProject}` : '/timeline'}`,
-            'Back to Timeline',
-          )}
-          <AniLink
-            paintDrip
-            hex="#2f343c"
-            to={`${selectedProject ? `/?project=${selectedProject}` : '/'}`}
-            duration={1.5}
-            entryOffset={100}
-            style={{ padding: '10px' }}
-          >
-            Back to Homepage
-          </AniLink>
-          <ul>{timelineListArray}</ul>
+          <AniLinkContainer>
+            {generateAniLink(
+              'down',
+              `${selectedProject ? `/timeline?project=${selectedProject}` : '/timeline'}`,
+              'Back to Timeline',
+            )}
+            <AniLink
+              paintDrip
+              hex="#2f343c"
+              to={`${selectedProject ? `/?project=${selectedProject}` : '/'}`}
+              duration={1.5}
+              entryOffset={100}
+              style={{ padding: '10px' }}
+            >
+              Back to Homepage
+            </AniLink>
+          </AniLinkContainer>
+          <ul>
+            {timelineListArray}
+            <li>
+              <SVGImageContainer>
+                <SVGImage src={data.allFile.nodes[0].publicURL} />
+              </SVGImageContainer>
+            </li>
+          </ul>
         </ContentContainer>
       </ScrollingContainer>
     </PageContainer>
