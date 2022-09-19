@@ -4,7 +4,7 @@ date: '2021-02-08'
 title: 'Quote Machine'
 url: 'https://squibs.github.io/quote-machine/'
 github: 'https://github.com/Squibs/quote-machine#quote-machine'
-description: 'There's no mistake you saw this project earlier in my timeline. I've revisited this project numerous times and have now created version four of this project, using React, Redux, and TypeScript.'
+description: "There's no mistake you saw this project earlier in my timeline. I've revisited this project numerous times and have now created version four of this project, using React, Redux, and TypeScript."
 ---
 
 ### Project Information
