@@ -4,6 +4,7 @@ date: '2017-08-01'
 title: 'JavaScript Calculator'
 url: 'https://squibs.github.io/js-calculator/'
 github: 'https://github.com/Squibs/js-calculator#javascript-calculator'
+description: 'The first project I made that is focused more on JavaScript. Everything could have definitely been improved, but this was my first real steps in trying to make something with JavaScript without really following a specific example.'
 ---
 
 ### Project Information

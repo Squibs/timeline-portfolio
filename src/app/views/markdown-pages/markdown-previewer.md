@@ -4,6 +4,7 @@ date: '2018-04-23'
 title: 'Markdown Previewer'
 url: 'https://squibs.github.io/markdown-previewer/'
 github: 'https://github.com/Squibs/markdown-previewer#markdown-previewer'
+description: 'A fairly basic markdown previewer that I created using React. The use of Marked.js for markdown interpretation and Prism.js for syntax highlighting is what allows this project to exist. This project was more about using and learning more about React than it was anything else. I go back to this project as a reference whenever I need to re-remember anything about markdown.'
 ---
 
 ### Project Information

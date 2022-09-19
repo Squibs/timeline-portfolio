@@ -3,6 +3,7 @@ slug: '/project/porter-tech'
 date: '2020-12-11'
 title: 'Porter Tech'
 url: 'https://porter-tech.netlify.app/'
+description: 'A third freelance website I created for Porter Tech, LLC. Another freelance project I did, where the overall design changed quite frequently as I delightedly wanted to meet client requests. A from the ground up project.'
 ---
 
 ### Project Information

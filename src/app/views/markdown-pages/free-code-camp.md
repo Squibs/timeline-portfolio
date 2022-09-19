@@ -5,6 +5,7 @@ title: 'freeCodeCamp Repository'
 github: 'https://github.com/Squibs/freeCodeCamp#freecodecamp'
 image: '../../images/projectPages/freecodecamp-repository.png'
 imageAlt: 'Image of Github:'
+description: 'The first GitHub repository that I created. This repository is dedicated to everything I have done while going through the freeCodeCamp curriculum. I have loads of notes to myself, as well as my own solutions to the various challenges freeCodeCamp provides to help you learn various aspects of web development, in this repository.'
 ---
 
 ### Project Information

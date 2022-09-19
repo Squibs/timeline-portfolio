@@ -5,6 +5,7 @@ title: 'Squibs Scripts'
 github: 'https://github.com/Squibs/squibs-scripts#squibs-scripts'
 image: '../../images/projectPages/squibs-scripts.png'
 imageAlt: 'Image of npm package:'
+description: 'I grew tired of redoing all of my preferences for every project and decided to do something about it. My first set of NPM packages that I published for myself to use on future projects. These packages contain my various config files for Prettier, ESLint, and other packages I use that need configuration.'
 ---
 
 ### Project Information

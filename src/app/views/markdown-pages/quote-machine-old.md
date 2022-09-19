@@ -4,6 +4,7 @@ date: '2017-06-01'
 title: 'Old Quote Machine'
 url: 'https://quote-machine-squibs.vercel.app/'
 github: 'https://github.com/Squibs/quote-machine/tree/before-react#quote-machine'
+description: 'My introduction to working with dynamic content, which is pulled from an API. Displays random quotes, and implements a Tweet button for Twitter. This is a project which I have revisited multiple times.'
 ---
 
 ### Project Information

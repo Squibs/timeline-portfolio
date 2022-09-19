@@ -5,6 +5,7 @@ title: 'Timeline Portfolio'
 github: 'https://github.com/Squibs/timeline-portfolio'
 image: '../../images/projectPages/timeline-style-tiles.png'
 imageAlt: 'Image of my style tiles:'
+description: 'It was time to update my portfolio. I was happy with my previous portfolio, but it was one of the first few projects in the freeCodeCamp curriculum. I felt I could do better with all that I have learned since then. I decided to throw everything together for for this project: React, Redux, TypeScript, and Gatsby.'
 ---
 
 ### Project Information

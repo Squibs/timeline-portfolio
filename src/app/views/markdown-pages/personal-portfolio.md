@@ -4,6 +4,7 @@ date: '2017-05-22'
 title: 'Personal Portfolio'
 url: 'https://squibs.github.io/'
 github: 'https://github.com/Squibs/Squibs.github.io#my-portfolio'
+description: 'An early showcase for the various projects I have created. I started using more responsive design aspects, having different layouts based on screen width. This is the project I wanted to improve upon, while making the site you are currently on.'
 ---
 
 ### Project Information

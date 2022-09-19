@@ -4,6 +4,7 @@ date: '2017-08-03'
 title: 'Pomodoro Clock'
 url: 'https://squibs.github.io/pomodoro-clock'
 github: 'https://github.com/Squibs/pomodoro-clock#pomodoro-clock'
+description: 'A clock to help out with maintaining the use of the pomodoro time management technique. Different time intervals can be set for focus time and break time. I took a stab at using JavaScript classes in order to create this project.'
 ---
 
 ### Project Information

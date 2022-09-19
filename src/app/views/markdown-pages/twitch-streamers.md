@@ -5,6 +5,7 @@ title: 'Twitch Streamer Status'
 url: 'https://squibs.github.io/twitch-streamers/'
 github: 'https://github.com/Squibs/twitch-streamers#twitch-streamer-status'
 broken: false # leave here on this file, one of them has to have it
+description: 'This is a project where I worked with the Twitch API. It displays a list of streamers that can be filtered to show only the ones that are live or the ones that are offline. The Twitch API is constantly changing, so this is now running off of a freeCodeCamp cached pass-through that may show out of date information.'
 ---
 
 ### Project Information

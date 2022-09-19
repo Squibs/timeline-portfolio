@@ -4,6 +4,8 @@ date: '2017-06-15'
 title: 'Wikipedia Viewer'
 url: 'https://squibs.github.io/wikipedia-viewer/'
 github: 'https://github.com/Squibs/wikipedia-viewer#wikipedia-viewer'
+description: 'One of the first projects, where I was very pleased with the aesthetics I ended up with. This is a Wikipedia viewer, or an alternative Wikipedia searchbar, that makes use of Wikipedia's fairly simple API.'
+
 ---
 
 ### Project Information

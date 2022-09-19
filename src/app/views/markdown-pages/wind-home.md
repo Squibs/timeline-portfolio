@@ -3,6 +3,7 @@ slug: '/project/wind-home'
 date: '2020-10-22'
 title: 'Wind Home Appliance Repair'
 url: 'https://windhomeappliance.com/'
+description: 'The second freelance website I created for Wind Home Appliance Repair. For this project, I returned to a static website workflow. I did not have a previous website to reference for content this time around, as I built everything for this site from the ground up for a business that was just starting up. This project will forever be one of my most memorable ones.'
 ---
 
 ### Project Information

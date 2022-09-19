@@ -4,6 +4,7 @@ date: '2017-06-07'
 title: 'Local Weather'
 url: 'https://squibs.github.io/local-weather/'
 github: 'https://github.com/Squibs/local-weather'
+description: 'A small webpage that displays your local weather in Fahrenheit or Celsius based off of your browser geolocation. Features a dynamic weather icon, to show weather quickly at a glance. Pulls data from the Dark Sky API, which unfortunately no longer accepts new signups.'
 ---
 
 ### Project Information

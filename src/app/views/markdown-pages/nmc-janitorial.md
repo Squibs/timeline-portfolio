@@ -3,6 +3,7 @@ slug: '/project/nmc-janitorial'
 date: '2018-03-07'
 title: 'NMC Janitorial Services'
 url: 'https://nmcjanitors.com/'
+description: 'The first freelance or professional business website I created for a NMC Commercial Janitorial Services, Inc. A janitorial service company that is based in Washington and has since expanded into Arizona. I gave their website a complete revamp using my own static site boilerplate.'
 ---
 
 ### Project Information

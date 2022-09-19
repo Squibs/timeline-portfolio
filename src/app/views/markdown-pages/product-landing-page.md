@@ -4,6 +4,7 @@ date: '2017-05-19'
 title: 'Product Landing Page'
 url: 'https://product-landing-page-squibs.vercel.app/'
 github: 'https://github.com/Squibs/freeCodeCamp/blob/master/1.%20Responsive%20Web%20Design/17.%20Certification%20Project%20-%20Product%20Landing%20Page.md#product-landing-page'
+description: 'A page that is meant to accent as well as show off a new product. This was one of the first few freeCodeCamp projects I completed. While the site itself is fairly basic, I just wanted to focus on using various elements such as a video player and an image carousel.'
 ---
 
 ### Project Information

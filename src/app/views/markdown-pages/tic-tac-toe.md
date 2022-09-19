@@ -4,6 +4,7 @@ date: '2017-08-09'
 title: 'Tic Tac Toe'
 url: 'https://squibs.github.io/tic-tac-toe/'
 github: 'https://github.com/Squibs/tic-tac-toe#tic-tac-toe'
+description: 'A game of Tic-Tac-Toe. Play against a very simple "computer" opponent, or take turns playing locally. I surprised myself making this project, as it took very little time to make, following the Simon Says game I had just previously made.'
 ---
 
 ### Project Information

@@ -3,6 +3,7 @@ slug: '/project/learning-to-necro'
 date: '2012-10-21'
 title: 'Learning to Necro'
 url: 'https://learning-to-necro.netlify.app/'
+description: 'My first steps into web development. While it might not have served a real purpose for players of the game at the time, or even today, I was just happy to have made something that was functional.'
 ---
 
 ### Project Information

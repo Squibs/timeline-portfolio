@@ -4,6 +4,7 @@ date: '2017-08-08'
 title: 'Simon Game'
 url: 'https://squibs.github.io/simon-game/'
 github: 'https://github.com/Squibs/simon-game#simon-game'
+description: 'The classic game of Simon Says. Featuring two different game modes. This is another project, in which I was very pleased with the aesthetics that I created. I was slightly intimidated going into this project, but after doing the JavaScript calculator project, I knew I would be able to figure it out in the end.'
 ---
 
 ### Project Information

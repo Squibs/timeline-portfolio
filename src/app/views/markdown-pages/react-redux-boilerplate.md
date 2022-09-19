@@ -5,6 +5,7 @@ title: 'React Redux Boilerplate'
 github: 'https://github.com/Squibs/react-redux-boilerplate#react-boilerplate'
 image: '../../images/projectPages/react-redux-boilerplate.png'
 imageAlt: 'Image of Github:'
+description: 'I decided since I was moving on from static sites into more dynamic React websites, I would need a new boilerplate. A lot more of learning the behind the scenes of Webpack, React, and Node happened for the creation of this boilerplate.'
 ---
 
 ### Project Information

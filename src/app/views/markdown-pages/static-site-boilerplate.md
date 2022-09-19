@@ -5,6 +5,7 @@ title: 'Static Site Boilerplate'
 github: 'https://github.com/Squibs/static-site-boilerplate#boilerplate-for-static-websites'
 image: '../../images/projectPages/static-site-boilerplate.png'
 imageAlt: 'Image of Github:'
+description: 'During the creation of the NMC Janitorial Services project, it was clear to me I needed a way to bundle and deploy the code I was writing. I decided to make a boilerplate to do just that.'
 ---
 
 ### Project Information
