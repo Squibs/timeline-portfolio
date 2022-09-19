@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
-import { BorderContainer, LinkContainer } from '../components';
+import { BorderContainer, LinkContainer, SEO } from '../components';
 import { useScrollHook } from '../hooks';
 import { AppState } from '../../state/store';
 
@@ -89,6 +89,10 @@ const ContactPage = (): JSX.Element => {
 
   return (
     <PageContainer className="page-container-styles">
+      <SEO
+        title="Contact Me"
+        description="Zachary Holman's timeline portfolio. All the ways you can contact me."
+      />
       <BorderContainer />
       <ScrollingContainer
         className="page-content-styles"

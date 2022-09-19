@@ -3,7 +3,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import { AppState } from '../../state/store';
-import { BorderContainer } from '../components';
+import { BorderContainer, SEO } from '../components';
 import { useScrollHook } from '../hooks';
 
 /* --------------------------------- styles --------------------------------- */
@@ -114,6 +114,10 @@ const TimelineList = (): JSX.Element => {
 
   return (
     <PageContainer className="page-container-styles">
+      <SEO
+        title="Timeline List"
+        description="Zachary Holman's timeline portfolio. A quick overview of all the projects that are on my timeline portfolio."
+      />
       <BorderContainer />
       <ScrollingContainer
         className="page-content-styles"

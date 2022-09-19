@@ -2,12 +2,11 @@
 
 - Contact -> thank you page doesn't have correct slug due to netlify redirect inserting '/'
 - Update github profile with readme (https://github.com/abhisheknaiidu/awesome-github-profile-readme)
-- accessibility elements/tags (image alt tags) - use firefox accessibility in console
 - ? better 2K-4K screen res. styles
 
 # for deploy
 
-- react helmet - page titles for browser tabs, link sharing (meta/og/twitter (opengraph)), ect.
+- react helmet images - og:image / twitter:image
 - remove unnecessary gatsby plugins or other npm packages
 - favicon
 - 404 page

@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
@@ -7,10 +7,11 @@ import styled from 'styled-components';
 import IFrameResizer from 'iframe-resizer-react';
 import Loader from 'react-loader-spinner';
 import { ExternalLink, GitHub, Maximize2 } from 'react-feather';
-import { BorderContainer, ChevronLink } from '../components';
+import { BorderContainer, ChevronLink, SEO } from '../components';
 import { Colors } from '../shared';
 import { useScrollHook } from '../hooks';
 import { timelineOperations } from '../../state/ducks/timeline';
+import { AppState } from '../../state/store';
 
 /* -------------------------------------------------------------------------- */
 /*                           styled components types                          */
@@ -374,6 +375,12 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
   const handleInformationScroll = useScrollHook(ProjectDescriptionRef);
   const [videoLoading, setVideoLoading] = useState(true);
   const dispatch = useDispatch();
+  const { selectedProject, projectsToDisplay } = useSelector(
+    ({ timeline: { timeline } }: AppState) => ({
+      selectedProject: timeline.selectedProject,
+      projectsToDisplay: timeline.projectsToDisplay,
+    }),
+  );
 
   // set selected project in redux based on current project page
   useEffect(() => {
@@ -405,8 +412,23 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
     setVideoLoading(false);
   };
 
+  // used to get current project description for seo titles
+  const getCurrentProjectDescription = () => {
+    for (let i = 0; i < projectsToDisplay.length; i += 1) {
+      if (projectsToDisplay[i].projectLink === selectedProject) {
+        return projectsToDisplay[i].description;
+      }
+    }
+
+    return '';
+  };
+
   return (
     <PageContainer className="page-container-styles">
+      <SEO
+        title={frontmatter.title}
+        description={`Zachary Holman's timeline portfolio. ${getCurrentProjectDescription()}`}
+      />
       <BorderContainer />
       <ChevronLink
         fill={Colors.primaryNeutral}
@@ -432,6 +454,7 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
               ref={ProjectDescriptionRef}
               onScroll={() => handleInformationScroll()}
             >
+              {/* eslint-disable-next-line react/no-danger */}
               <div dangerouslySetInnerHTML={{ __html: html }} />
 
               <h3>Notice</h3>

@@ -531,6 +531,7 @@ const TimelineCreator = ({ chevronRef, handleScrollTutorial }: Props): JSX.Eleme
               <h2>{title}</h2>
             </TitleContainer>
             <DescriptionContainer timelineColor={roygbiv}>
+              {/* eslint-disable-next-line react/no-danger */}
               <p dangerouslySetInnerHTML={{ __html: description }} />
             </DescriptionContainer>
           </TitleDescriptionContainer>

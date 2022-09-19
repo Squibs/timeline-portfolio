@@ -3,7 +3,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { graphql } from 'gatsby';
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
-import { BorderContainer, ChevronLink, TimelineCreator } from '../components';
+import { BorderContainer, ChevronLink, SEO, TimelineCreator } from '../components';
 import { Colors } from '../shared';
 import { AppState } from '../../state/store';
 import { useSelectedProjectHook } from '../hooks';
@@ -259,6 +259,10 @@ const TimelinePage: React.FC<TimelineProps> = ({ data }: TimelineProps) => {
 
   return (
     <PageContainer className="page-container-styles">
+      <SEO
+        title="Timeline"
+        description="Zachary Holman's timeline portfolio. View all the projects I have worked on since I have started web development with an interactive scrolling timeline."
+      />
       <BorderContainer />
       {/* left chevron */}
       <ChevronLink

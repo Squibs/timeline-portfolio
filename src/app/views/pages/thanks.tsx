@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
-import { BorderContainer } from '../components';
+import { BorderContainer, SEO } from '../components';
 import { useScrollHook } from '../hooks';
 import { AppState } from '../../state/store';
 
@@ -43,6 +43,10 @@ const ThanksPage = (): JSX.Element => {
 
   return (
     <PageContainer className="page-container-styles">
+      <SEO
+        title="Thank You"
+        description="Zachary Holman's timeline portfolio. Your form submission has been accepted and is being delivered."
+      />
       <BorderContainer />
       <ScrollingContainer
         className="page-content-styles"

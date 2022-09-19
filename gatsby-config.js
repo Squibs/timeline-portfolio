@@ -1,6 +1,10 @@
 module.exports = {
   siteMetadata: {
-    title: 'Timeline Portfolio',
+    title: 'Timeline Portfolio - Zachary Holman',
+    description:
+      'My timeline portfolio. This is the web dev portfolio of Zachary Holman. View all the projects I have worked on since I have started web development.',
+    author: '@SquibsVids',
+    siteUrl: 'https://zachary-holman.netlify.app/',
   },
   plugins: [
     {
@@ -70,5 +74,7 @@ module.exports = {
     'gatsby-plugin-transition-link',
     // use params in url query
     'gatsby-plugin-use-query-params',
+    // gatsby helmet
+    'gatsby-plugin-react-helmet',
   ],
 };

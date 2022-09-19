@@ -1,7 +1,13 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { shallowEqual, useSelector } from 'react-redux';
-import { BorderContainer, ChevronLink, PortraitWithBackground, LinkContainer } from '../components';
+import {
+  BorderContainer,
+  ChevronLink,
+  PortraitWithBackground,
+  LinkContainer,
+  SEO,
+} from '../components';
 import { Colors } from '../shared';
 import { useScrollHook, useSelectedProjectHook } from '../hooks';
 import { AppState } from '../../state/store';
@@ -88,6 +94,7 @@ const IndexPage: React.FC = () => {
 
   return (
     <PageContainer className="page-container-styles">
+      <SEO title="Home" />
       <BorderContainer />
       <ChevronLink
         fill={Colors.primaryDark}
