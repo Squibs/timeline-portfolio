@@ -637,6 +637,7 @@ export const pageQuery = graphql`
         github
         broken
         imageAlt
+        description
         image {
           childImageSharp {
             fluid {
