@@ -30,6 +30,7 @@ type QueryTypes = {
       description: string;
       author: string;
       image: string;
+      siteUrl: string;
     };
   };
 };
@@ -45,6 +46,7 @@ const SEO = ({ description = '', lang = 'en', meta = [], title }: SEOProps): JSX
           description
           author
           image
+          siteUrl
         }
       }
     }
@@ -72,6 +74,14 @@ const SEO = ({ description = '', lang = 'en', meta = [], title }: SEOProps): JSX
           content: title,
         },
         {
+          property: `og:url`,
+          content: site.siteMetadata?.siteUrl || ``,
+        },
+        {
+          property: `og:site_name`,
+          content: 'Timeline Portfolio - Zachary Holman',
+        },
+        {
           property: `og:description`,
           content: metaDescription,
         },
@@ -84,8 +94,12 @@ const SEO = ({ description = '', lang = 'en', meta = [], title }: SEOProps): JSX
           content: socialBanner,
         },
         {
+          property: `og:locale`,
+          content: 'en_US',
+        },
+        {
           name: `twitter:card`,
-          content: `summary`,
+          content: `summary_large_image`,
         },
         {
           name: `twitter:creator`,
@@ -98,6 +112,10 @@ const SEO = ({ description = '', lang = 'en', meta = [], title }: SEOProps): JSX
         {
           name: `twitter:description`,
           content: metaDescription,
+        },
+        {
+          name: `twitter:image`,
+          content: socialBanner,
         },
       ].concat(meta)}
     />
