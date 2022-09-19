@@ -1,9 +1,7 @@
 # non-deploy
 
-- Contact -> thank you page doesn't have correct slug due to netlify redirect inserting '/'
 - Update github profile with readme (https://github.com/abhisheknaiidu/awesome-github-profile-readme)
 
 # spicy
 
 - on touchscreen devices / mobile scroll to the nearest project
-- scrollbar fade-in fade-out, currently appears and vanishes instantly
