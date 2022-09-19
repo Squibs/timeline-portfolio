@@ -208,23 +208,7 @@ const ButtonContainer = styled.div`
 
   ${({ theme }) => theme.breakpoints.for4TabletLandscapeUp()`
     & > div:last-child { display: none; }
-    & > div:nth-child(2) > .project-buttons {
-      margin-left: auto;
-      margin-right: 5px;
-    }
-    left: 25%;
-    width: calc(100% - 25%);
   `}
-
-  @media screen and (min-width: 2560px) {
-    & > div:first-child > .project-buttons {
-      margin-left: auto;
-    }
-
-    width: 1920px;
-    left: initial;
-    right: initial;
-  }
 `;
 
 /* IFRAME */
@@ -560,65 +544,64 @@ const ProjectPageTemplate: React.FC<ProjectPageTemplateProps> = ({
             {!frontmatter.image && (
               <IFrame src={frontmatter.url} scrolling onLoad={handleIframeLoad} />
             )}
-          </ProjectDisplay>
-        </ProjectDisplayContainer>
-      </ContentContainer>
-
-      <ButtonContainer>
-        {frontmatter.url && (
-          <div>
-            <a
-              href={frontmatter.url}
-              className="project-buttons"
-              style={{ maxHeight: '15px' }}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {frontmatter.broken && 'Deprecated'}
-              {/* could add deprecated to the above '' for less-functional sites */}
-              &nbsp;Site
-              <ExternalLink
-                css={`
+            <ButtonContainer>
+              {frontmatter.url && (
+                <div>
+                  <a
+                    href={frontmatter.url}
+                    className="project-buttons"
+                    style={{ maxHeight: '15px' }}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {frontmatter.broken && 'Deprecated'}
+                    {/* could add deprecated to the above '' for less-functional sites */}
+                    &nbsp;Site
+                    <ExternalLink
+                      css={`
                   height: 15px;
                   vertical-align: -6%;3
 
                 `}
-              />
-            </a>
-          </div>
-        )}
+                    />
+                  </a>
+                </div>
+              )}
 
-        {frontmatter.github && (
-          <div>
-            <a
-              href={frontmatter.github}
-              className="project-buttons"
-              style={{ maxHeight: '15px' }}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Github
-              <GitHub
-                css={`
-                  height: 15px;
-                  vertical-align: -8%;
-                `}
-              />
-            </a>
-          </div>
-        )}
+              {frontmatter.github && (
+                <div>
+                  <a
+                    href={frontmatter.github}
+                    className="project-buttons"
+                    style={{ maxHeight: '15px' }}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Github
+                    <GitHub
+                      css={`
+                        height: 15px;
+                        vertical-align: -8%;
+                      `}
+                    />
+                  </a>
+                </div>
+              )}
 
-        <div>
-          <button type="button" className="project-buttons" onClick={handleFullscreenButton}>
-            <Maximize2
-              css={`
-                height: 20px;
-                vertical-align: -8%;
-              `}
-            />
-          </button>
-        </div>
-      </ButtonContainer>
+              <div>
+                <button type="button" className="project-buttons" onClick={handleFullscreenButton}>
+                  <Maximize2
+                    css={`
+                      height: 20px;
+                      vertical-align: -8%;
+                    `}
+                  />
+                </button>
+              </div>
+            </ButtonContainer>
+          </ProjectDisplay>
+        </ProjectDisplayContainer>
+      </ContentContainer>
     </PageContainer>
   );
 };
