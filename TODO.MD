@@ -4,8 +4,8 @@
 
 # Notes about project
 
-- This was my first larger project working with React and Redux.
-- I feel like most things here could have been done better.
+- This was my first larger project working with React and Redux
+- I feel like most things here could have been done better
 - I would need to go through everything and basically redo the entire project to make things a lot cleaner at this point
 - Overall I'm satisfied with what I've done
 - Learned to use Gatsby along with GraphQL, at least in the way Gatsby makes use of it.
