@@ -14,6 +14,8 @@ import styled from 'styled-components';
 import { shallowEqual, useSelector } from 'react-redux';
 import { AppState } from '../../state/store';
 
+/* --------------------------------- styles --------------------------------- */
+
 const LinkContainerStyles = styled.div`
   margin-bottom: 30px;
   display: flex;
@@ -25,6 +27,8 @@ const LinkContainerStyles = styled.div`
     margin-bottom: 10px;
   }
 `;
+
+/* -------------------------------- component ------------------------------- */
 
 const LinkContainer = ({ redirect }: { redirect: boolean }): JSX.Element => {
   const { selectedProject } = useSelector(
@@ -61,19 +65,22 @@ const LinkContainer = ({ redirect }: { redirect: boolean }): JSX.Element => {
     );
   };
 
-  const makeLink = (link: string, icon: IconDefinition) => {
+  const makeLink = (link: string, icon: IconDefinition, label: string) => {
     let linkTo = link;
 
-    const decrypt = (email: string) => {
-      const alpha =
-        'abcdefghijklmnopqrstuvwxyzabcdefghijklmABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLM';
-      return email.replace(/[a-z]/gi, (letter) => alpha[alpha.indexOf(letter) + 13]);
-    };
-
+    // used on contact page - no redirect, just mailto:
+    // decrypted here to obscure my email, will it work? time will tell
     if (!redirect && icon === faEnvelope) {
+      const decrypt = (email: string) => {
+        const alpha =
+          'abcdefghijklmnopqrstuvwxyzabcdefghijklmABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLM';
+        return email.replace(/[a-z]/gi, (letter) => alpha[alpha.indexOf(letter) + 13]);
+      };
+
       linkTo = decrypt(link);
     }
 
+    // used for homepage email link - redirects to contact page, anilink
     if (redirect && icon === faEnvelope) {
       return (
         <AniLink
@@ -92,8 +99,9 @@ const LinkContainer = ({ redirect }: { redirect: boolean }): JSX.Element => {
       );
     }
 
+    // all other links, normal links
     return (
-      <a href={linkTo}>
+      <a href={linkTo} aria-label={label}>
         <span className="fa-stack fa-2x">
           {customThinCircle()}
           {fontawesomeHelper(icon)}
@@ -105,17 +113,26 @@ const LinkContainer = ({ redirect }: { redirect: boolean }): JSX.Element => {
   return (
     <LinkContainerStyles>
       <div>
-        {makeLink('https://github.com/squibs', faGithub)}
+        {makeLink('https://github.com/squibs', faGithub, `Visit Zachary's Github profile`)}
         {makeLink(
           'znvygb:mnpunel.e.ubyzna@tznvy.pbz?fhowrpg=Gvzryvar Cbegsbyvb - Pbagnpg Erdhrfg',
           faEnvelope,
+          `Send an email to Zachary`,
         )}
-        {makeLink('https://www.freecodecamp.org/squibs', faFreeCodeCamp)}
+        {makeLink(
+          'https://www.freecodecamp.org/squibs',
+          faFreeCodeCamp,
+          `Visit Zachary's freeCodeCamp profile`,
+        )}
       </div>
       <div>
-        {makeLink('https://codepen.io/Sulph', faCodepen)}
-        {makeLink('https://www.youtube.com/squibsvids', faYoutube)}
-        {makeLink('https://twitter.com/SquibsVids', faTwitter)}
+        {makeLink('https://codepen.io/Sulph', faCodepen, `Visit Zachary's CodePen profile`)}
+        {makeLink(
+          'https://www.youtube.com/squibsvids',
+          faYoutube,
+          `Visit Zachary's YouTube channel`,
+        )}
+        {makeLink('https://twitter.com/SquibsVids', faTwitter, `Visit Zachary's Twitter profile`)}
       </div>
     </LinkContainerStyles>
   );
