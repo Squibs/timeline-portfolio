@@ -558,7 +558,15 @@ const TimelineCreator = ({ chevronRef, handleScrollTutorial }: Props): JSX.Eleme
     };
 
     for (let i = 0; i < projectsToDisplay.length; i += 1) {
-      tArray.push(createUpperOrLowerContainers(projectsToDisplay[i], i));
+      // tArray.push(createUpperOrLowerContainers(projectsToDisplay[i], i));
+
+      // reverse timeline
+      tArray.unshift(
+        createUpperOrLowerContainers(
+          projectsToDisplay[i],
+          projectsToDisplay.length - projectsToDisplay.indexOf(projectsToDisplay[i]) - 1,
+        ),
+      );
     }
 
     setTimelineArray(tArray);

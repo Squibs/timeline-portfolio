@@ -296,6 +296,7 @@ const TimelinePage: React.FC<TimelineProps> = ({ data }: TimelineProps) => {
             <SwipeTutorial>
               <h2>Swipe Left or Scroll</h2>
               <h2>To Move Timeline</h2>
+              <h2>Newer -&gt; Older</h2>
             </SwipeTutorial>
           )}
           <ShadowMask />
