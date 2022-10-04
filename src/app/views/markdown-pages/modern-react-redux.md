@@ -2,7 +2,7 @@
 slug: '/project/modern-react-redux'
 date: '2021-02-02'
 title: "Stephen Grider's Modern React Redux Course"
-url: 'https://squibs-videos-hooks.vercel.app/'
+url: 'https://modern-react-redux.squibs.vercel.app/'
 github: 'https://github.com/Squibs/modern-react-redux#learning-react-and-redux-with-stephen-griders-modern-react-with-redux-and-i-threw-typescript-in-for-myself-as-well'
 description: "After taking a small hiatus from working with React and Redux, I wanted a way to get back into it. I decided to take on Stephen Grider's Udemy course Modern React with Redux. In this course I created several different applications that make use of React and Redux."
 ---
