@@ -203,6 +203,13 @@ export const wrapPageElement = ({ element }) => {
             id: imageSelector('screenshot-timeline-portfolio.png').id,
             projectLink: 'timeline-portfolio',
           },
+          {
+            title: 'Drum Machine',
+            description: `A drum machine. Created to mimic the electronic musical instruments that are largely used to create synthetic percussive sounds and other audio.`,
+            image: imageSelector('screenshot-drum-machine.png').childImageSharp.fluid,
+            id: imageSelector('screenshot-drum-machine.png').id,
+            projectLink: 'drum-machine',
+          },
         ];
 
         reduxStore.dispatch(timelineOperations.storeProjectList(projectsToDisplay));
