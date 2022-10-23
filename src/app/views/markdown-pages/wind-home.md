@@ -2,11 +2,13 @@
 slug: '/project/wind-home'
 date: '2020-10-22'
 title: 'Wind Home Appliance Repair'
-url: 'https://windhomeappliance.com/'
+url: 'https://wind-home.netlify.app/'
 description: 'The second freelance website I created for Wind Home Appliance Repair. For this project, I returned to a static website workflow. I did not have a previous website to reference for content this time around, as I built everything for this site from the ground up for a business that was just starting up. This project will forever be one of my most memorable ones.'
 ---
 
 ### Project Information
+
+Formerly WindHomeAppliance.com / WindHomeApplianceRepair.com.
 
 This project was my second project I did for a client. I was not comfortable yet with using React completely, so I decided to create this static website without it. This project was quite a bit different for me than my previous [client project](/project/nmc-janitorial), as this was for my brother-in-law Shane Windsheimer. The purpose of this project is to create a website from scratch for their newly established home appliance repair business. The main requested features are to create a modern/professional feeling website, that matches their logo, and to potentially gain more local customers through web traffic.
 
