@@ -210,6 +210,13 @@ export const wrapPageElement = ({ element }) => {
             id: imageSelector('screenshot-drum-machine.png').id,
             projectLink: 'drum-machine',
           },
+          {
+            title: 'Data Visualization',
+            description: `A single site that is a collection of all the D3 projects I created that are required to get the freeCodeCamp Data Visualization certification.`,
+            image: imageSelector('screenshot-data-visualization.png').childImageSharp.fluid,
+            id: imageSelector('screenshot-data-visualization.png').id,
+            projectLink: 'data-visualization',
+          },
         ];
 
         reduxStore.dispatch(timelineOperations.storeProjectList(projectsToDisplay));
